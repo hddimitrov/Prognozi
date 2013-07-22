@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  host: MyString
+  guest: MyString
+  host_score: 1
+  guest_score: 1
+  tournament_id: 1
+  timestamp: MyString
+  level: MyString
+
+two:
+  host: MyString
+  guest: MyString
+  host_score: 1
+  guest_score: 1
+  tournament_id: 1
+  timestamp: MyString
+  level: MyString
