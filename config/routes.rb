@@ -1,15 +1,13 @@
 Prognozi::Application.routes.draw do
   get "user/index"
 
-  get "createroom/index"
-
-  post '/createroom/:name :tournament_id' => 'createroom#create'
-
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
 
-  match '/createroom', to: 'createroom#index'
+  match '/newroom'    => 'rooms#new', via: :get
+  match '/createroom' => 'rooms#create', via: :post
+  match '/rooms'      => 'rooms#index', via: :get
 
 
   # The priority is based upon order of creation:
