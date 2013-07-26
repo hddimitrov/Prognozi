@@ -1,0 +1,11 @@
+<h1>
+  <%= @room.name %>
+  (<%= @room.tournament.name %>)
+</h1>
+<ul>
+    <% @room.users.each do |uroom| %>
+      <li>
+        <%= uroom.name %>
+      </li>    
+    <% end %>
+</ul>

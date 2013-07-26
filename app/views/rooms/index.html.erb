@@ -1,7 +1,7 @@
 <ul>
     <% @rooms.each do |room| %>
       <li>
-        <%= room.name %>
+        <%= link_to room.name, room_path(room) %>
       </li>    
     <% end %>
 </ul>
