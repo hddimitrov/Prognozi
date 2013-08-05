@@ -9,8 +9,8 @@
 <% end %>
 
 <div id="user_nav">
-  <% if current_fbuser %>
-    Signed in as <strong><%= current_fbuser.name %></strong>!
+  <% if current_user %>
+    Signed in as <strong><%= current_user.name %></strong>!
     <%= link_to "Sign out", signout_path, id: "sign_out" %>
   <% else %>
     <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>

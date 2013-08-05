@@ -1,4 +1,5 @@
 Prognozi::Application.routes.draw do
+  root :to => 'rooms#index'
   get "user/index"
 
   devise_for :admin_users, ActiveAdmin::Devise.config
