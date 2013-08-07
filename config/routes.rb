@@ -5,17 +5,17 @@ Prognozi::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-
-  match '/newroom'    => 'rooms#new', via: :get
-  match '/createroom' => 'rooms#create', via: :post
-  match '/rooms'      => 'rooms#index', via: :get
-  match '/rooms/:room_id'  => 'rooms#show', via: :get, as: "room"
+  # match '/roominvites/:ids'          => 'rooms#invite'  via: :get
+  match '/newroom'                   => 'rooms#new',    via: :get
+  match '/createroom'                => 'rooms#create', via: :post
+  match '/rooms'                     => 'rooms#index',  via: :get
+  match '/rooms/:room_id'            => 'rooms#show',   via: :get, as: "room"
 
   #Facebook auth 
+
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
-
 
   #Facebook auth
 

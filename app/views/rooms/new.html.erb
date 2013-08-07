@@ -1,3 +1,41 @@
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : <%= $fb_app_id %> ,                   // App ID from the app dashboard
+      channelUrl : '',                                   // Channel file for x-domain comms
+      status     : true,                                 // Check Facebook Login status
+      xfbml      : true                                  // Look for social plugins on the page
+    });
+
+    // Additional initialization code such as adding Event Listeners goes here
+    FB.ui({
+      method: 'apprequests',
+      message: 'My Great Request'
+    }, function(response){
+      console.log(response);
+      alert(response.to);
+
+      // xmlhttp.open("GET","/roominvites/:"+response.to,true);
+      // xmlhttp.send();
+    });
+  
+  };
+
+    
+  // Load the SDK asynchronously
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+
+</script>
+
 
 <%= form_tag("/createroom", method: "post") do %>
   <%= select_tag(:tournament_id, options_for_select(@tournaments.map { |t| [t.name, t.id]})) %>
@@ -16,6 +54,11 @@
     <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
   <% end %>
 </div>
+
+
+
+
+
 
 <!-- <form name='' action='/createroom' method='post'>
 <h5>

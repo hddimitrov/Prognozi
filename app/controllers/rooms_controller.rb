@@ -8,7 +8,6 @@ class RoomsController < ApplicationController
       ur.save    
     end
     
-    
     redirect_to room_path(r)
 	end
 
@@ -16,6 +15,7 @@ class RoomsController < ApplicationController
   		@tournaments = Tournament.all
   		@users = User.all
   	end
+    
   def index
       @rooms = Room.all
   end
@@ -23,4 +23,11 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:room_id])
   end
+
+  # def invite
+  #   @user_ids  = Room.find(params[:ids])
+  #   @room_ids  = Room.find
+
+  #   redirect_to user_ids_path()
+  # end
 end

@@ -22,7 +22,7 @@ end
 
 gem 'jquery-rails'
 
-gem 'fb_graph'
+gem 'fb_graph' 
 gem 'activeadmin'
   gem "meta_search",    '>= 1.1.0.pre'
 
