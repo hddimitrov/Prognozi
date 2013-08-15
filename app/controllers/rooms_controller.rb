@@ -17,7 +17,6 @@ class RoomsController < ApplicationController
   	end
     
   def index
-      @tournaments = Tournament.all
       @rooms = Room.all
   end
 

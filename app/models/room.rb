@@ -1,5 +1,5 @@
 class Room < ActiveRecord::Base
-  attr_accessible :name, :tournament_id
+  attr_accessible :name, :tournament_id, :user_id
 
   has_many :user_rooms
   has_many :users, through: :user_rooms

@@ -7,7 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  
+  <div>
+    <%= link_to 'Rooms', '/rooms' %>
+    <%= link_to 'Create room', '/newroom' %>
+    <%= link_to 'Predictions', '/predictions' %>
+  </div>
 <%= yield %>
 
 </body>

@@ -1,14 +1,7 @@
 <ul>
-    <% @rooms.each do |room| %>
-      <li>
-        <%= link_to room.name, room_path(room) %>
-      </li>    
-    <% end %>
+  <% @rooms.each do |room| %>
+    <li>
+      <%= link_to room.name, room_path(room) %>
+    </li>    
+  <% end %>
 </ul>
-
-<%= link_to 'New room', '/newroom' %>
-
-<%= form_tag("/predictions", method: "get") do %>
-  <%= select_tag(:tournament_id, options_for_select(@tournaments.map { |t| [t.name, t.id]})) %>
-  <%= submit_tag("Make Predictions !") %>
-<% end %>
