@@ -1,6 +1,4 @@
 <div id="fb-root"></div>
-
-
 <%= form_tag("/createroom", method: "post") do %>
   <%= select_tag(:tournament_id, options_for_select(@tournaments.map { |t| [t.name, t.id]})) %>
   <%= label_tag(:name, "Room name:") %>
@@ -9,45 +7,3 @@
   <%= select_tag(:user_ids, options_for_select(@users.map {|u| [u.name, u.id]}), :multiple => true , :size => 2, :class => "chzn-select") %>
   <%= submit_tag("Create Room !") %>
 <% end %>
-
-<div id="user_nav">
-  <% if current_user %>
-    Signed in as <strong><%= current_user.name %></strong>!
-    <%= link_to "Sign out", signout_path, id: "sign_out" %>
-  <% else %>
-    <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
-  <% end %>
-</div>
-
-
-
-
-
-
-<!-- <form name='' action='/createroom' method='post'>
-<h5>
-  Tournament:
-  <select> 
-    <% @tournaments.each do |tournament| %>
-      <option>
-        <%= tournament.name %>
-
-      </option>
-    <% end %>
-
-  </select>
-</h5> 
-
-<h5>Room name:
-  <input type="text" name="roomName">
-</h5>
-
-<h5>Add friend:
-  <% @users.each do |user| %>
-    <input type="checkbox" name="friends"/> <%= user.name %>
-  <% end %>
-</h5>
-
-  <input type='submit' value='Create Room'>
-</form>
- -->
