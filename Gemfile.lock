@@ -65,8 +65,8 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    faraday (0.8.7)
-      multipart-post (~> 1.1)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     fastercsv (1.5.5)
     fb_graph (2.7.7)
       httpclient (>= 2.2.0.2)
@@ -114,9 +114,9 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    omniauth-facebook (1.4.1)
-      omniauth-oauth2 (~> 1.1.0)
-    omniauth-oauth2 (1.1.1)
+    omniauth-facebook (1.4.0)
+      omniauth-oauth2 (~> 1.0.2)
+    omniauth-oauth2 (1.0.3)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
@@ -189,7 +189,7 @@ DEPENDENCIES
   fb_graph
   jquery-rails
   meta_search (>= 1.1.0.pre)
-  omniauth-facebook
+  omniauth-facebook (= 1.4.0)
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
   sqlite3

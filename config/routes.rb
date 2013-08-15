@@ -27,9 +27,8 @@ Prognozi::Application.routes.draw do
 
   #Facebook auth 
 
-  match 'auth/:provider/callback', to: 'sessions#create'
+  match 'auth/:provider/callback', to: 'sessions#oauth_success'
   match 'auth/failure', to: redirect('/')
-  match 'signout', to: 'sessions#destroy', as: 'signout'
 
   #Facebook auth
 

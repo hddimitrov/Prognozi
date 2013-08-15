@@ -10,4 +10,4 @@ Rails.application.config.middleware.use OmniAuth::Builder do
           }
 end
 
-OmniAuth.config.on_failure = UsersController.action(:oauth_failure)
+OmniAuth.config.on_failure = SessionsController.action(:oauth_failure)
