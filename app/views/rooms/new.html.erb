@@ -5,5 +5,7 @@
   <%= text_field_tag(:name) %>
   <%= label_tag(:uname, "Add friends:") %>
   <%= select_tag(:user_ids, options_for_select(@users.map {|u| [u.name, u.id]}), :multiple => true , :size => 2, :class => "chzn-select") %>
+  <%= label_tag("Public:") %>
+  <%= check_box_tag (:public_room)%>
   <%= submit_tag("Create Room !") %>
 <% end %>

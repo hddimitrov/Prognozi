@@ -1,5 +1,5 @@
 ActiveAdmin.register InviteUser do
 
-  menu :parent => "Users"
+  menu :parent => "Rooms"
   
 end

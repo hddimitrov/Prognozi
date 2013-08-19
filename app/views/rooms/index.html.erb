@@ -1,7 +1,28 @@
+<h4>Public rooms:</h4>
 <ul>
-  <% @rooms.each do |room| %>
+  <% @public_rooms.each do |room| %>
     <li>
       <%= link_to room.name, room_path(room) %>
+    </li>    
+  <% end %>
+</ul>
+
+
+<h4>My joined rooms:</h4>
+<ul>
+  <% @user_rooms.each do |user_room| %>
+    <li>
+      <%= link_to user_room.name, room_path(user_room) %>
+    </li>    
+  <% end %>
+</ul>
+
+
+<h4>Invited to rooms:</h4>
+<ul>
+  <% @invited_to_rooms.each do |invited_rooms| %>
+    <li>
+      <%= link_to invited_rooms.name, room_path(invited_rooms) %>
     </li>    
   <% end %>
 </ul>
