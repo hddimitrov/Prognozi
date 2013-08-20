@@ -9,7 +9,7 @@
 
 
 <h4>My joined rooms:</h4>
-<ul>
+<ul id='my_rooms'>
   <% @user_rooms.each do |user_room| %>
     <li>
       <%= link_to user_room.name, room_path(user_room) %>
@@ -23,6 +23,48 @@
   <% @invited_to_rooms.each do |invited_rooms| %>
     <li>
       <%= link_to invited_rooms.name, room_path(invited_rooms) %>
+
+      <%= form_tag('/accept_invitation', {:class => 'accept_form'}) do %>
+        <input name="room_id" type="hidden" value="<%= invited_rooms.id %>" />
+        <%= submit_tag "Accept" %>
+      <% end %>
+
+      <%= form_tag('/decline_invitation', {:class => 'decline_form'}) do %>
+        <input name="room_id" type="hidden" value="<%= invited_rooms.id %>" />
+        <%= submit_tag "Decline", :id => "button_decline_room#{invited_rooms.id}_invitation" %>
+      <% end %>
     </li>    
   <% end %>
 </ul>
+
+<script>
+  $('form.accept_form').submit(function() {
+    var _this = this;   
+    var valuesToSubmit = $(this).serialize();
+    $.ajax({
+        method: "POST", 
+        url: $(this).attr('action'), //sumbits it to the given url of the form
+        data: valuesToSubmit,
+        // dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
+    }).success(function(json) {
+        li = "<li><a href='/rooms/" + json['room_id'] + "'>" + json['room_name'] + "</a></li>";
+        console.log(li);
+        $('#my_rooms').append(li);
+        $(_this).parent().remove();
+    });
+    return false; // prevents normal behaviour
+  });
+    $('form.decline_form').submit(function() {
+    var _this = this;   
+    var valuesToSubmit = $(this).serialize();
+    $.ajax({
+        method: "POST", 
+        url: $(this).attr('action'), //sumbits it to the given url of the form
+        data: valuesToSubmit,
+        // dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
+    }).success(function(json) {
+        $(_this).parent().remove();
+    });
+    return false; // prevents normal behaviour
+  });
+</script>

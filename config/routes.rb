@@ -16,11 +16,13 @@ Prognozi::Application.routes.draw do
 
   #rooms controller
 
-  match '/roominvites/:room_id/:uids' => 'rooms#invite',        via: :get
-  match '/newroom'                    => 'rooms#new',           via: :get
-  match '/createroom'                 => 'rooms#create',        via: :post
-  match '/rooms'                      => 'rooms#index',         via: :get
-  match '/rooms/:room_id'             => 'rooms#show',          via: :get, as: "room"
+  match '/decline_invitation'           => 'rooms#room_inv_decline',   via: :post
+  match '/accept_invitation'            => 'rooms#room_inv_accept',    via: :post
+  match '/roominvites/:room_id/:uids'   => 'rooms#invite',             via: :get
+  match '/newroom'                      => 'rooms#new',                via: :get
+  match '/createroom'                   => 'rooms#create',             via: :post
+  match '/rooms'                        => 'rooms#index',              via: :get
+  match '/rooms/:room_id'               => 'rooms#show',               via: :get, as: "room"
 
   #rooms controller
 
