@@ -1,0 +1,24 @@
+
+<h5>
+	Tournament:
+	<select> 
+		<%= @tournaments.each do |tournament| %>
+			<option>
+				<%= tournament.name %>
+
+			</option>
+		<% end %>
+	</select>
+</h5> 
+
+<h5>Room name:
+	<input type="text" name="roomName">
+</h5>
+
+<h5>Add friend:
+	<%= @users.each do |user| %>
+		<input type="checkbox" name="friends"/>	<%= user.name %>
+	<% end %>
+</h5>
+
+<input type='submit' value='Create Room'>

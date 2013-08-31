@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130723053354) do
+ActiveRecord::Schema.define(:version => 20130831054030) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -68,6 +68,19 @@ ActiveRecord::Schema.define(:version => 20130723053354) do
     t.string   "level"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "point_rules", :force => true do |t|
+    t.integer  "room_id"
+    t.integer  "result_points"
+    t.integer  "exact_result"
+    t.integer  "group_winner_points"
+    t.integer  "quarter_finalist_points"
+    t.integer  "semi_finalist_points"
+    t.integer  "finalist_points"
+    t.string   "winner"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "rooms", :force => true do |t|

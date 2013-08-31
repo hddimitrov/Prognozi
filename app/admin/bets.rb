@@ -1,4 +1,3 @@
 ActiveAdmin.register Bet do
-  
-  menu :parent => "Bets"
+menu :priority => 4
 end

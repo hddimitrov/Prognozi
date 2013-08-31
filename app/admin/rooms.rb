@@ -1,3 +1,3 @@
 ActiveAdmin.register Room do
-  menu :parent => "Rooms"
+menu :priority => 3
 end

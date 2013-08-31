@@ -1,3 +1,3 @@
 ActiveAdmin.register Tournament do
-  menu :parent => "Tournaments"
+  menu :priority => 5
 end

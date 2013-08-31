@@ -1,4 +1,3 @@
 ActiveAdmin.register User do
-
-  menu :parent => "Users"
+menu :priority => 1
 end

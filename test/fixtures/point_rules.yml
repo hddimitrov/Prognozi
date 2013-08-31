@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  room_id: 1
+  result_points: 1
+  exact_result: 1
+  group_winner_points: 1
+  quarter_finalist_points: 1
+  semi_finalist_points: 1
+  final_points: 1
+  winner: MyString
+
+two:
+  room_id: 1
+  result_points: 1
+  exact_result: 1
+  group_winner_points: 1
+  quarter_finalist_points: 1
+  semi_finalist_points: 1
+  final_points: 1
+  winner: MyString
