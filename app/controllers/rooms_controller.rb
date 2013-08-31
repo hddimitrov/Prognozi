@@ -22,12 +22,20 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:room_id])
+    @invited_users = InviteUser.where(room_id: params[:room_id])
   end
 
-  # def invite
-  #   @user_ids  = Room.find(params[:ids])
-  #   @room_ids  = Room.find
-
-  #   redirect_to user_ids_path()
-  # end
+  def invite
+    params[:uids].split(',').each do |uid|
+      user = User.find_by_uid(uid)
+    
+      if user.present?
+        InviteUser.create(room_id: params[:room_id], user_id: user.id, uid: uid)
+      else
+        InviteUser.create(room_id: params[:room_id], uid: uid)
+      end
+    end
+    
+    redirect_to :back
+  end
 end
