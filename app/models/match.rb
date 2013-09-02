@@ -5,4 +5,15 @@ class Match < ActiveRecord::Base
   def name
     name = host + "-" + guest
   end
+
+  def sign
+  	sign = 'x'
+  	if self.guest_score > self.host_score
+  	  sign = 2
+  	elsif self.guest_score < self.host_score
+  	  sign = 1
+  	end
+
+  	sign
+  end
 end
