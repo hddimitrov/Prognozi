@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130904074256) do
+ActiveRecord::Schema.define(:version => 20130904074257) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -110,13 +110,20 @@ ActiveRecord::Schema.define(:version => 20130904074256) do
     t.boolean  "public_room",   :default => false
   end
 
+  create_table "score_prediction_room_points", :force => true do |t|
+    t.integer  "score_prediction_id"
+    t.integer  "room_id"
+    t.integer  "points"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
   create_table "score_predictions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "match_id"
     t.integer  "host_score"
     t.integer  "guest_score"
     t.string   "result"
-    t.integer  "points"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -180,7 +187,6 @@ ActiveRecord::Schema.define(:version => 20130904074256) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "uid"
   end
 
   create_table "users", :force => true do |t|

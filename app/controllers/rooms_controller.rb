@@ -24,6 +24,7 @@ class RoomsController < ApplicationController
   	end
     
   def index
+      @users = User.all
       #test
         #@matches = Match.all
       #test
@@ -57,6 +58,11 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:room_id])
     @invited_users = InviteUser.where(room_id: params[:room_id])
+
+    @rankings = ScorePredictionRoomPoint.joins(:score_prediction).where(:room_id => @room.id).select("user_id, room_id, sum(points) points").group("user_id, room_id").order(:points).reverse_order
+    # @users = User.all
+
+
   end
 
   def invite

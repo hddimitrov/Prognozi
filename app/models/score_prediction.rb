@@ -4,4 +4,5 @@ class ScorePrediction < ActiveRecord::Base
   
   belongs_to :user 
   belongs_to :match
+  has_many :score_prediction_room_points
 end

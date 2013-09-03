@@ -11,26 +11,29 @@ class User < ActiveRecord::Base
 
 	self.score_predictions.each do |prediction|
 		match = prediction.match
+		sprp = ScorePredictionRoomPoint.find_or_initialize_by_room_id_and_score_prediction_id(room_id, prediction.id)
 
 		#Check for exact result predicition
 		if(match.host_score == prediction.host_score and match.guest_score == prediction.guest_score)
 			points += rules.exact_result
-			prediction.points += rules.exact_result
+			# prediction.points += rules.exact_result
 		end
 
 		#Check for sign prediction
 		if(match.host_score > match.guest_score and prediction.result == 1)
 			points += rules.result_points
-			prediction.points += rules.result_points
-		elseif(match.host_score < match.guest_score and prediction.result == 2)
+			# prediction.points += rules.result_points
+		elsif(match.host_score < match.guest_score and prediction.result == 2)
 			points += rules.result_points
-			prediction.points += rules.result_points
-		elseif(match.host_score = match.guest_score and prediction.result == "x")
+			# prediction.points += rules.result_points
+		elsif(match.host_score == match.guest_score and prediction.result == "x")
 			points += rules.result_points
-			prediction.points += rules.result_points
+			# prediction.points += rules.result_points
 		end
 
-		prediction.save
+
+		sprp.points = points
+		sprp.save
 	end
 	return points
   end

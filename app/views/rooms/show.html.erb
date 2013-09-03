@@ -11,6 +11,19 @@
       </li>    
     <% end %>
 </ul>
+  
+<h2>RankList:</h2>
+<ol type="1">
+  <% @rankings.each do |rankings| %>
+    <li>
+      <!-- Must add the names of the users -->
+      <%= rankings.points %>
+    </li>
+  <% end %>
+</ol>
+<br>
+<br>
+<br>
 
 <%= submit_tag "Invite friends", :id=> "buttonInviteFriends" %>
 <%= javascript_tag do %>
@@ -52,4 +65,3 @@
   });
 });
 <% end %>
-

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  score_prediction_id: 1
+  room_id: 1
+  points: 1
+
+two:
+  score_prediction_id: 1
+  room_id: 1
+  points: 1

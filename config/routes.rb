@@ -5,11 +5,11 @@ Prognozi::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  #Admin controller
+  # #Admin controller
 
-  match '/admin_panel'                => 'admin_panel#add_matches', via: :get
+  # match '/admin_panel'                => 'admin_panel#add_matches', via: :get
 
-  #Admin controller
+  # #Admin controller
 
   #predictions controller
 

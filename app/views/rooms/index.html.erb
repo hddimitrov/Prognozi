@@ -1,7 +1,7 @@
 <!-- TEST -->
 <h5>Matches:</h5>
 <% @matches.each do |match| %>
-<%= match.name %>
+  <%= match.name %>
 <% end %>
 <!-- TEST -->
 
@@ -9,10 +9,7 @@
 <!-- Ranklist TEST -->
 
 <% @predictions.each do |prediction| %>
-  
-
   <% match = prediction.match %>
-
   <h4>Match names: 
     <%= match.host %>
     <%= match.guest %>
@@ -24,14 +21,13 @@
   </h4>
 
   <!-- # user-- -->
-
   <h4>predictions:
     <%= prediction.host_score %>
     <%= prediction.guest_score %>
   </h4>
 
   <% if match.host_score = prediction.host_score %>
-  
+  <% end %>
 
 <% end %>
 
@@ -106,3 +102,4 @@
     return false; // prevents normal behaviour
   });
 </script>
+
