@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130831055534) do
+ActiveRecord::Schema.define(:version => 20130904074250) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -46,22 +46,6 @@ ActiveRecord::Schema.define(:version => 20130831055534) do
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
-  create_table "bets", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "fbusers", :force => true do |t|
-    t.string   "provider"
-    t.string   "fbuid"
-    t.string   "name"
-    t.string   "oath_token"
-    t.datetime "oath_expires_at"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -86,6 +70,21 @@ ActiveRecord::Schema.define(:version => 20130831055534) do
     t.string   "level"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "phase_predictions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "phase_id"
+    t.integer  "team_id"
+    t.integer  "points"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "phases", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "point_rules", :force => true do |t|
@@ -125,10 +124,28 @@ ActiveRecord::Schema.define(:version => 20130831055534) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "standing_predictions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "team_group_id"
+    t.integer  "position"
+    t.integer  "points"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "team_groups", :force => true do |t|
     t.integer  "tournament_id"
     t.integer  "team_id"
     t.integer  "group_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "standing"
+  end
+
+  create_table "team_phases", :force => true do |t|
+    t.integer  "team_id"
+    t.integer  "phase_id"
+    t.integer  "tournament_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -151,14 +168,6 @@ ActiveRecord::Schema.define(:version => 20130831055534) do
   create_table "tournaments", :force => true do |t|
     t.string   "name"
     t.integer  "sport_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "user_bets", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "bet_id"
-    t.integer  "points"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

@@ -17,6 +17,7 @@ class RoomsController < ApplicationController
   	end
     
   def index
+      @tournaments = Tournament.all
       @rooms = Room.all
   end
 
@@ -36,6 +37,6 @@ class RoomsController < ApplicationController
       end
     end
     
-    redirect_to :back
+     redirect_to :back
   end
 end

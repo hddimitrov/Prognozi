@@ -2,6 +2,8 @@
   <%= @room.name %>
   (<%= @room.tournament.name %>)
 </h1>
+<h4>Players:</h4>
+
 <ul>
     <% @invited_users.each do |uroom| %>
       <li>
@@ -11,8 +13,6 @@
 </ul>
 
 <%= submit_tag "Invite friends", :id=> "buttonInviteFriends" %>
-
-
 <%= javascript_tag do %>
   var room_id = <%= @room.id %>;
 
@@ -52,3 +52,4 @@
   });
 });
 <% end %>
+

@@ -1,3 +1,3 @@
 ActiveAdmin.register ScorePrediction do
-  menu :parent => "Bets"
+  menu :parent => "Predictions"
 end
