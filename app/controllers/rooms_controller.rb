@@ -6,7 +6,8 @@ class RoomsController < ApplicationController
     if public_room.blank?
       public_room = false
     end
-		r = Room.create(:name => params[:name], :tournament_id => params[:tournament_id], :public_room => public_room)
+    # user_id = current_user.id     check if it's needen
+		r = Room.create(:name => params[:name], :tournament_id => params[:tournament_id], :public_room => public_room, :user_id => current_user.id)
     UserRoom.create(:room_id => r.id, :user_id => current_user.id)
 
     if params[:user_ids].present?
@@ -32,7 +33,7 @@ class RoomsController < ApplicationController
       #ranklist TEST
 
       @predictions = ScorePrediction.all
-      @matches = Match.all
+      @matchesCL = Match.where(:tournament_id => 1).order(:timestamp).reverse_order
 
       #ranklist TEST
 

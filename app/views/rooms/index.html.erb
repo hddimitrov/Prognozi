@@ -1,35 +1,42 @@
 <!-- TEST -->
 <h5>Matches:</h5>
-<% @matches.each do |match| %>
+<% @matchesCL.each do |match| %>
   <%= match.name %>
 <% end %>
 <!-- TEST -->
 
 
 <!-- Ranklist TEST -->
-
+<!-- 
 <% @predictions.each do |prediction| %>
   <% match = prediction.match %>
-  <h4>Match names: 
-    <%= match.host %>
-    <%= match.guest %>
-  </h4>
+  <h3>Match:
+  <br> 
+    <h2>
+      <%= match.host %> - <%= match.guest %>
+    </h2>
+  </h3>
 
-  <h4>scores:
-    <%= match.host_score %>
-    <%= match.guest_score %>
-  </h4>
+  <h3>Scores:
+    <h4>Host score: 
+      <%= match.host_score %>
+    </h4>
 
-  <!-- # user-- -->
-  <h4>predictions:
-    <%= prediction.host_score %>
-    <%= prediction.guest_score %>
-  </h4>
+    <h4>Guest score: 
+      <%= match.guest_score %>
+    </h4>
+  </h3>
 
-  <% if match.host_score = prediction.host_score %>
-  <% end %>
-
-<% end %>
+    # user
+   <h3>Predictions:
+    <h4>Host score prediction: 
+      <%= prediction.host_score %>
+    </h4>
+    <h4>Guest score prediction: 
+      <%= prediction.guest_score %>
+    </h4>
+  </h3>
+<% end %> -->
 
 <!-- Ranklist TEST -->
 <h4>Public rooms:</h4>
