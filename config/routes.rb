@@ -9,16 +9,19 @@ Prognozi::Application.routes.draw do
   #predictions controller
 
   match '/predictions'                => 'predictions#predict', via: :get
-  
+  match '/submitpredictions'          => 'predictions#submit',  via: :post
+
   #predictions controller
   
 
   #rooms controller
+
   match '/roominvites/:room_id/:uids' => 'rooms#invite',        via: :get
   match '/newroom'                    => 'rooms#new',           via: :get
   match '/createroom'                 => 'rooms#create',        via: :post
   match '/rooms'                      => 'rooms#index',         via: :get
   match '/rooms/:room_id'             => 'rooms#show',          via: :get, as: "room"
+
   #rooms controller
 
 
