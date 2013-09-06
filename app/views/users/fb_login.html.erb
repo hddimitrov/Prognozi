@@ -1,0 +1,41 @@
+<%= javascript_include_tag 'jquery' %>
+<%= javascript_include_tag 'jquery_ujs' %>
+
+<%= javascript_tag do %>
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+<% end %>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    console.log('tuk sym 1');
+    fb_login();
+    console.log('tuk sym 2');
+  });
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1397561973795270', // App ID
+      channelUrl : '//#{@domain}/channel.html', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true, // parse XFBML
+    });
+    // Additional initialization code here
+  };
+
+  function fb_login() {
+    var APP_ID = '1397561973795270';
+    var scope = 'email,publish_stream,read_stream,read_friendlists,user_likes,offline_access,user_location'
+    var redirect_uri = 'https://apps.facebook.com/prognozi-dev/auth/fb_js_auth/';
+  
+    var l = 'http://graph.facebook.com/oauth/authorize?client_id=' + APP_ID + '&scope=' + scope + '&redirect_uri=' + redirect_uri;
+    console.log(l);
+    //top.location = l;
+  }
+<% end %>

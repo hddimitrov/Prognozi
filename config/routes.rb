@@ -27,6 +27,9 @@ Prognozi::Application.routes.draw do
 
   #Facebook auth 
 
+  match '/fb-app-login', to: 'users#fb_login'
+  match '/fb-app-login/auth/fb_js_auth' => 'users#fb_js_auth'
+
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
