@@ -7,7 +7,7 @@
   <table border="1">
       <tr>
 
-        <!-- Table column headers -->
+        <!-- Table |column| headers -->
         <tr>
           <th>Date</th>
           <th>Host</th>
@@ -23,38 +23,38 @@
         <% @matches.each do |match| %>
           <tr>
 
-            <!-- Data columnt -->
+            <!-- Data |column| -->
             <td>
               <%= match.timestamp %>
             </td>
 
-            <!-- Host column -->
+            <!-- Host |column| -->
             <td>
               <%= match.host %>
 
             </td>
 
-            <!-- Host Result -->
+            <!-- Host Result |column|-->
             <td>
               <%= text_field_tag "prediction[#{match.id}][host_result]" %>
             </td>
 
-            <!-- Guest Result -->
+            <!-- Guest Result |column| -->
             <td>
               <%= text_field_tag "prediction[#{match.id}][guest_result]" %>
             </td>
 
-            <!-- Guest  -->
+            <!-- Guest |column| -->
             <td>
               <%= match.guest %>
             </td>
 
-            <!-- Sign select -->
+            <!-- Sign select |column| -->
             <td>
               <%= select_tag id="prediction[#{match.id}][sign_select]" , options_for_select([['1', 1], ['X', "x"], ['2', 2]]) %>
             </td>    
 
-            <!-- Predict button for each row-->
+            <!-- Predict button for each |column| -->
     <!--         <td>
               <%= submit_tag "Predict !", :id=> "button_predict_#{match.id}", 'data-match-id' => "#{match.id}"%>
             </td> -->
@@ -62,6 +62,7 @@
         <% end %>
       </tr>   
     </table>
+    Submit all
   <%= submit_tag "Submit All !", :id=> "button_submit_predictions" %>
 <% end %>
 

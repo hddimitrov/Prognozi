@@ -6,16 +6,14 @@ class PredictionsController < ApplicationController
   end
 
   def submit
-    prediction = ScorePrediction.new
-
     params[:prediction].each do |k, v|
-      score = ScorePrediction.new
-      # score.user_id = current_user.id
+      score = ScorePrediction.find_or_create_by_match_id(k)
+      score.user_id = current_user.id
       score.match_id = k
       score.host_score = v[:host_result]
       score.guest_score = v[:guest_result]
       score.result = v[:sign_select]
-      prediction.save
+      score.save
     end
     redirect_to :back
   end
