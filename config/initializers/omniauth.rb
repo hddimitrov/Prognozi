@@ -9,3 +9,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
             :client_options => {:ssl => {:verify => false}}
           }
 end
+
+OmniAuth.config.on_failure = UsersController.action(:oauth_failure)
