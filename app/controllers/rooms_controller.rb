@@ -33,15 +33,15 @@ class RoomsController < ApplicationController
       #ranklist TEST
 
       @predictions = ScorePrediction.all
-      @matchesCL = Match.where(:tournament_id => 1).order(:timestamp).reverse_order
+      @matchesCL = Match.where(:tournament_id => 1).where('timestamp > ?', Time.now).order(:timestamp).reverse_order
 
       #ranklist TEST
-
-
+      Time.now
 
 
     # -> Room.joins(:invite_users).where('invite_users.uid' => current_user.uid)
-      user = User.last # current_user.uid
+      # user = User.last # current_user.uid
+      user = current_user
       @invited_to_rooms = Room.joins(:invite_users)
       .where('invite_users.uid' => user.uid) 
       .where('invite_users.status' => "Pending")
@@ -83,7 +83,7 @@ class RoomsController < ApplicationController
   def room_inv_accept
     @room = Room.find(params[:room_id])
     InviteUser.update_all("status = 'Accepted'","room_id = #{@room.id} and uid = #{current_user.uid}" ) # @invitations.where(:room_id => @room.id).where(:uid => current_user.uid) 
-    UserRoom.create(room_id: params[:room_id], user_id: current_user.id, uid: current_user.uid)
+    UserRoom.create(room_id: params[:room_id], user_id: current_user.id)
     render json: {room_id: @room.id, room_name: @room.name}
   end
 

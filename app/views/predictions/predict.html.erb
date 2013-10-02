@@ -1,3 +1,9 @@
+<div id="content">
+<div class="section group">
+<div class="col span_3_of_5">
+<div id="boxx">
+    <div class="plan plan1">
+<div class="header">
 <% if @tournament_empty %>
   <%= form_tag("/predictions", method: "get") do %>
     <%= select_tag(:tournament_id, options_for_select(@tournaments.map { |t| [t.name, t.id]})) %>
@@ -7,11 +13,10 @@
 <h1>
     <%= @tournament.name %>
   </h1>
-  <%= form_tag ('/submitpredictions') do %>
+</div>
+<center>
     <table border="1">
         <tr>
-
-          <!-- Table |column| headers -->
           <tr>
             <th>Date</th>
             <th>Host</th>
@@ -19,12 +24,9 @@
             <th>Guest result</th>
             <th>Guest</th>
             <th>Sign</th>
-
-            <!-- <th>Submit</th> -->
-
           </tr>
 
-          <% @matches.each do |match| %>
+          <% @finished_matches.each do |match| %>
             <tr>
 
               <!-- Data |column| -->
@@ -40,12 +42,12 @@
 
               <!-- Host Result |column|-->
               <td>
-                <%= text_field_tag "prediction[#{match.id}][host_result]" %>
+                <%= match.host_prediction %>(<%= match.host_score %>)
               </td>
 
               <!-- Guest Result |column| -->
               <td>
-                <%= text_field_tag "prediction[#{match.id}][guest_result]" %>
+                <%= match.guest_prediction %>(<%= match.guest_score %>)
               </td>
 
               <!-- Guest |column| -->
@@ -55,7 +57,7 @@
 
               <!-- Sign select |column| -->
               <td>
-                <%= select_tag id="prediction[#{match.id}][sign_select]" , options_for_select([['1', 1], ['X', "x"], ['2', 2]]) %>
+               <%= match.sign_prediction %>(<%= match.sign %>)
               </td>
 
               <!-- Information for each [ Match / Team ] in new tab -->
@@ -64,17 +66,75 @@
               </td> -->    
 
               <!-- Predict button for each |column| -->
-      <!--         <td>
-                <%= submit_tag "Predict !", :id=> "button_predict_#{match.id}", 'data-match-id' => "#{match.id}"%>
-              </td> -->
             </tr>
           <% end %>
         </tr>   
       </table>
-      Submit all
-    <%= submit_tag "Submit All !", :id=> "button_submit_predictions" %>
+
+  <%= form_tag ('/submitpredictions') do %>
+    <table border="1">
+        <tr>
+
+          <!-- Table |column| headers -->
+          <tr>
+            <th>Date</th>
+            <th>Host</th>
+            <th>Host Result</th>
+            <th>Guest result</th>
+            <th>Guest</th>
+            <th>Sign</th>
+          </tr>
+
+          <% @upcoming_matches.each do |match| %>
+            <tr>
+
+              <!-- Data |column| -->
+              <td>
+                <%= match.timestamp %>
+              </td>
+
+              <!-- Host |column| -->
+              <td>
+                <%= match.host %>
+
+              </td>
+
+              <!-- Host Result |column|-->
+              <td>
+                <%= text_field_tag "prediction[#{match.id}][host_result]", match.host_prediction %>
+              </td>
+
+              <!-- Guest Result |column| -->
+              <td>
+                <%= text_field_tag "prediction[#{match.id}][guest_result]", match.guest_prediction %>
+              </td>
+
+              <!-- Guest |column| -->
+              <td>
+                <%= match.guest %>
+              </td>
+
+              <!-- Sign select |column| -->
+              <td>
+                <%= select_tag id="prediction[#{match.id}][sign_select]" , options_for_select([['1', 1], ['X', "x"], ['2', 2]], match.sign_prediction) %>
+              </td>
+            </tr>
+          <% end %>
+        </tr>   
+      </table> 
+      <%= submit_tag "Submit All!", :class=> "signup" %>
+    <% end %>
   <% end %>
-<% end %>
+</center>
+</div>
+</div>
+
+
+</div>
+</div>
+
+
+  
   
 
   

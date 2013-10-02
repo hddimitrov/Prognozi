@@ -7,7 +7,15 @@ class PredictionsController < ApplicationController
     else
       @tournament_empty = false
       @tournament = Tournament.find(params[:tournament_id])
-      @matches = Match.where(:tournament_id => @tournament.id)
+      @finished_matches = Match.where(:tournament_id => @tournament.id)
+                      .where("timestamp <= ?", Time.now)
+                      .joins("LEFT OUTER JOIN score_predictions ON score_predictions.match_id = matches.id AND score_predictions.user_id = #{current_user.id}")
+                      .select("score_predictions.host_score host_prediction, score_predictions.guest_score guest_prediction, score_predictions.result sign_prediction, matches.*")
+
+      @upcoming_matches = Match.where(:tournament_id => @tournament.id)
+                      .where("timestamp > ?", Time.now)
+                      .joins("LEFT OUTER JOIN score_predictions ON score_predictions.match_id = matches.id AND score_predictions.user_id = #{current_user.id}")
+                      .select("score_predictions.host_score host_prediction, score_predictions.guest_score guest_prediction, score_predictions.result sign_prediction, matches.*")
     end
   end
 

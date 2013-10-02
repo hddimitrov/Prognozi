@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130904074257) do
+ActiveRecord::Schema.define(:version => 20131002184549) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -67,10 +67,10 @@ ActiveRecord::Schema.define(:version => 20130904074257) do
     t.integer  "host_score"
     t.integer  "guest_score"
     t.integer  "tournament_id"
-    t.string   "timestamp"
+    t.datetime "timestamp",     :limit => 255
     t.string   "level"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "phase_predictions", :force => true do |t|
@@ -198,7 +198,6 @@ ActiveRecord::Schema.define(:version => 20130904074257) do
     t.string   "uid"
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
-    t.integer  "room_id"
   end
 
 end

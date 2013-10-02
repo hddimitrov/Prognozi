@@ -27,10 +27,10 @@ class SessionsController < ApplicationController
     puts auth
     puts 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 
-    fb_user = FbGraph::User.me(token).fetch
+    # fb_user = FbGraph::User.me(token).fetch
 
     puts '00000000000000000000000000000000000000000000'
-    puts fb_user.inspect
+    # puts fb_user.inspect
     puts '00000000000000000000000000000000000000000000'
 
     
