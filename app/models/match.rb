@@ -1,15 +1,19 @@
 class Match < ActiveRecord::Base
-  attr_accessible :guest, :guest_score, :host, :host_score, :level, :timestamp, :tournament_id
-  
-  attr_accessor:name
-  
-  belongs_to :tournament
-  has_many :score_predictions
+  attr_accessible :guest_id, :guest_score, :host_id, :host_score, :result,
+                  :start_at, :phase_type, :phase_id
+
+  attr_accessor :name
+
+  belongs_to :host, class_name: 'Team'
+  belongs_to :guest, class_name: 'Team'
+  belongs_to :phase, polymorphic: true
+
+  has_many :match_predictions
 
   after_update :calculate_room_points, :if => :guest_score_changed? or :host_score_changed?
-  
+
   def name
-    name = host + "-" + guest
+    name = host.name + "-" + guest.name
   end
 
   def sign
@@ -29,7 +33,7 @@ class Match < ActiveRecord::Base
         prediction.user.user_rooms.each do |user_room|
           points = 0
           rules = PointRule.find_by_room_id(user_room.room_id)
-          
+
           #Check for exact result predicition
           if(self.host_score == prediction.host_score and self.guest_score == prediction.guest_score)
             points += rules.exact_result

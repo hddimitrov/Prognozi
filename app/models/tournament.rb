@@ -1,7 +1,7 @@
 class Tournament < ActiveRecord::Base
-  attr_accessible :name, :sport_id
+  attr_accessible :name, :start_at
 
-  has_many :rooms 
-  has_many :tournament_teams
-  belongs_to :sport
+  has_many :groups
+  has_many :eliminations
+
 end

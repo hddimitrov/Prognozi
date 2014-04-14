@@ -1,5 +1,5 @@
 Prognozi::Application.routes.draw do
-  root :to => 'rooms#index'
+  root :to => 'predictions#index'
   get "user/index"
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -13,11 +13,11 @@ Prognozi::Application.routes.draw do
 
   #predictions controller
 
-  match '/predictions'                => 'predictions#predict', via: :get
-  match '/submitpredictions'          => 'predictions#submit',  via: :post
+  match '/predictions'  => 'predictions#index', via: :get
+  match '/predict'      => 'predictions#create',  via: :post
 
   #predictions controller
-  
+
 
   #rooms controller
 
@@ -32,7 +32,7 @@ Prognozi::Application.routes.draw do
   #rooms controller
 
 
-  #Facebook auth 
+  #Facebook auth
 
   match 'auth/:provider/callback', to: 'sessions#oauth_success'
   match 'auth/failure', to: redirect('/')

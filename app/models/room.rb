@@ -1,9 +1,11 @@
 class Room < ActiveRecord::Base
-  attr_accessible :name, :tournament_id, :user_id, :public_room
+  attr_accessible :name, :tournament_id, :creator_id, :q_public
 
-  has_many :invite_users
+  belongs_to :tournament
+
   has_many :user_rooms
   has_many :users, through: :user_rooms
-  has_many :score_prediction_room_points
-  belongs_to :tournament
+  has_many :prediction_points
+
+  has_many :invitations
 end
