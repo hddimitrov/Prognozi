@@ -11,6 +11,6 @@ class CreateGroupStandingPredictions < ActiveRecord::Migration
 
     add_index :group_standing_predictions, :user_id
     add_index :group_standing_predictions, [:user_id, :group_id]
-    add_index :group_standing_predictions, [:user_id, :group_id, :position], unique: true, name: 'grp_stndgs_prdctns_uniq'
+    add_index :group_standing_predictions, [:user_id, :group_id, :team_id], unique: true, name: 'index_group_standings_predictions_uniq'
   end
 end

@@ -12,9 +12,25 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require twitter/bootstrap
 //= require chosen.jquery.min
 
 $(document).ready(function() {
-  $(".chzn-select").chosen();
+  $('a[rel=popover]').popover();
+  $('.tooltip').tooltip();
+  $('a[rel=tooltip]').tooltip();
+  $('.matches-predictions .chzn-select').chosen({disable_search: true});
+
+  $('.chzn-select').on('change', function() {
+      var $form =  $(this).closest('form');
+      $form.submit();
+      // var method = $form.attr('method') ? $form.attr('method').toUpperCase() : 'POST';
+      // $.ajax({
+      //     url: $form.attr('action'),
+      //     data: $form.serialize(),
+      //     type: method,
+      //     success: function() {
+      //     }
+      // });
+  });
 });

@@ -1,27 +1,32 @@
 class PredictionsController < ApplicationController
+  # before_filter :authenticate_user!
 
   def index
-    @finished_matches = Match.where("start_at <= ?", Time.now)
-                    .joins("LEFT OUTER JOIN match_predictions ON match_predictions.match_id = matches.id AND match_predictions.user_id = #{current_user.id}")
-                    .select("match_predictions.host_score host_prediction, match_predictions.guest_score guest_prediction, match_predictions.result sign_prediction, matches.*")
+    @groups = Group.where(tournament_id: current_tournament.id)
+    @group_predictions = Match.includes(:host).includes(:guest)
+                              .joins("LEFT OUTER JOIN match_predictions ON match_predictions.match_id = matches.id AND match_predictions.user_id = #{current_user.id}")
+                              .where(phase_type: 'Group')
+                              .select("match_predictions.host_score host_prediction, match_predictions.guest_score guest_prediction, match_predictions.sign sign_prediction, matches.*")
+                              .to_a.group_by(&:phase_id)
 
-    @upcoming_matches = Match.where("start_at > ?", Time.now)
-                    .joins("LEFT OUTER JOIN match_predictions ON match_predictions.match_id = matches.id AND match_predictions.user_id = #{current_user.id}")
-                    .select("match_predictions.host_score host_prediction, match_predictions.guest_score guest_prediction, match_predictions.result sign_prediction, matches.*")
+    @group_standings = GroupStanding.joins(:group).includes(:team).where('groups.tournament_id' => current_tournament.id)
+                                    .joins("LEFT OUTER JOIN group_standing_predictions ON group_standing_predictions.group_id = group_standings.id AND group_standing_predictions.team_id = group_standings.team_id and group_standing_predictions.user_id = #{current_user.id}")
+                                    .select("group_standing_predictions.position pos_prediction, group_standings.*")
+                                    .order('group_standings.position')
+                                    .to_a.group_by(&:group_id)
   end
 
-  def create
+  def match
     if params[:prediction].present?
-      params[:prediction].each do |k, v|
-        score = ScorePrediction.find_or_create_by_match_id(k)
-        score.user_id = current_user.id
-        score.match_id = k
-        score.host_score = v[:host_result]
-        score.guest_score = v[:guest_result]
-        score.result = v[:sign_select]
-        score.save
+      params[:prediction].each do |match, prog|
+        pred = MatchPrediction.find_or_create_by_match_id_and_user_id(match, current_user.id)
+        pred.sign = prog[:sign] if prog[:sign].present?
+        pred.host_score = prog[:host] if prog[:host].present?
+        pred.guest_score = prog[:guest] if prog[:guest].present?
+        pred.save
       end
     end
+    render nothing: true
   end
 end
 

@@ -5,7 +5,7 @@ class CreateMatchPredictions < ActiveRecord::Migration
       t.integer :match_id
       t.integer :host_score
       t.integer :guest_score
-      t.string :result
+      t.string  :sign
 
       t.timestamps
     end

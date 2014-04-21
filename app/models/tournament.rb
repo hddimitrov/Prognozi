@@ -4,4 +4,6 @@ class Tournament < ActiveRecord::Base
   has_many :groups
   has_many :eliminations
 
+  has_many :rooms
+
 end

@@ -1,8 +1,11 @@
 class Match < ActiveRecord::Base
-  attr_accessible :guest_id, :guest_score, :host_id, :host_score, :result,
-                  :start_at, :phase_type, :phase_id
+  just_define_datetime_picker :start_at, add_to_attr_accessible: true
+  validates :start_at, presence: true
 
-  attr_accessor :name
+  attr_accessible :guest_id, :guest_score, :host_id, :host_score, :sign,
+                  :phase_type, :phase_id, :code, :location
+
+  attr_accessor :name, :result
 
   belongs_to :host, class_name: 'Team'
   belongs_to :guest, class_name: 'Team'
@@ -10,44 +13,54 @@ class Match < ActiveRecord::Base
 
   has_many :match_predictions
 
-  after_update :calculate_room_points, :if => :guest_score_changed? or :host_score_changed?
+  after_save :calculate_prediction_points
 
   def name
-    name = host.name + "-" + guest.name
+    "#{host.try(:name)} - #{guest.try(:name)}"
   end
 
-  def sign
-  	sign = 'x'
-  	if self.guest_score > self.host_score
-  	  sign = '2'
-  	elsif self.guest_score < self.host_score
-  	  sign = '1'
-  	end
-
-  	sign
+  def result
+    "#{host_score}:#{guest_score}"
   end
 
   private
-    def calculate_room_points
-      self.score_predictions.each do |prediction|
-        prediction.user.user_rooms.each do |user_room|
-          points = 0
-          rules = PointRule.find_by_room_id(user_room.room_id)
-
-          #Check for exact result predicition
-          if(self.host_score == prediction.host_score and self.guest_score == prediction.guest_score)
-            points += rules.exact_result
-            # prediction.points += rules.exact_result
+    def calculate_prediction_points
+      if guest_score_changed? or host_score_changed?
+        if self.host_score.present? and self.guest_score.present?
+          ssign = 'X'
+          if  host_score > guest_score
+            ssign = '1'
+          elsif host_score < guest_score
+            ssign = '2'
           end
+          self.update_column(:sign, ssign)
 
-          #Check for sign prediction
-          if(self.sign == prediction.result)
-            points += rules.result_points
+          self.match_predictions.each do |prediction|
+            prediction.user.user_rooms.each do |user_room|
+              room = user_room.room
+              points = 0
+
+              #Check for score predicition
+              if(self.host_score == prediction.host_score and self.guest_score == prediction.guest_score)
+                points += room.m_score_points
+                # prediction.points += rules.exact_result
+              end
+
+              #Check for sign prediction
+              if(self.sign == prediction.sign)
+                points += room.m_sign_points
+              end
+
+              pp = PredictionPoint.find_or_initialize_by_user_id_and_room_id_and_prediction_type_and_prediction_id(user_room.user_id, user_room.room_id, 'MatchPrediction', prediction.id)
+              pp.points = points
+              pp.save
+            end
           end
-
-          sprp = ScorePredictionRoomPoint.find_or_initialize_by_room_id_and_score_prediction_id(user_room.room_id, prediction.id)
-          sprp.points = points
-          sprp.save
+        else
+          self.update_column(:sign, nil)
+          self.match_predictions.each do |prediction|
+            PredictionPoint.destroy_all(prediction_type: 'MatchPrediction', prediction_id: prediction.id)
+          end
         end
       end
     end

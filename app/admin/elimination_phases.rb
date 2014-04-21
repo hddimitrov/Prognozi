@@ -1,3 +1,3 @@
 ActiveAdmin.register EliminationPhase do
-  menu :parent => "Tournaments"
+  menu :parent => 'Results'
 end

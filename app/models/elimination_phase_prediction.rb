@@ -4,4 +4,6 @@ class EliminationPhasePrediction < ActiveRecord::Base
   belongs_to :user
   belongs_to :elimination
   belongs_to :team
+
+  has_many :prediction_points, as: :prediction
 end

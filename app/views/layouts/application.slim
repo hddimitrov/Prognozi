@@ -1,0 +1,26 @@
+doctype html
+html xmlns:og='http://ogp.me/ns#'
+  head
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[ if lt IE 9 ]
+      = javascript_include_tag 'http://html5shim.googlecode.com/svn/trunk/html5.js'
+
+    javascript:
+      var webfonts = document.createElement('link')
+      webfonts.setAttribute('rel', 'stylesheet')
+      webfonts.setAttribute('type', 'text/css')
+      webfonts.setAttribute('href',  ('https:' == document.location.protocol ? 'https:' : 'http:') + '//fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300&subset=latin,latin-ext')
+      document.getElementsByTagName('head')[0].appendChild(webfonts)
+
+    = csrf_meta_tags
+
+  body
+    .page-container
+      #header
+        .container
+          .row
+            h1 = current_tournament.name
+      = yield

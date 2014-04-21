@@ -4,4 +4,6 @@ class GroupStandingPrediction < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
   belongs_to :team
+
+  has_many :prediction_points, as: :prediction
 end

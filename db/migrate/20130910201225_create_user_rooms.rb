@@ -3,7 +3,7 @@ class CreateUserRooms < ActiveRecord::Migration
     create_table :user_rooms do |t|
       t.integer :room_id
       t.integer :user_id
-      t.float :points
+      t.float :points, default: 0
 
       t.timestamps
     end

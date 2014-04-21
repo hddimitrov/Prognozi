@@ -1,0 +1,24 @@
+table.table-standard.table.table-bordered.table-striped.table-condensed.matches-predictions
+  tr
+    th Rnk
+    th Team
+    th Pld
+    th W
+    th D
+    th L
+    th GF
+    th GA
+    th GD
+    th Pts
+  - group_standings.each do |standing|
+    tr
+      td = standing.position
+      td = standing.team.name
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points

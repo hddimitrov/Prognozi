@@ -1,0 +1,49 @@
+code;group;start_at;location;opponents
+01;A;12.06.2014 20:00;Arena Corinthians, Sao Paulo;Brazil-Croatia
+02;A;13.06.2014 16:00;Arena das Dunas, Natal;Mexico-Cameroon
+03;B;13.06.2014 19:00;Arena Fonte Nova, Salvador;Spain-Netherlands
+04;B;13.06.2014 22:00;Arena Pantanal, Cuiaba;Chile-Australia
+05;C;14.06.2014 16:00;Estadio Mineirao, Belo Horizonte;Colombia-Greece
+07;D;14.06.2014 19:00;Estadio Castelao, Fortaleza;Uruguay-Costa Rica
+06;C;15.06.2014 01:00;Arena Pernambuco, Recife;Ivory Coast-Japan
+08;D;14.06.2014 22:00;Arena Amazonia, Manaus;England-Italy
+09;E;15.06.2014 16:00;Estadio Nacional, Brasilia;Switzerland-Ecuador
+10;E;15.06.2014 19:00;Estadio Beira-Rio, Porto Alegre;France-Honduras
+11;F;15.06.2014 22:00;Maracana, Rio de Janeiro;Argentina-Bosnia and H
+13;G;16.06.2014 16:00;Arena Fonte Nova, Salvador;Germany-Portugal
+12;F;16.06.2014 19:00;Arena da Baixada, Curitiba;Iran-Nigeria
+14;G;16.06.2014 22:00;Arena das Dunas, Natal;Ghana-United States
+15;H;17.06.2014 16:00;Estadio Mineirao, Belo Horizonte;Belgium-Algeria
+17;A;17.06.2014 19:00;Estadio Castelao, Fortaleza;Brazil-Mexico
+16;H;17.06.2014 22:00;Arena Pantanal, Cuiaba;Russia-South Korea
+20;B;18.06.2014 16:00;Estadio Beira-Rio, Porto Alegre;Australia-Netherlands
+18;A;18.06.2014 22:00;Arena Amazonia, Manaus;Cameroon-Croatia
+19;B;18.06.2014 19:00;Maracana, Rio de Janeiro;Spain-Chile
+21;C;19.06.2014 16:00;Estadio Nacional, Brasilia;Colombia-Ivory Coast
+23;D;19.06.2014 19:00;Arena Corinthians, Sao Paulo;Uruguay-England
+22;C;19.06.2014 22:00;Arena das Dunas, Natal;Japan-Greece
+24;D;20.06.2014 16:00;Arena Pernambuco, Recife;Italy-Costa Rica
+25;E;20.06.2014 19:00;Arena Fonte Nova, Salvador;Switzerland-France
+26;E;20.06.2014 22:00;Arena da Baixada, Curitiba;Honduras-Ecuador
+27;F;21.06.2014 16:00;Estadio Mineirao, Belo Horizonte;Argentina-Iran
+29;G;21.06.2014 19:00;Estadio Castelao, Fortaleza;Germany-Ghana
+28;F;21.06.2014 22:00;Arena Pantanal, Cuiaba;Nigeria-Bosnia and H
+32;H;22.06.2014 22:00;Estadio Beira-Rio, Porto Alegre;South Korea-Algeria
+30;G;22.06.2014 16:00;Arena Amazonia, Manaus;United States-Portugal
+31;H;22.06.2014 19:00;Maracana, Rio de Janeiro;Belgium-Russia
+35;B;23.06.2014 16:00;Arena da Baixada, Curitiba;Australia-Spain
+36;B;23.06.2014 16:00;Arena Corinthians, Sao Paulo;Netherlands-Chile
+33;A;23.06.2014 20:00;Estadio Nacional, Brasilia;Cameroon-Brazil
+34;A;23.06.2014 20:00;Arena Pernambuco, Recife;Croatia-Mexico
+39;D;24.06.2014 16:00;Arena das Dunas, Natal;Italy-Uruguay
+40;D;24.06.2014 16:00;Estadio Mineirao, Belo Horizonte;Costa Rica-England
+37;C;24.06.2014 20:00;Arena Pantanal, Cuiaba;Japan-Colombia
+38;C;24.06.2014 20:00;Estadio Castelao, Fortaleza;Greece-Ivory Coast
+43;F;25.06.2014 16:00;Estadio Beira-Rio, Porto Alegre;Nigeria-Argentina
+44;F;25.06.2014 16:00;Arena Fonte Nova, Salvador;Bosnia and H-Iran
+41;E;25.06.2014 20:00;Arena Amazonia, Manaus;Honduras-Switzerland
+42;E;25.06.2014 20:00;Maracana, Rio de Janeiro;Ecuador-France
+45;G;26.06.2014 16:00;Arena Pernambuco, Recife;United States-Germany
+46;G;26.06.2014 16:00;Estadio Nacional, Brasilia;Portugal-Ghana
+47;H;26.06.2014 20:00;Arena Corinthians, Sao Paulo;South Korea-Belgium
+48;H;26.06.2014 20:00;Arena da Baixada, Curitiba;Algeria-Russia

@@ -3,5 +3,5 @@ class EliminationPhase < ActiveRecord::Base
 
   belongs_to :elimination
   belongs_to :team
-  belongs_to :opponent, class_name: 'Team'
+  belongs_to :opponent, class_name: :Team
 end

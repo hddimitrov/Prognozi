@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130912052701) do
+ActiveRecord::Schema.define(:version => 20130911154037) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20130912052701) do
   create_table "eliminations", :force => true do |t|
     t.integer  "tournament_id"
     t.string   "name"
+    t.string   "code"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -85,19 +86,23 @@ ActiveRecord::Schema.define(:version => 20130912052701) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "group_standing_predictions", ["user_id", "group_id", "position"], :name => "grp_stndgs_prdctns_uniq", :unique => true
+  add_index "group_standing_predictions", ["user_id", "group_id", "team_id"], :name => "index_group_standings_predictions_uniq", :unique => true
   add_index "group_standing_predictions", ["user_id", "group_id"], :name => "index_group_standing_predictions_on_user_id_and_group_id"
   add_index "group_standing_predictions", ["user_id"], :name => "index_group_standing_predictions_on_user_id"
 
   create_table "group_standings", :force => true do |t|
     t.integer  "group_id"
     t.integer  "team_id"
-    t.integer  "position"
-    t.integer  "points"
-    t.integer  "goals_for"
-    t.integer  "goals_against"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "position",       :default => 0
+    t.integer  "matches_played", :default => 0
+    t.integer  "matches_won",    :default => 0
+    t.integer  "matches_drawn",  :default => 0
+    t.integer  "matches_lost",   :default => 0
+    t.integer  "goals_for",      :default => 0
+    t.integer  "goals_against",  :default => 0
+    t.integer  "points",         :default => 0
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "group_standings", ["group_id", "team_id"], :name => "index_group_standings_on_group_id_and_team_id", :unique => true
@@ -124,7 +129,7 @@ ActiveRecord::Schema.define(:version => 20130912052701) do
     t.integer  "match_id"
     t.integer  "host_score"
     t.integer  "guest_score"
-    t.string   "result"
+    t.string   "sign"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -139,23 +144,12 @@ ActiveRecord::Schema.define(:version => 20130912052701) do
     t.integer  "guest_id"
     t.integer  "host_score"
     t.integer  "guest_score"
-    t.string   "result"
+    t.string   "sign"
     t.datetime "start_at"
+    t.integer  "code"
+    t.string   "location"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "point_rules", :force => true do |t|
-    t.integer  "room_id"
-    t.integer  "result_points"
-    t.integer  "exact_result"
-    t.integer  "group_winner_points"
-    t.integer  "quarter_finalist_points"
-    t.integer  "semi_finalist_points"
-    t.integer  "finalist_points"
-    t.integer  "winner_points"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
   end
 
   create_table "prediction_points", :force => true do |t|
@@ -168,20 +162,32 @@ ActiveRecord::Schema.define(:version => 20130912052701) do
     t.datetime "updated_at",      :null => false
   end
 
+  add_index "prediction_points", ["user_id", "room_id"], :name => "index_prediction_points_on_user_id_and_room_id"
+  add_index "prediction_points", ["user_id"], :name => "index_prediction_points_on_user_id"
+
   create_table "rooms", :force => true do |t|
     t.string   "name"
     t.integer  "tournament_id"
     t.integer  "creator_id"
-    t.boolean  "q_public",      :default => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.boolean  "q_public",             :default => false
+    t.float    "m_score_points"
+    t.float    "m_sign_points"
+    t.float    "gs_position_1_points"
+    t.float    "e_ef_points"
+    t.float    "e_qf_points"
+    t.float    "e_sf_points"
+    t.float    "e_l_points"
+    t.float    "e_f_points"
+    t.float    "e_c_points"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
   end
 
   create_table "teams", :force => true do |t|
     t.string   "name"
-    t.integer  "tournament_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.string   "flag"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tournaments", :force => true do |t|
@@ -194,8 +200,9 @@ ActiveRecord::Schema.define(:version => 20130912052701) do
   create_table "user_rooms", :force => true do |t|
     t.integer  "room_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.float    "points",     :default => 0.0
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "users", :force => true do |t|
