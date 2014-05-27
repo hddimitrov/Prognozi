@@ -5,9 +5,10 @@
     li
       a[href="#eliminations" data-toggle='tab'] Eliminations
   .tab-content.span14[style='width:100%']
+    .span3
     .tab-pane.active#groups
       .tabbable
-        ul.nav.nav-pills.nav-stacked.span1
+        ul.nav.nav-pills
           - @groups.each do |group|
             - if group.name == 'A'
               li.active
@@ -15,7 +16,7 @@
             - else
               li
                 a[href="#group#{group.name}" data-toggle='tab'] = group.name
-        .tab-content.span11[style='overflow-y:hidden;height:250px']
+        .tab-content.span5
           - @groups.each do |group|
             - if group.name == 'A'
               .tab-pane.active[id="group#{group.name}"]
@@ -37,20 +38,7 @@
           br
           br
           br
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
+    .span4
 
   .tab-pane#eliminations
 
