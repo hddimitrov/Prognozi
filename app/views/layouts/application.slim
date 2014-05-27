@@ -17,10 +17,21 @@ html xmlns:og='http://ogp.me/ns#'
 
     = csrf_meta_tags
 
-  body
+  body[ng-app='pro']
     .page-container
-      #header
+      .header
         .container
           .row
             h1 = current_tournament.name
-      = yield
+          .row
+            ul.login-menu
+              = render 'devise/registration_items'
+              = render 'devise/login_items'
+      .main-content.span14
+        - if notice.present?
+          p.alert.alert-succes
+            = notice
+        - if alert.present?
+          p.alert.alert-error
+            = alert
+        = yield

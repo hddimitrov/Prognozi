@@ -1,0 +1,30 @@
+table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions
+  tr
+    th Rnk
+    th Team
+    th 1st
+    th 2nd
+    th Pld
+    th W
+    th D
+    th L
+    th GF
+    th GA
+    th GD
+    th Pts
+  - group_standings.each do |standing|
+    tr
+      td = standing.position
+      td = standing.team.name
+      td
+        icon.icon-trophy.remove-comment.pull-left
+        icon.icon-flag.remove-comment.pull-right
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points
+      td = standing.points

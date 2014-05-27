@@ -1,8 +1,11 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :provider, :uid, :oauth_token, :oauth_expires_at
+  attr_accessible :email, :password, :password_confirmation
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   has_many :user_rooms
   has_many :score_predictions
-  has_many :user_bets
-
 end

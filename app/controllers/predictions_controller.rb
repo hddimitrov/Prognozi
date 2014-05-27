@@ -1,5 +1,5 @@
 class PredictionsController < ApplicationController
-  # before_filter :authenticate_user!
+  before_filter :authenticate_user!
 
   def index
     @groups = Group.where(tournament_id: current_tournament.id)
@@ -23,6 +23,17 @@ class PredictionsController < ApplicationController
         pred.sign = prog[:sign] if prog[:sign].present?
         pred.host_score = prog[:host] if prog[:host].present?
         pred.guest_score = prog[:guest] if prog[:guest].present?
+        pred.save
+      end
+    end
+    render nothing: true
+  end
+
+  def group
+    if params[:prediction].present?
+      params[:prediction].each do |match, prog|
+        pred = GroupStandingPrediction.find_or_create_by_group_id_position_id_and_user_id(group, prog[:position], current_user.id)
+        pred.position = prog[:position]
         pred.save
       end
     end

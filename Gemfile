@@ -21,15 +21,20 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-gem 'just-datetime-picker'
 gem 'slim-rails'
 
-gem 'fb_graph'
+gem 'jquery-rails'
+gem 'angularjs-rails'
+gem 'just-datetime-picker'
+gem 'select2-rails'
+
+# gem 'omniauth-facebook' , '1.4.0'
+# gem 'fb_graph'
+gem 'devise'
+
 gem 'activeadmin'
 gem 'meta_search',    '>= 1.1.0.pre'
 
-gem 'omniauth-facebook' , '1.4.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

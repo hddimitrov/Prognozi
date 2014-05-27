@@ -10,9 +10,9 @@ table.table-standard.table.table-bordered.table-striped.table-condensed.matches-
       td = prediction.name
       td
         = form_tag match_prediction_path, remote: true, method: :post
-          = select_tag id="prediction[#{prediction.id}][sign]" , options_for_select([['1', '1'], ['X', 'X'], ['2', '2']], prediction.sign_prediction), {include_blank: true, class: 'chzn-select'}
-      td
+          = select_tag id="prediction[#{prediction.id}][sign]" , options_for_select([['1', '1'], ['X', 'X'], ['2', '2']], prediction.sign_prediction), {include_blank: true}
+      td[style='height:20px']
         = form_tag match_prediction_path, remote: true, method: :post
-          = select_tag id="prediction[#{prediction.id}][host]", options_for_select((1..8).map {|g| [g, g]},  prediction.host_prediction), {include_blank: prediction.host.name, class: 'chzn-select'}
+          = select_tag id="prediction[#{prediction.id}][host]", options_for_select((1..8).map {|g| [g, g]},  prediction.host_prediction), {include_blank: prediction.host.name}
           | &nbsp;&nbsp;:&nbsp;&nbsp;
-          = select_tag id="prediction[#{prediction.id}][guest]" , options_for_select((1..8).map {|g| [g, g]}, prediction.guest_prediction), {include_blank: prediction.host.name, class: 'chzn-select' }
+          = select_tag id="prediction[#{prediction.id}][guest]" , options_for_select((1..8).map {|g| [g, g]}, prediction.guest_prediction), {include_blank: prediction.host.name}

@@ -8,19 +8,44 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require select2
  *= require_self
- *= require chosen.min
  *= require_tree .
  */
 
-.tab-content {overflow-y: hidden;}
-table.matches-predictions {
+ul.login-menu {
+  list-style: none;
+  margin: 0 0 2em;
+  padding: 0;
+}
 
+ul.login-menu li {
+  display: inline;
+}
+
+.tab-content {
+  overflow-y: hidden;
+}
+
+table.matches-predictions {
   form {
     margin: 0 0;
   }
 
-  .chzn-container {
+  select {
     width: 50px !important;
+    height: 25px;
+  }
+}
+
+table.standings-predictions{
+  td {
+    .standings-prediction-check{
+      display: none;
+    }
+
+    &:hover .standings-prediction-check{
+      display : block;
+    }
   }
 }

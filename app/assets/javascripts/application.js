@@ -13,15 +13,19 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require chosen.jquery.min
+//= require select2
+//= require angular
+//= require_directory ./angular
+//= require_directory ./angular/services
+//= require_directory ./angular/controllers
 
 $(document).ready(function() {
   $('a[rel=popover]').popover();
   $('.tooltip').tooltip();
   $('a[rel=tooltip]').tooltip();
-  $('.matches-predictions .chzn-select').chosen({disable_search: true});
+  // $('.matches-predictions .chzn-select').chosen({disable_search: true});
 
-  $('.chzn-select').on('change', function() {
+  $('.matches-predictions select').on('change', function() {
       var $form =  $(this).closest('form');
       $form.submit();
       // var method = $form.attr('method') ? $form.attr('method').toUpperCase() : 'POST';
