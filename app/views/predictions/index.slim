@@ -1,13 +1,13 @@
-.tabbavle
+.tabbable
   ul.nav.nav-tabs
     li.active
       a[href="#groups" data-toggle='tab'] Group Phase
     li
       a[href="#eliminations" data-toggle='tab'] Eliminations
-  .tab-content.span14[style='width:100%']
-    .span3
+  .tab-content
     .tab-pane.active#groups
       .tabbable
+        hr
         ul.nav.nav-pills
           - @groups.each do |group|
             - if group.name == 'A'
@@ -16,50 +16,19 @@
             - else
               li
                 a[href="#group#{group.name}" data-toggle='tab'] = group.name
-        .tab-content.span5
+        hr
+        .tab-content
           - @groups.each do |group|
             - if group.name == 'A'
               .tab-pane.active[id="group#{group.name}"]
-                .span5
                   = render 'predictions/group_predictions', group_predictions: @group_predictions[group.id]
-                .span3
                   = render 'predictions/group_standings', group_standings: @group_standings[group.id]
             - else
               .tab-pane[id="group#{group.name}"]
-                .span5
                   = render 'predictions/group_predictions', group_predictions: @group_predictions[group.id]
-                .span3
                   = render 'predictions/group_standings', group_standings: @group_standings[group.id] || []
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-    .span4
-
-  .tab-pane#eliminations
-
-          / = form_tag ('/predict') do
-          /   table[border="1"]
-          /     tr
-          /       th Code
-          /       th Kick-off
-          /       th Match
-          /       th Host Score
-          /       th Guest Score
-          /       th Sign
-          /     - @upcoming_matches.each do |match|
-          /       tr
-          /         td = match.code
-          /         td = l match.start_at, format: :short
-          /         td = match.name
-          /         td = text_field_tag "prediction[#{match.id}][host_result]", match.host_prediction
-          /         td = text_field_tag "prediction[#{match.id}][guest_result]", match.guest_prediction
-          /         td = select_tag id="prediction[#{match.id}][sign_select]" , options_for_select([['', nil],['1', 1], ['X', 'X'], ['2', 2]], match.sign_prediction)
-          /   = submit_tag 'Predict!', :class=> 'signup'
+    .tab-pane#eliminations
+      | Coming soon...
 
 
 

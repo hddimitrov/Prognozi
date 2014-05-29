@@ -1,0 +1,62 @@
+.well[style='width:400px !important;']
+  ul.nav.nav-tabs
+    li
+      a data-toggle="tab" href="#login"  Login
+    li.active
+      a data-toggle="tab" href="#create"  Create Account
+  #myTabContent.tab-content
+    #login.tab-pane.fade
+      = form_for(resource, as: resource_name, url: new_session_path(resource_name), class: 'form-horizontal', style: 'width:300px !important;') do |f|
+        fieldset
+          #legend
+            legend Login
+
+            = devise_error_messages!
+
+          .control-group
+            /! Username
+            label.control-label for="email"  Email
+            .controls
+              input#email.input-xlarge[name="user[email]" type="text"]
+          .control-group
+            /! Password
+            label.control-label for="password"  Password
+            .controls
+              input#password.input-xlarge[name="user[password]" type="password"]
+          br
+          .control-group
+            /! Button
+            .controls
+              button.btn.btn-success Login
+    #create.tab-pane.active.in
+      = form_for(resource, as: resource_name, url: new_registration_path(resource_name), class: 'form-horizontal', style: 'width:300px !important;') do |f|
+
+        fieldset
+          #legend
+            legend Create Account
+
+          = devise_error_messages!
+
+          label Name
+          br
+          input.input-xlarge[name="user[name]" type="text"]
+          br
+          label Referal Name(Who gave you the site link?)
+          br
+          input.input-xlarge[name="user[referer_name]" type="text"]
+          br
+          label Email
+          br
+          input.input-xlarge[name="user[email]" type="text"]
+          br
+          label Password
+          br
+          input.input-xlarge[name="user[password]" type="password"]
+          br
+          label Confirm Password
+          br
+          input.input-xlarge[name="user[password_confirmation]" type="password"]
+          br
+          br
+          button.btn.btn-primary Create Account
+

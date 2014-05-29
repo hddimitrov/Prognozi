@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140526170115) do
+ActiveRecord::Schema.define(:version => 20140529170115) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -194,6 +194,9 @@ ActiveRecord::Schema.define(:version => 20140526170115) do
 # Could not dump table "sqlite_stat3" because of following StandardError
 #   Unknown type '' for column 'tbl'
 
+# Could not dump table "sqlite_stat4" because of following StandardError
+#   Unknown type '' for column 'tbl'
+
   create_table "sqlite_vs_links_names", :id => false, :force => true do |t|
     t.text "name"
     t.text "alias"
@@ -236,6 +239,8 @@ ActiveRecord::Schema.define(:version => 20140526170115) do
     t.datetime "remember_created_at"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "name"
+    t.string   "referer_name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

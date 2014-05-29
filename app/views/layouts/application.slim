@@ -18,20 +18,24 @@ html xmlns:og='http://ogp.me/ns#'
     = csrf_meta_tags
 
   body[ng-app='pro']
-    .page-container
-      .header
         .container
           .row
             h1 = current_tournament.name
+            span.pull-right
+              - if user_signed_in?
+                = current_user.name
+                br
+                | 0
+                br
+                = link_to('Logout', destroy_user_session_path, :method => :delete)
+
+        .container
           .row
-            ul.login-menu
-              = render 'devise/registration_items'
-              = render 'devise/login_items'
-      .main-content.span14
-        - if notice.present?
-          p.alert.alert-succes
-            = notice
-        - if alert.present?
-          p.alert.alert-error
-            = alert
-        = yield
+            .main-content.span4
+              - if notice.present?
+                p.alert.alert-succes
+                  = notice
+              - if alert.present?
+                p.alert.alert-error
+                  = alert
+              = yield
