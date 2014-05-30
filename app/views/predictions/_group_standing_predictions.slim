@@ -10,6 +10,6 @@
         td
           = standing.team.name
         td
-          = radio_button_tag :winner, standing.team.id, standing.pos_prediction.equal?(1)
+          = radio_button_tag :winner, standing.team.id, standing.pos_prediction.equal?(1), 'ng-click'=>"set_group_winner('#{group.name}', #{standing.team.id}, '#{standing.team.name}')"
         td
-          = radio_button_tag :runner_up, standing.team.id, standing.pos_prediction.equal?(2)
+          = radio_button_tag :runner_up, standing.team.id, standing.pos_prediction.equal?(2), 'ng-click'=>"set_group_runner_up('#{group.name}', #{standing.team.id}, '#{standing.team.name}')"

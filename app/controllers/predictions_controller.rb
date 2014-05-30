@@ -43,4 +43,23 @@ class PredictionsController < ApplicationController
     end
     render nothing: true
   end
+
+  def last16
+    teams = {winners: {}, runners_up: {}}
+    current_user.group_standing_predictions
+    .joins("INNER JOIN groups ON group_standing_predictions.group_id = groups.id")
+    .joins("INNER JOIN teams ON group_standing_predictions.team_id = teams.id")
+    .where('groups.tournament_id' => current_tournament.id)
+    .select('groups.name group_name, teams.id team_id, teams.name team_name, position')
+    .find_each do |sp|
+      if sp.position == 1
+        teams[:winners][sp.group_name] = {id: sp.team_id, name: sp.team_name}
+      end
+      if
+        teams[:runners_up][sp.group_name] = {id: sp.team_id, name: sp.team_name}
+      end
+    end
+
+    render json: teams
+  end
 end

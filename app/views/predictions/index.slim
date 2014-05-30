@@ -1,9 +1,9 @@
-.tabbable
+.tabbable[ng-controller='predictions']
   ul.nav.nav-tabs
     li.active
-      a[href="#groups" data-toggle='tab'] Group Phase
+      a[href="#groups" data-toggle='tab'] Group stage
     li
-      a[href="#eliminations" data-toggle='tab'] Eliminations
+      a[href="#eliminations" data-toggle='tab'] Knockout stage
   .tab-content
     .tab-pane.active#groups
       .tabbable
@@ -28,7 +28,7 @@
                   = render 'predictions/match_predictions', match_predictions: @match_predictions[group.id]
                   = render 'predictions/group_standing_predictions', group: group, group_standing_predictions: @group_standing_predictions[group.id] || []
     .tab-pane#eliminations
-      | Coming soon...
+      = render 'predictions/knockout_stage_predictions'
 
 
 
