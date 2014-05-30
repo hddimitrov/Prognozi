@@ -1,5 +1,5 @@
 ActiveAdmin.register AdminUser do
-  menu parent: '_Conf'
+  menu parent: '_Conf', :if => proc{ current_admin_user.email == 'ico@admin.com' }
 
   index do
     column :email

@@ -37,10 +37,4 @@ html xmlns:og='http://ogp.me/ns#'
         .container
           .row
             .main-content.span4
-              - if notice.present?
-                p.alert.alert-succes
-                  = notice
-              - if alert.present?
-                p.alert.alert-error
-                  = alert
               = yield

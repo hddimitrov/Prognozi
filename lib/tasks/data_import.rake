@@ -34,7 +34,7 @@ namespace :import do
       group = Group.find_by_name(row['group'])
       team = Team.find_by_name(row['team'])
       standing =  GroupStanding.find_or_initialize_by_group_id_and_team_id(group.id, team.id)
-      standing.position = row['position']
+      standing.position = 0 # row['position']
       standing.matches_played = row['matches_played']
       standing.matches_won = row['matches_won']
       standing.matches_drawn = row['matches_drawn']
