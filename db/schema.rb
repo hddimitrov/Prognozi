@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140529170115) do
+ActiveRecord::Schema.define(:version => 20140530003509) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -115,15 +115,6 @@ ActiveRecord::Schema.define(:version => 20140529170115) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "invitations", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "room_id"
-    t.string   "uid"
-    t.string   "status"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "match_predictions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "match_id"
@@ -154,7 +145,6 @@ ActiveRecord::Schema.define(:version => 20140529170115) do
 
   create_table "prediction_points", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "room_id"
     t.string   "prediction_type"
     t.integer  "prediction_id"
     t.float    "points"
@@ -162,8 +152,8 @@ ActiveRecord::Schema.define(:version => 20140529170115) do
     t.datetime "updated_at",      :null => false
   end
 
-  add_index "prediction_points", ["user_id", "room_id"], :name => "index_prediction_points_on_user_id_and_room_id"
   add_index "prediction_points", ["user_id"], :name => "index_prediction_points_on_user_id"
+  add_index "prediction_points", ["user_id"], :name => "index_prediction_points_on_user_id_and_room_id"
 
   create_table "rooms", :force => true do |t|
     t.string   "name"
@@ -226,21 +216,22 @@ ActiveRecord::Schema.define(:version => 20140529170115) do
   create_table "user_rooms", :force => true do |t|
     t.integer  "room_id"
     t.integer  "user_id"
-    t.float    "points",     :default => 0.0
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                    :default => "",  :null => false
+    t.string   "encrypted_password",       :default => "",  :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "name"
     t.string   "referer_name"
+    t.float    "group_phase_points",       :default => 0.0
+    t.float    "elimination_phase_points", :default => 0.0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

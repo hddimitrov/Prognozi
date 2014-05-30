@@ -36,25 +36,22 @@ class Match < ActiveRecord::Base
           self.update_column(:sign, ssign)
 
           self.match_predictions.each do |prediction|
-            prediction.user.user_rooms.each do |user_room|
-              room = user_room.room
-              points = 0
+            points = 0
 
-              #Check for score predicition
-              if(self.host_score == prediction.host_score and self.guest_score == prediction.guest_score)
-                points += room.m_score_points
-                # prediction.points += rules.exact_result
-              end
-
-              #Check for sign prediction
-              if(self.sign == prediction.sign)
-                points += room.m_sign_points
-              end
-
-              pp = PredictionPoint.find_or_initialize_by_user_id_and_room_id_and_prediction_type_and_prediction_id(user_room.user_id, user_room.room_id, 'MatchPrediction', prediction.id)
-              pp.points = points
-              pp.save
+            #Check for score predicition
+            if(self.host_score == prediction.host_score and self.guest_score == prediction.guest_score)
+              points += $point_rules.m_score_points
+              # prediction.points += rules.exact_result
             end
+
+            #Check for sign prediction
+            if(self.sign == prediction.sign)
+              points += $point_rules.m_sign_points
+            end
+
+            pp = PredictionPoint.find_or_initialize_by_user_id_and_prediction_type_and_prediction_id(prediction.user_id, 'MatchPrediction', prediction.id)
+            pp.points = points
+            pp.save
           end
         else
           self.update_column(:sign, nil)

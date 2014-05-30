@@ -1,4 +1,4 @@
-class EliminationPhasePrediction < ActiveRecord::Base
+class EliminationPrediction < ActiveRecord::Base
   attr_accessible :user_id, :elimination_id, :team_id
 
   belongs_to :user

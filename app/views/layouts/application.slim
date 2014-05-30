@@ -21,11 +21,16 @@ html xmlns:og='http://ogp.me/ns#'
         .container
           .row
             h1 = current_tournament.name
-            span.pull-right
+            p.pull-right
               - if user_signed_in?
-                = current_user.name
+                span
+                  = current_user.name
                 br
-                | 0
+                span
+                  | Group Phase Points: #{current_user.group_phase_points}
+                br
+                span
+                  | Elimination Phase Points: #{current_user.elimination_phase_points}
                 br
                 = link_to('Logout', destroy_user_session_path, :method => :delete)
 

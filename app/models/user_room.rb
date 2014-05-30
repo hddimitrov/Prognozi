@@ -1,5 +1,5 @@
 class UserRoom < ActiveRecord::Base
-  attr_accessible :room_id, :user_id, :points
+  attr_accessible :room_id, :user_id
 
   belongs_to :room
   belongs_to :user
