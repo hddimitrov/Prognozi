@@ -1,5 +1,5 @@
 ActiveAdmin.register Match do
-  menu :parent => 'Results'
+  menu parent: 'Results', priority: 1
 
   filter :phase_type, as: :select, collection: [['Group', 'Group'], ['Elimination', 'Elimination']]
   # filter :phase_id

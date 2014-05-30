@@ -1,3 +1,3 @@
 ActiveAdmin.register Elimination do
-  menu :parent => "Tournaments"
+  menu :parent => "_Conf"
 end

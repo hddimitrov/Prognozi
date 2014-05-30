@@ -1,5 +1,5 @@
 ActiveAdmin.register GroupStanding do
-  menu :parent => 'Results'
+  menu parent: 'Results', priority: 2
 
   filter :group
 

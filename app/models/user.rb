@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :prediction_points, dependent: :delete_all
   has_many :match_predictions, dependent: :delete_all
   has_many :group_standing_predictions, dependent: :delete_all
-  has_many :elimination_phase_predictions, dependent: :delete_all
+  has_many :elimination_predictions, dependent: :delete_all
 
   has_many :prediction_points, dependent: :delete_all
 

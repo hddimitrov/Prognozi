@@ -1,21 +1,7 @@
-AdminUser.find_or_initialize_by_email(email: 'admin@example.com', password: 'password', password_confirmation: 'password').save!
-me = User.find_or_initialize_by_email(name: 'Christo', email: 'hristodd@gmail.com', provider: 'facebook', uid: '587741082', oauth_token: 'CAAFpWEV47lYBAEQRykvY6SZAA932ZBMN7ClZB92v1mrSSBqSy9wA2tTorEAVJVrrkXACr85jiJXyleQO0Ir18YZAEqnqLvfpe2uQMGeek7ECTee1ZAl5cPf2aeXo5D0dZCcxQNTlWljdNTsYuEiLrOmLLyKsjl1LQsPgSZBOdIgPP8dXLh2ggBR', oauth_expires_at: '2014-12-31')
-me.save
+AdminUser.find_or_initialize_by_email(email: 'ico@admin.com', password: 'password', password_confirmation: 'password').save!
+AdminUser.find_or_initialize_by_email(email: 'ivan@admin.com', password: 'password', password_confirmation: 'password').save!
 
 world_cup_2014 = Tournament.find_or_create_by_name(name: '2014 FIFA World Cup', start_at: '2014-06-12 00:00:00')
-world_room = Room.find_or_create_by_name(name: 'World Room', tournament_id: world_cup_2014.id, q_public: true)
-world_room.m_score_points = 4
-world_room.m_sign_points = 1
-world_room.gs_position_1_points = 4
-world_room.e_ef_points = 3
-world_room.e_qf_points = 6
-world_room.e_sf_points = 11
-world_room.e_l_points = 13
-world_room.e_f_points = 16
-world_room.e_c_points = 20
-world_room.save
-
-UserRoom.find_or_create_by_user_id_and_room_id(me.id, world_room.id)
 
 groupA = Group.find_or_create_by_name('A', tournament_id: world_cup_2014.id)
 groupB = Group.find_or_create_by_name('B', tournament_id: world_cup_2014.id)
