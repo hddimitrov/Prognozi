@@ -3,14 +3,14 @@ class PredictionsController < ApplicationController
 
   def index
     @groups = Group.where(tournament_id: current_tournament.id)
-    @group_predictions = Match.includes(:host).includes(:guest)
+    @match_predictions = Match.includes(:host).includes(:guest)
                               .joins("LEFT OUTER JOIN match_predictions ON match_predictions.match_id = matches.id AND match_predictions.user_id = #{current_user.id}")
                               .where(phase_type: 'Group')
                               .select("match_predictions.host_score host_prediction, match_predictions.guest_score guest_prediction, match_predictions.sign sign_prediction, matches.*")
                               .to_a.group_by(&:phase_id)
 
-    @group_standings = GroupStanding.joins(:group).includes(:team).where('groups.tournament_id' => current_tournament.id)
-                                    .joins("LEFT OUTER JOIN group_standing_predictions ON group_standing_predictions.group_id = group_standings.id AND group_standing_predictions.team_id = group_standings.team_id and group_standing_predictions.user_id = #{current_user.id}")
+    @group_standing_predictions = GroupStanding.joins(:group).includes(:team).where('groups.tournament_id' => current_tournament.id)
+                                    .joins("LEFT OUTER JOIN group_standing_predictions ON group_standing_predictions.group_id = group_standings.group_id AND group_standing_predictions.team_id = group_standings.team_id and group_standing_predictions.user_id = #{current_user.id}")
                                     .select("group_standing_predictions.position pos_prediction, group_standings.*")
                                     .order('group_standings.position')
                                     .to_a.group_by(&:group_id)
@@ -30,31 +30,11 @@ class PredictionsController < ApplicationController
   end
 
   def group
-    if params[:prediction].present?
-      params[:prediction].each do |match, prog|
-        pred = GroupStandingPrediction.find_or_create_by_group_id_position_id_and_user_id(group, prog[:position], current_user.id)
-        pred.position = prog[:position]
-        pred.save
-      end
+    if params[:group_id].present?
+      GroupStandingPrediction.where(group_id: params[:group_id], user_id: current_user.id).delete_all
+      GroupStandingPrediction.create(group_id: params[:group_id], user_id: current_user.id, position: 1, team_id: params[:winner])
+      GroupStandingPrediction.create(group_id: params[:group_id], user_id: current_user.id, position: 2, team_id: params[:runner_up])
     end
     render nothing: true
   end
 end
-
-# Rails server cmd log
-
-# "prediction"=>
-#   {
-#     "1"=>{"host_result"=>"host1", "guest_result"=>"guest1", "sign_select"=>"1"},
-#     "2"=>{"host_result"=>"host2", "guest_result"=>"guest2", "sign_select"=>"x"},
-#     "3"=>{"host_result"=>"host3", "guest_result"=>"guest3", "sign_select"=>"2"}
-#   },
-
-# params[:prediction].each |k, v| do
-#   score = ScorePrediction.new
-#   score.user_id = current_user.id
-#   score.match_id = k
-#   score.host_sore = v[:host_result]
-#   score.guest_result = v[:guest_result]
-#   score.sign_select = v[:sign_select]
-# end

@@ -37,4 +37,26 @@ $(document).ready(function() {
       //     }
       // });
   });
+
+  $('.standings-predictions input[type=radio]').click(function() {
+      form = $(this).closest('form')
+      position = $(this).attr('name');
+      team = $(this).val();
+
+      if(position == 'winner') {
+        runner_up = form.find("input[name='runner_up']:checked");
+        if(team == runner_up.val()){
+          runner_up.removeAttr('checked')
+        }
+      }
+
+      if(position == 'runner_up') {
+        winner = form.find("input[name='winner']:checked");
+        if(team == winner.val()){
+          winner.removeAttr('checked')
+        }
+      }
+
+      form.submit();
+  });
 });

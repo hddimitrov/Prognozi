@@ -4,7 +4,7 @@ table.table-standard.table.table-bordered.table-striped.table-condensed.matches-
     th Match
     th Result
     th Correct Score
-  - group_predictions.each do |prediction|
+  - match_predictions.each do |prediction|
     tr
       td = l prediction.start_at, format: :short
       td = prediction.name

@@ -1,0 +1,15 @@
+= form_tag group_prediction_path, remote: true, method: :post
+  input[type='hidden' name="group_id" value="#{group.id}"]
+  table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions
+    tr
+      th Team
+      th Winner
+      th Runner-up
+    - group_standing_predictions.each do |standing|
+      tr
+        td
+          = standing.team.name
+        td
+          = radio_button_tag :winner, standing.team.id, standing.pos_prediction.equal?(1)
+        td
+          = radio_button_tag :runner_up, standing.team.id, standing.pos_prediction.equal?(2)
