@@ -7,12 +7,12 @@ ActiveAdmin.register GroupStanding do
     column :group
     column :team
     column :position
+    column :points
     column :matches_played
     column :matches_won
     column :matches_drawn
     column :matches_lost
     column :goal_difference
-    column :points
 
     default_actions
   end
