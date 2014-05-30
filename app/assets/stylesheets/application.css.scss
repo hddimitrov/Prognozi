@@ -78,19 +78,19 @@ html, body, .brackets {
   position: absolute;
   top: 25%;
   left: 25%;
-  font-size: 0.8em;
+  font-size: 1.0em;
   color: #BBB;
 }
 .brackets div.bracketbox > span {
   position: absolute;
-  left: 5px;
-  font-size: 0.85em;
+  left: 50px;
+  font-size: 1.45em;
 }
 .brackets div.bracketbox > span.teama {
-  top: -20px;
+  top: -28px;
 }
 .brackets div.bracketbox > span.teamb {
-  bottom: 1px;
+  bottom: -3px;
 }
 .brackets div.bracketbox > span.teamc {
   bottom: 1px;
