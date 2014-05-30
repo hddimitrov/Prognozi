@@ -1,5 +1,6 @@
 ActiveAdmin.register Match do
   menu parent: 'Results', priority: 1
+  actions :all, except: [:destroy]
 
   filter :phase_type, as: :select, collection: [['Group', 'Group'], ['Elimination', 'Elimination']]
   # filter :phase_id

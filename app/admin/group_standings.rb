@@ -1,5 +1,6 @@
 ActiveAdmin.register GroupStanding do
   menu parent: 'Results', priority: 2
+  actions :all, except: [:destroy]
 
   filter :group
 
