@@ -1,4 +1,4 @@
-angular.module('pro', ['pro.directives', 'prediction_services'])
+angular.module('pro', ['pro.filters', 'prediction_services'])
 
 angular.module('pro').config(['$locationProvider', function(lProvider) {
   lProvider.html5Mode(false);

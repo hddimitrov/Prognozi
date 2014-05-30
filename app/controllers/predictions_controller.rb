@@ -45,7 +45,7 @@ class PredictionsController < ApplicationController
   end
 
   def load_knockout_stage
-    teams = {winners: {}, runners_up: {}, eliminations: {qf:[], sf:[], f:[], c: nil}}
+    teams = {last_16: {winners: {}, runners_up: {}}, eliminations: {qf:[], sf:[], f:[], c: []}}
     current_user.group_standing_predictions
       .joins("INNER JOIN groups ON group_standing_predictions.group_id = groups.id")
       .joins("INNER JOIN teams ON group_standing_predictions.team_id = teams.id")
@@ -53,10 +53,10 @@ class PredictionsController < ApplicationController
       .select('groups.name group_name, teams.id team_id, teams.name team_name, position')
     .find_each do |sp|
       if sp.position == 1
-        teams[:winners][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
+        teams[:last_16][:winners][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
       end
       if
-        teams[:runners_up][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
+        teams[:last_16][:runners_up][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
       end
     end
 
@@ -67,7 +67,7 @@ class PredictionsController < ApplicationController
       teams[:eliminations][:qf] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'qf'
       teams[:eliminations][:sf] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'sf'
       teams[:eliminations][:f] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'f'
-      teams[:eliminations][:c] = {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'c'
+      teams[:eliminations][:c] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'c'
     end
 
     render json: teams
