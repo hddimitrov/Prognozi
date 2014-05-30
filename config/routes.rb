@@ -11,7 +11,8 @@ Prognozi::Application.routes.draw do
   match '/match_prediction' => 'predictions#match',  via: :post
   match '/group_prediction' => 'predictions#group',  via: :post
 
-  match '/knockout/last16' => 'predictions#last16',  via: :get
+  match '/load_knockout_stage' => 'predictions#load_knockout_stage',  via: :get
+  match '/save_knockout_stage' => 'predictions#save_knockout_stage',  via: :post
 
   # match '/decline_invitation'           => 'rooms#room_inv_decline',   via: :post
   # match '/accept_invitation'            => 'rooms#room_inv_accept',    via: :post
