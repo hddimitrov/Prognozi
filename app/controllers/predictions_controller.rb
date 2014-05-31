@@ -32,14 +32,18 @@ class PredictionsController < ApplicationController
   def group
     if params[:group_id].present?
       GroupStandingPrediction.where(group_id: params[:group_id], user_id: current_user.id).delete_all
-      GroupStandingPrediction.create(group_id: params[:group_id], user_id: current_user.id, position: 1, team_id: params[:winner])
-      GroupStandingPrediction.create(group_id: params[:group_id], user_id: current_user.id, position: 2, team_id: params[:runner_up])
-
       group_teams = GroupStanding.where(group_id: params[:group_id]).pluck(:team_id)
       ef = Elimination.find_by_code('ef')
       EliminationPrediction.where(user_id: current_user.id, elimination_id: ef.id, team_id: group_teams).delete_all
-      EliminationPrediction.create(user_id: current_user.id, elimination_id: ef.id, team_id: params[:winner])
-      EliminationPrediction.create(user_id: current_user.id, elimination_id: ef.id, team_id: params[:runner_up])
+
+      if params[:winner].present?
+        GroupStandingPrediction.create(group_id: params[:group_id], user_id: current_user.id, position: 1, team_id: params[:winner])
+        EliminationPrediction.create(user_id: current_user.id, elimination_id: ef.id, team_id: params[:winner])
+      end
+      if params[:runner_up].present?
+        EliminationPrediction.create(user_id: current_user.id, elimination_id: ef.id, team_id: params[:runner_up])
+        GroupStandingPrediction.create(group_id: params[:group_id], user_id: current_user.id, position: 2, team_id: params[:runner_up])
+      end
     end
     render nothing: true
   end
