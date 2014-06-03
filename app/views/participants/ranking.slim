@@ -5,6 +5,7 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
     th Total Points
     th Group Stage Points
     th Knockout Stage Points
+    th Predictions *
   - @participants.each_with_index do |user, idx|
     tr
       td = idx + 1
@@ -12,3 +13,6 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
       td = user.group_phase_points + user.elimination_phase_points
       td = user.group_phase_points
       td = user.elimination_phase_points
+      td
+        a[href='javascript:void(0);'] View
+| * Predictions made by all participants will be provided after the start of the tournament.
