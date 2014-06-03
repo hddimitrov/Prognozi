@@ -1,4 +1,5 @@
 angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictionServices', function($scope, $filter, predictionServices) {
+  $scope.groups = {};
   $scope.last_16 = {};
   $scope.eliminations = {};
   $scope.quarter_f = {};
@@ -6,13 +7,102 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
   $scope.finalists = {};
   $scope.champion = {};
 
- predictionServices.loadKnockoutStage().then(function(response){
+  $scope.current_group = 'A';
+
+  $scope.predictMatch = function(match){
+    prediction = {};
+    prediction[match.id] = {host: match.host_prediction, guest: match.guest_prediction};
+    predictionServices.predictMatch(prediction);
+    $scope.calculateGroupStandings($scope.current_group);
+  };
+
+  $scope.calculateGroupStandings = function(group_name){
+    angular.forEach($scope.groups[group_name].teams, function(team, key) {
+      team.points = 0;
+      team.matches_played = 0;
+      team.matches_won = 0;
+      team.matches_drawn = 0;
+      team.matches_lost = 0;
+      team.goals_for = 0;
+      team.goals_against = 0;
+      team.goal_difference = 0;
+    });
+
+    angular.forEach($scope.groups[group_name].matches, function(match, key) {
+      if(match.host_prediction !== null && match.guest_prediction !== null){
+        host = $filter('getByProperty')('name', match.host_team, $scope.groups[group_name].teams);
+        guest = $filter('getByProperty')('name', match.guest_team, $scope.groups[group_name].teams);
+
+        if(host.name == match.host_team){
+          host.matches_played += 1;
+          host.goals_for += match.host_prediction;
+          host.goals_against += match.guest_prediction;
+          host.goal_difference += match.host_prediction;
+          host.goal_difference -= match.guest_prediction;
+        }
+        if(guest.name == match.guest_team){
+          guest.matches_played += 1;
+          guest.goals_for += match.guest_prediction;
+          guest.goals_against += match.host_prediction;
+          guest.goal_difference += match.guest_prediction;
+          guest.goal_difference -= match.host_prediction;
+        }
+        if(match.host_prediction == match.guest_prediction){
+          host.points += 1;
+          host.matches_drawn += 1;
+          guest.points += 1;
+          guest.matches_drawn += 1;
+        }
+        if(match.host_prediction > match.guest_prediction){
+          host.points += 3;
+          host.matches_won += 1;
+          guest.matches_lost += 1;
+        }
+        if(match.host_prediction < match.guest_prediction){
+          host.matches_lost += 1;
+          guest.points += 3;
+          guest.matches_won += 1;
+        }
+      }
+    });
+  };
+
+  predictionServices.loadGroupStage().then(function(response){
+    $scope.groups = response;
+    $scope.calculateGroupStandings($scope.current_group);
+  });
+
+  predictionServices.loadKnockoutStage().then(function(response){
     $scope.last_16 = response.last_16;
     $scope.eliminations = response.eliminations;
     $scope.populateKnockoutStage();
   });
 
+  $scope.calculateQualifiedTeams = function(){
+    var group_standings = {};
+    angular.forEach($scope.groups, function(value, group_name){
+      $scope.calculateGroupStandings(group_name);
+      standings = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for'])
+      winner = standings[0];
+      runner_up = standings[1];
+      third = standings[2];
+      last = standings[3];
+      group_standings[group_name] = {winner: winner.id, runner_up: runner_up.id, third: third.id, last: last.id};
+
+      $scope.last_16.winners[group_name] = {team_id: winner.id, team_name: winner.name};
+      $scope.last_16.runners_up[group_name] = {team_id: runner_up.id, team_name: runner_up.name};
+    });
+
+    predictionServices.saveGroupStage(group_standings).then(function(response){
+      $scope.populateKnockoutStage();
+    });
+  }
+
   $scope.populateKnockoutStage = function(){
+    $scope.quarter_f = {};
+    $scope.semi_f = {};
+    $scope.finalists = {};
+    $scope.champion = {};
     angular.forEach($scope.last_16.winners, function(value, key) {
       if(angular.isDefined(value.team_id) && $filter('getByProperty')('team_id', value.team_id, $scope.eliminations.qf) !== null){
         if(key == 'A'){
@@ -104,14 +194,6 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
         $scope.champion = value;
       }
     });
-  };
-
-  $scope.set_group_winner = function(group, team_id, team_name) {
-    $scope.last_16.winners[group] = {team_id: team_id, team_name: team_name};
-  };
-
-  $scope.set_group_runner_up = function(group, team_id, team_name) {
-    $scope.last_16.runners_up[group] = {team_id: team_id, team_name: team_name};
   };
 
   $scope.go_through_qf = function(ef, team_id, team_name) {

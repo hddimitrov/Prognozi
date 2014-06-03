@@ -1,19 +1,12 @@
 class PredictionsController < ApplicationController
   before_filter :authenticate_user!
 
+  def dev
+    @groups = Group.where(tournament_id: current_tournament.id)
+  end
+
   def index
     @groups = Group.where(tournament_id: current_tournament.id)
-    @match_predictions = Match.includes(:host).includes(:guest)
-                              .joins("LEFT OUTER JOIN match_predictions ON match_predictions.match_id = matches.id AND match_predictions.user_id = #{current_user.id}")
-                              .where(phase_type: 'Group')
-                              .select("match_predictions.host_score host_prediction, match_predictions.guest_score guest_prediction, match_predictions.sign sign_prediction, matches.*")
-                              .to_a.group_by(&:phase_id)
-
-    @group_standing_predictions = GroupStanding.joins(:group).includes(:team).where('groups.tournament_id' => current_tournament.id)
-                                    .joins("LEFT OUTER JOIN group_standing_predictions ON group_standing_predictions.group_id = group_standings.group_id AND group_standing_predictions.team_id = group_standings.team_id and group_standing_predictions.user_id = #{current_user.id}")
-                                    .select("group_standing_predictions.position pos_prediction, group_standings.*")
-                                    .order('group_standings.position')
-                                    .to_a.group_by(&:group_id)
   end
 
   def match
@@ -30,22 +23,48 @@ class PredictionsController < ApplicationController
   end
 
   def group
-    if params[:group_id].present?
-      GroupStandingPrediction.where(group_id: params[:group_id], user_id: current_user.id).delete_all
-      group_teams = GroupStanding.where(group_id: params[:group_id]).pluck(:team_id)
-      ef = Elimination.find_by_code('ef')
-      EliminationPrediction.where(user_id: current_user.id, elimination_id: ef.id, team_id: group_teams).delete_all
+    puts params[:prediction]
+    if params[:prediction].present?
+      params[:prediction].each do |group_code, standing|
+        group_id = Group.find_by_name(group_code).id
+        GroupStandingPrediction.where(group_id: group_id, user_id: current_user.id).delete_all
+        group_teams = GroupStanding.where(group_id: group_id).pluck(:team_id)
+        ef = Elimination.find_by_code('ef')
+        EliminationPrediction.where(user_id: current_user.id, elimination_id: ef.id, team_id: group_teams).delete_all
 
-      if params[:winner].present?
-        GroupStandingPrediction.create(group_id: params[:group_id], user_id: current_user.id, position: 1, team_id: params[:winner])
-        EliminationPrediction.create(user_id: current_user.id, elimination_id: ef.id, team_id: params[:winner])
-      end
-      if params[:runner_up].present?
-        EliminationPrediction.create(user_id: current_user.id, elimination_id: ef.id, team_id: params[:runner_up])
-        GroupStandingPrediction.create(group_id: params[:group_id], user_id: current_user.id, position: 2, team_id: params[:runner_up])
+        GroupStandingPrediction.create(group_id: group_id, user_id: current_user.id, position: 1, team_id: standing[:winner])
+        GroupStandingPrediction.create(group_id: group_id, user_id: current_user.id, position: 2, team_id: standing[:runner_up])
+        GroupStandingPrediction.create(group_id: group_id, user_id: current_user.id, position: 3, team_id: standing[:third])
+        GroupStandingPrediction.create(group_id: group_id, user_id: current_user.id, position: 4, team_id: standing[:last])
+
+        EliminationPrediction.create(user_id: current_user.id, elimination_id: ef.id, team_id: standing[:winner])
+        EliminationPrediction.create(user_id: current_user.id, elimination_id: ef.id, team_id: standing[:runner_up])
       end
     end
     render nothing: true
+  end
+
+  def load_group_stage
+    all_groups = Group.all
+    groups = {}
+    Match.joins("LEFT OUTER JOIN match_predictions ON match_predictions.match_id = matches.id AND match_predictions.user_id = #{current_user.id}")
+          .joins('INNER JOIN teams AS hosts ON hosts.id = matches.host_id')
+          .joins('INNER JOIN teams AS guests ON guests.id = matches.guest_id')
+          .where(phase_type: 'Group')
+          .select("match_predictions.host_score host_prediction, match_predictions.guest_score guest_prediction, hosts.name host_team, guests.name guest_team, matches.id, matches.start_at, matches.code, matches.phase_id")
+          .to_a.group_by(&:phase_id)
+    .each do |group_id, matches|
+      group_name = all_groups.detect{ |x| x.id == group_id}.name
+      groups[group_name] = {} if groups[group_name].blank?
+      groups[group_name][:matches] = matches
+    end
+
+    groups.each do |group_name, matches|
+      group_id = all_groups.detect{ |x| x.name == group_name}.id
+      groups[group_name][:teams] = Team.joins(:group_standing).where('group_standings.group_id' => group_id)
+    end
+
+    render json: groups
   end
 
   def load_knockout_stage
@@ -59,7 +78,7 @@ class PredictionsController < ApplicationController
       if sp.position == 1
         teams[:last_16][:winners][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
       end
-      if
+      if sp.position == 2
         teams[:last_16][:runners_up][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
       end
     end

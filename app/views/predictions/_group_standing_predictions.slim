@@ -1,15 +1,21 @@
-= form_tag group_prediction_path, remote: true, method: :post
-  input[type='hidden' name="group_id" value="#{group.id}"]
-  table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions
-    tr
-      th Team
-      th Winner
-      th Runner-up
-    - group_standing_predictions.each do |standing|
-      tr
-        td
-          = standing.team.name
-        td
-          = radio_button_tag :winner, standing.team.id, standing.pos_prediction.equal?(1), 'ng-click'=>"set_group_winner('#{group.name}', #{standing.team.id}, '#{standing.team.name}')"
-        td
-          = radio_button_tag :runner_up, standing.team.id, standing.pos_prediction.equal?(2), 'ng-click'=>"set_group_runner_up('#{group.name}', #{standing.team.id}, '#{standing.team.name}')"
+table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions[style='width:520px']
+  tr
+    th Team
+    th P
+    th W
+    th D
+    th L
+    th GF
+    th GA
+    th GD
+    th Pts
+    tr[ng-repeat="team in groups['#{group.name}'].teams | orderBy : ['-points', '-goal_difference', '-goals_for']"]
+      td[style='height:20px;width:200px'] {{team.name}}
+      td[style='height:20px;width:60px'] {{team.matches_played}}
+      td[style='height:20px;width:60px'] {{team.matches_won}}
+      td[style='height:20px;width:60px'] {{team.matches_drawn}}
+      td[style='height:20px;width:60px'] {{team.matches_lost}}
+      td[style='height:20px;width:60px'] {{team.goals_for}}
+      td[style='height:20px;width:60px'] {{team.goals_against}}
+      td[style='height:20px;width:60px'] {{team.goal_difference}}
+      td[style='height:20px;width:60px;'] {{team.points}}

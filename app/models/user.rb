@@ -19,4 +19,24 @@ class User < ActiveRecord::Base
 
   has_many :prediction_points, dependent: :delete_all
 
+  def nick
+    if name.present?
+      names_no_butterflies = name.gsub(/[^[:alpha:] .-]+/, '').split(' ')
+    end
+
+    nick = String.new
+    if name.blank?
+      nick = 'User'
+    else
+      names_no_butterflies = name.gsub(/[^[:alpha:] .-]+/, '').split(' ')
+
+      if names_no_butterflies.length > 1
+        nick = names_no_butterflies.first + ' ' + names_no_butterflies.last[0].capitalize + '.'
+      else
+        nick = names_no_butterflies.first
+      end
+    end
+
+    nick
+  end
 end

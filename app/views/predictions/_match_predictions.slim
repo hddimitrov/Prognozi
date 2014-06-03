@@ -1,18 +1,16 @@
-table.table-standard.table.table-bordered.table-striped.table-condensed.matches-predictions
+table.table-standard.table.table-bordered.table-striped.table-condensed.matches-predictions[style='width:520px']
   tr
     th Kick-off
-    th Match
-    th Result
-    th Correct Score
-  - match_predictions.each do |prediction|
-    tr
-      td = l prediction.start_at, format: :short
-      td = prediction.name
-      td
-        = form_tag match_prediction_path, remote: true, method: :post
-          = select_tag id="prediction[#{prediction.id}][sign]" , options_for_select([['1', '1'], ['X', 'X'], ['2', '2']], prediction.sign_prediction), {include_blank: true}
-      td[style='height:20px']
-        = form_tag match_prediction_path, remote: true, method: :post
-          = select_tag id="prediction[#{prediction.id}][host]", options_for_select((0..8).map {|g| [g, g]},  prediction.host_prediction), {include_blank: prediction.host.name}
-          | &nbsp;&nbsp;:&nbsp;&nbsp;
-          = select_tag id="prediction[#{prediction.id}][guest]" , options_for_select((0..8).map {|g| [g, g]}, prediction.guest_prediction), {include_blank: prediction.host.name}
+    th[style='text-align:right'] Host
+    th Predicted Score
+    th Guest
+    tr[ng-repeat="match in groups['#{group.name}'].matches"]
+      td[style='height:20px;width:100px'] {{ match.start_at | date : 'dd MMM HH:mm'}}
+      td[style='height:20px;width:120px;text-align:right'] {{ match.host_team}}
+      td[style='height:20px;width:120px']
+        select[ng-model="match.host_prediction" ng-options="item for item in #{(0..8).to_a}" ng-change="predictMatch(match)"]
+          option value="" &nbsp;
+        | &nbsp;&nbsp;:&nbsp;&nbsp;
+        select[ng-model="match.guest_prediction" ng-options="item for item in #{(0..8).to_a}" ng-change="predictMatch(match)"]
+          option value="" &nbsp;
+      td[style='height:20px;width:120px'] {{ match.guest_team}}

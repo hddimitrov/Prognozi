@@ -3,7 +3,7 @@
     li.active
       a[href="#groups" data-toggle='tab'] Group stage
     li
-      a[href="#eliminations" data-toggle='tab'] Knockout stage
+      a[href="#eliminations" data-toggle='tab' ng-click='populateKnockoutStage()'] Knockout stage
   .tab-content
     .tab-pane.active#groups
       .tabbable
@@ -12,21 +12,23 @@
           - @groups.each do |group|
             - if group.name == 'A'
               li.active
-                a[href="#group#{group.name}" data-toggle='tab'] = group.name
+                a[href="#group#{group.name}" data-toggle='tab' ng-click="current_group='#{group.name}';calculateGroupStandings('#{group.name}')"] = group.name
             - else
               li
-                a[href="#group#{group.name}" data-toggle='tab'] = group.name
+                a[href="#group#{group.name}" data-toggle='tab' ng-click="current_group='#{group.name}';calculateGroupStandings('#{group.name}')"] = group.name
         hr
         .tab-content
           - @groups.each do |group|
             - if group.name == 'A'
               .tab-pane.active[id="group#{group.name}"]
-                  = render 'predictions/match_predictions', match_predictions: @match_predictions[group.id]
-                  = render 'predictions/group_standing_predictions', group: group, group_standing_predictions: @group_standing_predictions[group.id]
+                  = render 'predictions/match_predictions', group: group
+                  = render 'predictions/group_standing_predictions', group: group
+                  button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
             - else
               .tab-pane[id="group#{group.name}"]
-                  = render 'predictions/match_predictions', match_predictions: @match_predictions[group.id]
-                  = render 'predictions/group_standing_predictions', group: group, group_standing_predictions: @group_standing_predictions[group.id] || []
+                  = render 'predictions/match_predictions', group: group
+                  = render 'predictions/group_standing_predictions', group: group
+                  button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
     .tab-pane#eliminations
       = render 'predictions/knockout_stage_predictions'
 

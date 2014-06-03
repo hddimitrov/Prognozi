@@ -21,21 +21,33 @@ html xmlns:og='http://ogp.me/ns#'
     header
       .container
         .row
-          h1 = current_tournament.name
+          h1.pull-left
+            img src="http://upload.wikimedia.org/wikipedia/en/thumb/e/e8/WC-2014-Brasil.svg/480px-WC-2014-Brasil.svg.png" width="80" height="100" alt="logo"
+            = current_tournament.name
+          / h3.pull-left Predictions deadline: #{l current_tournament.start_at, format: :short} EEST
           p.pull-right
             - if user_signed_in?
               span
                 = current_user.name
               br
               span
-                | Group Phase Points: #{current_user.group_phase_points}
+                | Group Stage Points: #{current_user.group_phase_points}
               br
               span
-                | Elimination Phase Points: #{current_user.elimination_phase_points}
+                | Knockout Stage Points: #{current_user.elimination_phase_points}
               br
               = link_to('Logout', destroy_user_session_path, :method => :delete)
 
     .container
+      .row
+        ul.nav.nav-pills
+          li.active
+            a[href="/predictions"] Predictions
+          li.active
+            a[href="/standings"] Participants
+          li.active
+            a[href="/rules"] Rules
+      br
       .row
         .main-content.span4
           = yield
