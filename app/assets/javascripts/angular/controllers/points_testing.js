@@ -11,8 +11,23 @@ angular.module('pro').controller('points_testing', ['$scope', '$filter', functio
   $scope.users[7] = {name: 'Ranko', signs: 20, scores: 6, gs_1s: 4, gs_2s: 5, gs_3s: 5, gs_4s: 3, efs: 9, qfs: 4, sfs: 3, fs: 1, cs: 1, tss: 0, points: 0}
   $scope.users[8] = {name: 'Kanko', signs: 15, scores: 6, gs_1s: 2, gs_2s: 6, gs_3s: 2, gs_4s: 3, efs: 15, qfs: 7, sfs: 3, fs: 2, cs: 0, tss: 0, points: 0}
   $scope.users[9] = {name: 'Lanko', signs: 10, scores: 6, gs_1s: 3, gs_2s: 8, gs_3s: 5, gs_4s: 3, efs: 14, qfs: 6, sfs: 2, fs: 2, cs: 1, tss: 0, points: 0}
+  $scope.ctrl_user = {};
 
   $scope.calculatePoints = function(){
+    $scope.ctrl_user.points = 0;
+    $scope.ctrl_user.points += ($scope.ctrl_user.signs || 0) * ($scope.points.sign || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.scores || 0) * ($scope.points.score || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.gs_1s || 0) * ($scope.points.gs_1 || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.gs_2s || 0) * ($scope.points.gs_2 || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.gs_3s || 0) * ($scope.points.gs_3 || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.gs_4s || 0) * ($scope.points.gs_4 || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.efs || 0) * ($scope.points.ef || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.qfs || 0) * ($scope.points.qf || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.sfs || 0) * ($scope.points.sf || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.fs || 0) * ($scope.points.f || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.cs || 0) * ($scope.points.c || 0)
+    $scope.ctrl_user.points += ($scope.ctrl_user.tss || 0) * ($scope.points.ts || 0)
+
     angular.forEach($scope.users, function(user, key) {
       user.points = 0;
       user.points += user.signs * ($scope.points.sign || 0)
@@ -28,6 +43,13 @@ angular.module('pro').controller('points_testing', ['$scope', '$filter', functio
       user.points += user.cs * ($scope.points.c || 0)
       user.points += user.tss * ($scope.points.ts || 0)
     });
+  }
+
+  $scope.add_ctrl_user = function(){
+    cu = $scope.ctrl_user;
+    new_user = {};
+    new_user = {name: cu.name, signs: cu.signs, scores: cu.scores, gs_1s: cu.gs_1s, gs_2s: cu.gs_2s, gs_3s: cu.gs_3s, gs_4s: cu.gs_4s, efs: cu.efs, qfs: cu.qfs, sfs: cu.sfs, fs: cu.fs, cs: cu.cs, tss: cu.tss, points: cu.points}
+    $scope.users[$scope.users.length] = new_user;
   }
 
   $scope.calculatePoints();

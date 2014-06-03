@@ -1,22 +1,7 @@
 div[ng-controller='points_testing']
   table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions[style='width:520px']
     tr
-      th name
-      th Signs
-      th Scores
-      th 1st
-      th 2nd
-      th 3d
-      th 4th
-      th 1/8
-      th 1/4
-      th 1/2
-      th F
-      th W
-      th TopScorer
-      th Pts
-    tr
-      td -
+      td Rules
       td
         input[type='text' ng-model='points.sign' ng-change='calculatePoints()' style='width:40px']
       td
@@ -42,20 +27,69 @@ div[ng-controller='points_testing']
       td
         input[type='text' ng-model='points.ts' ng-change='calculatePoints()' style='width:40px']
       td Pts
-      tr[ng-repeat="user in users | orderBy:'-points'"]
-        td[style='height:20px;width:200px'] {{user.name}}
-        td[style='height:20px;width:60px'] {{user.signs}}
-        td[style='height:20px;width:60px'] {{user.scores}}
-        td[style='height:20px;width:60px'] {{user.gs_1s}}
-        td[style='height:20px;width:60px'] {{user.gs_2s}}
-        td[style='height:20px;width:60px'] {{user.gs_3s}}
-        td[style='height:20px;width:60px'] {{user.gs_4s}}
-        td[style='height:20px;width:60px'] {{user.efs}}
-        td[style='height:20px;width:60px;'] {{user.qfs}}
-        td[style='height:20px;width:60px;'] {{user.sfs}}
-        td[style='height:20px;width:60px;'] {{user.fs}}
-        td[style='height:20px;width:60px;'] {{user.cs}}
-        td[style='height:20px;width:60px;'] {{user.tss}}
-        td[style='height:20px;width:60px;'] {{user.points}}
+      td
+    tr
+      th name
+      th Signs
+      th Scores
+      th 1st
+      th 2nd
+      th 3d
+      th 4th
+      th 1/8
+      th 1/4
+      th 1/2
+      th F
+      th W
+      th TopScorer
+      th Pts
+      th
+    tr[ng-repeat="user in users | orderBy:'-points'"]
+      td[style='height:20px;width:200px'] {{user.name}}
+      td[style='height:20px;width:60px'] {{user.signs}}
+      td[style='height:20px;width:60px'] {{user.scores}}
+      td[style='height:20px;width:60px'] {{user.gs_1s}}
+      td[style='height:20px;width:60px'] {{user.gs_2s}}
+      td[style='height:20px;width:60px'] {{user.gs_3s}}
+      td[style='height:20px;width:60px'] {{user.gs_4s}}
+      td[style='height:20px;width:60px'] {{user.efs}}
+      td[style='height:20px;width:60px;'] {{user.qfs}}
+      td[style='height:20px;width:60px;'] {{user.sfs}}
+      td[style='height:20px;width:60px;'] {{user.fs}}
+      td[style='height:20px;width:60px;'] {{user.cs}}
+      td[style='height:20px;width:60px;'] {{user.tss}}
+      td[style='height:20px;width:60px;'] {{user.points}}
+      td
+    tr
+      td
+        input[type='text' ng-model='ctrl_user.name' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.signs' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.scores' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.gs_1s' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.gs_2s' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.gs_3s' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.gs_4s' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.efs' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.qfs' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.sfs' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.fs' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.cs' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='ctrl_user.tss' ng-change='calculatePoints()' style='width:40px']
+      td
+        | {{ctrl_user.points}}
+      td
+        button.btn[ng-click='add_ctrl_user()'] Add
 
 
