@@ -34,6 +34,7 @@ Prognozi::Application.routes.draw do
   # match 'auth/failure', to: redirect('/')
 
   match '/dev'     => 'predictions#dev',   via: :get
+  match '/points'  => 'predictions#points',   via: :get
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

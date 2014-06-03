@@ -1,0 +1,61 @@
+div[ng-controller='points_testing']
+  table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions[style='width:520px']
+    tr
+      th name
+      th Signs
+      th Scores
+      th 1st
+      th 2nd
+      th 3d
+      th 4th
+      th 1/8
+      th 1/4
+      th 1/2
+      th F
+      th W
+      th TopScorer
+      th Pts
+    tr
+      td -
+      td
+        input[type='text' ng-model='points.sign' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.score' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.gs_1' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.gs_2' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.gs_3' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.gs_4' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.ef' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.qf' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.sf' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.f' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.c' ng-change='calculatePoints()' style='width:40px']
+      td
+        input[type='text' ng-model='points.ts' ng-change='calculatePoints()' style='width:40px']
+      td Pts
+      tr[ng-repeat="user in users | orderBy:'-points'"]
+        td[style='height:20px;width:200px'] {{user.name}}
+        td[style='height:20px;width:60px'] {{user.signs}}
+        td[style='height:20px;width:60px'] {{user.scores}}
+        td[style='height:20px;width:60px'] {{user.gs_1s}}
+        td[style='height:20px;width:60px'] {{user.gs_2s}}
+        td[style='height:20px;width:60px'] {{user.gs_3s}}
+        td[style='height:20px;width:60px'] {{user.gs_4s}}
+        td[style='height:20px;width:60px'] {{user.efs}}
+        td[style='height:20px;width:60px;'] {{user.qfs}}
+        td[style='height:20px;width:60px;'] {{user.sfs}}
+        td[style='height:20px;width:60px;'] {{user.fs}}
+        td[style='height:20px;width:60px;'] {{user.cs}}
+        td[style='height:20px;width:60px;'] {{user.tss}}
+        td[style='height:20px;width:60px;'] {{user.points}}
+
+
