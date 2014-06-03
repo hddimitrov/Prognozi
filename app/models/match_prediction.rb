@@ -3,7 +3,7 @@ class MatchPrediction < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :match
-  has_many :prediction_points, as: :prediction
+  has_one :prediction_points, as: :prediction
 
   after_save :calculate_sign
 

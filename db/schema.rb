@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140530003509) do
+ActiveRecord::Schema.define(:version => 20140603040437) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -173,12 +173,44 @@ ActiveRecord::Schema.define(:version => 20140530003509) do
     t.datetime "updated_at",                              :null => false
   end
 
+  create_table "sqlite_sp_functions", :id => false, :force => true do |t|
+    t.text "name"
+    t.text "text"
+  end
+
+# Could not dump table "sqlite_stat1" because of following StandardError
+#   Unknown type '' for column 'tbl'
+
+# Could not dump table "sqlite_stat4" because of following StandardError
+#   Unknown type '' for column 'tbl'
+
+  create_table "sqlite_vs_links_names", :id => false, :force => true do |t|
+    t.text "name"
+    t.text "alias"
+  end
+
+  create_table "sqlite_vs_properties", :id => false, :force => true do |t|
+    t.text "parentType"
+    t.text "parentName"
+    t.text "propertyName"
+    t.text "propertyValue"
+  end
+
   create_table "teams", :force => true do |t|
     t.string   "name"
     t.string   "flag"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "top_scorer_predictions", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "top_scorer_predictions", ["user_id"], :name => "index_top_scorer_predictions_on_user_id", :unique => true
 
   create_table "tournaments", :force => true do |t|
     t.string   "name"

@@ -7,7 +7,7 @@ table.table-standard.table.table-bordered.table-striped.table-condensed.matches-
     tr[ng-repeat="match in groups['#{group.name}'].matches"]
       td[style='height:20px;width:100px'] {{ match.start_at | date : 'dd MMM HH:mm'}}
       td[style='height:20px;width:120px;text-align:right'] {{ match.host_team}}
-      td[style='height:20px;width:120px']
+      td[style='height:20px;width:120px ']
         select[ng-model="match.host_prediction" ng-options="item for item in #{(0..8).to_a}" ng-change="predictMatch(match)"]
           option value="" &nbsp;
         | &nbsp;&nbsp;:&nbsp;&nbsp;

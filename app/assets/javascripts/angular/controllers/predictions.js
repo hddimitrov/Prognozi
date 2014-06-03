@@ -89,13 +89,19 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
       last = standings[3];
       group_standings[group_name] = {winner: winner.id, runner_up: runner_up.id, third: third.id, last: last.id};
 
-      $scope.last_16.winners[group_name] = {team_id: winner.id, team_name: winner.name};
-      $scope.last_16.runners_up[group_name] = {team_id: runner_up.id, team_name: runner_up.name};
+      if(winner.points > 0) {
+        $scope.last_16.winners[group_name] = {team_id: winner.id, team_name: winner.name};
+      } else{
+        $scope.last_16.winners[group_name] = {team_id: undefined, team_name: undefined};
+      }
+      if(runner_up.points > 0) {
+        $scope.last_16.runners_up[group_name] = {team_id: runner_up.id, team_name: runner_up.name};
+      } else {
+        $scope.last_16.runners_up[group_name] = {team_id: undefined, team_name: undefined};
+      }
     });
 
-    predictionServices.saveGroupStage(group_standings).then(function(response){
-      $scope.populateKnockoutStage();
-    });
+    predictionServices.saveGroupStage(group_standings);
   }
 
   $scope.populateKnockoutStage = function(){

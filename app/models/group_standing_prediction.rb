@@ -5,5 +5,5 @@ class GroupStandingPrediction < ActiveRecord::Base
   belongs_to :group
   belongs_to :team
 
-  has_many :prediction_points, as: :prediction
+  has_one :prediction_points, as: :prediction
 end

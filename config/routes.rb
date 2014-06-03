@@ -10,6 +10,7 @@ Prognozi::Application.routes.draw do
   match '/predictions'     => 'predictions#index',   via: :get
   match '/match_prediction' => 'predictions#match',  via: :post
   match '/group_prediction' => 'predictions#group',  via: :post
+  match '/top_scorer_prediction' => 'predictions#top_scorer',  via: :post
 
   match '/load_group_stage' => 'predictions#load_group_stage',  via: :get
 

@@ -4,6 +4,8 @@
       a[href="#groups" data-toggle='tab'] Group stage
     li
       a[href="#eliminations" data-toggle='tab' ng-click='populateKnockoutStage()'] Knockout stage
+    li
+      a[href="#top_scorer" data-toggle='tab'] Top scorer
   .tab-content
     .tab-pane.active#groups
       .tabbable
@@ -31,10 +33,6 @@
                   button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
     .tab-pane#eliminations
       = render 'predictions/knockout_stage_predictions'
-
-
-
-
-
-
+    .tab-pane#top_scorer
+      = render 'predictions/top_scorer_prediction'
 

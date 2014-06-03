@@ -75,7 +75,7 @@ class PredictionsController < ApplicationController
       .where('groups.tournament_id' => current_tournament.id)
       .select('groups.name group_name, teams.id team_id, teams.name team_name, position')
     .find_each do |sp|
-      if sp.position == 1
+      if sp.position == 1 and
         teams[:last_16][:winners][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
       end
       if sp.position == 2
@@ -128,6 +128,15 @@ class PredictionsController < ApplicationController
       current_user.elimination_predictions.create(team_id: params[:c], elimination_id: ce)
     end
 
+    render nothing: true
+  end
+
+  def top_scorer
+    if params[:name].present?
+      top_scorer_prediction = TopScorerPrediction.find_or_initialize_by_user_id(current_user.id)
+      top_scorer_prediction.name = params[:name]
+      top_scorer_prediction.save
+    end
     render nothing: true
   end
 end

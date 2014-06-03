@@ -4,6 +4,8 @@
       a[href="#groups" data-toggle='tab'] Group stage
     li
       a[href="#eliminations" data-toggle='tab' ng-click='populateKnockoutStage()'] Knockout stage
+    li
+      a[href="#top_scorer" data-toggle='tab'] Top scorer
   .tab-content
     .tab-pane.active#groups
       .tabbable
@@ -21,90 +23,15 @@
           - @groups.each do |group|
             - if group.name == 'A'
               .tab-pane.active[id="group#{group.name}"]
-                table.table-standard.table.table-bordered.table-striped.table-condensed.matches-predictions[style='width:520px']
-                  tr
-                    th Kick-off
-                    th[style='text-align:right'] Host
-                    th Predicted Score
-                    th Guest
-                    tr[ng-repeat="match in groups['#{group.name}'].matches"]
-                      td[style='height:20px;width:100px'] {{ match.start_at | date : 'dd MMM HH:mm'}}
-                      td[style='height:20px;width:120px;text-align:right'] {{ match.host_team}}
-                      td[style='height:20px;width:120px']
-                        select[ng-model="match.host_prediction" ng-options="item for item in #{(0..8).to_a}" ng-change="predictMatch(match)"]
-                          option value="" &nbsp;
-                        | &nbsp;&nbsp;:&nbsp;&nbsp;
-                        select[ng-model="match.guest_prediction" ng-options="item for item in #{(0..8).to_a}" ng-change="predictMatch(match)"]
-                          option value="" &nbsp;
-                      td[style='height:20px;width:120px'] {{ match.guest_team}}
-                table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions[style='width:520px']
-                  tr
-                    th Team
-                    th P
-                    th W
-                    th D
-                    th L
-                    th GF
-                    th GA
-                    th GD
-                    th Pts
-                    tr[ng-repeat="team in groups['#{group.name}'].teams | orderBy : ['-points', '-goal_difference', '-goals_for']"]
-                      td[style='height:20px;width:200px'] {{team.name}}
-                      td[style='height:20px;width:60px'] {{team.matches_played}}
-                      td[style='height:20px;width:60px'] {{team.matches_won}}
-                      td[style='height:20px;width:60px'] {{team.matches_drawn}}
-                      td[style='height:20px;width:60px'] {{team.matches_lost}}
-                      td[style='height:20px;width:60px'] {{team.goals_for}}
-                      td[style='height:20px;width:60px'] {{team.goals_against}}
-                      td[style='height:20px;width:60px'] {{team.goal_difference}}
-                      td[style='height:20px;width:60px;'] {{team.points}}
-                button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
+                  = render 'predictions/match_predictions', group: group
+                  = render 'predictions/group_standing_predictions', group: group
+                  button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
             - else
               .tab-pane[id="group#{group.name}"]
-                table.table-standard.table.table-bordered.table-striped.table-condensed.matches-predictions[style='width:520px']
-                  tr
-                    th Kick-off
-                    th[style='text-align:right'] Host
-                    th Predicted Score
-                    th Guest
-                    tr[ng-repeat="match in groups['#{group.name}'].matches"]
-                      td[style='height:20px;width:100px'] {{ match.start_at | date : 'dd MMM HH:mm'}}
-                      td[style='height:20px;width:120px;text-align:right'] {{ match.host_team}}
-                      td[style='height:20px;width:120px']
-                        select[ng-model="match.host_prediction" ng-options="item for item in #{(0..8).to_a}" ng-change="predictMatch(match)"]
-                          option value="" &nbsp;
-                        | &nbsp;&nbsp;:&nbsp;&nbsp;
-                        select[ng-model="match.guest_prediction" ng-options="item for item in #{(0..8).to_a}" ng-change="predictMatch(match)"]
-                          option value="" &nbsp;
-                      td[style='height:20px;width:120px'] {{ match.guest_team}}
-                table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions[style='width:520px']
-                  tr
-                    th Team
-                    th P
-                    th W
-                    th D
-                    th L
-                    th GF
-                    th GA
-                    th GD
-                    th Pts
-                    tr[ng-repeat="team in groups['#{group.name}'].teams | orderBy : ['-points', '-goal_difference', '-goals_for']"]
-                      td[style='height:20px;width:200px'] {{team.name}}
-                      td[style='height:20px;width:60px'] {{team.matches_played}}
-                      td[style='height:20px;width:60px'] {{team.matches_won}}
-                      td[style='height:20px;width:60px'] {{team.matches_drawn}}
-                      td[style='height:20px;width:60px'] {{team.matches_lost}}
-                      td[style='height:20px;width:60px'] {{team.goals_for}}
-                      td[style='height:20px;width:60px'] {{team.goals_against}}
-                      td[style='height:20px;width:60px'] {{team.goal_difference}}
-                      td[style='height:20px;width:60px;'] {{team.points}}
-                button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
+                  = render 'predictions/match_predictions', group: group
+                  = render 'predictions/group_standing_predictions', group: group
+                  button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
     .tab-pane#eliminations
       = render 'predictions/knockout_stage_predictions'
-
-
-
-
-
-
-
+    .tab-pane#top_scorer
+      = render 'predictions/top_scorer_prediction'
