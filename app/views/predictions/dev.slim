@@ -23,15 +23,51 @@
           - @groups.each do |group|
             - if group.name == 'A'
               .tab-pane.active[id="group#{group.name}"]
-                  = render 'predictions/match_predictions', group: group
-                  = render 'predictions/group_standing_predictions', group: group
-                  button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
-            - else
-              .tab-pane[id="group#{group.name}"]
-                  = render 'predictions/match_predictions', group: group
-                  = render 'predictions/group_standing_predictions', group: group
-                  button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
-    .tab-pane#eliminations
-      = render 'predictions/knockout_stage_predictions'
-    .tab-pane#top_scorer
-      = render 'predictions/top_scorer_prediction'
+                table.table-standard.table.table-bordered.table-striped.table-condensed.matches-predictions[style='width:520px']
+                  tr
+                    th Kick-off
+                    th[style='text-align:right'] Host
+                    th Predicted Score
+                    th Guest
+                    tr[ng-repeat="match in groups['#{group.name}'].matches"]
+                      td[style='height:20px;width:100px'] {{ match.start_at | date : 'dd MMM HH:mm'}}
+                      td[style='height:20px;width:120px;text-align:right'] {{ match.host_team}}
+                      td[style='height:20px;width:120px ']
+                        select[ng-model="match.host_prediction" ng-options="item for item in #{(0..8).to_a}" ng-change="predictMatch(match)"]
+                          option value="" &nbsp;
+                        | &nbsp;&nbsp;:&nbsp;&nbsp;
+                        select[ng-model="match.guest_prediction" ng-options="item for item in #{(0..8).to_a}" ng-change="predictMatch(match)"]
+                          option value="" &nbsp;
+                      td[style='height:20px;width:120px'] {{ match.guest_team}}
+
+                table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions[style='width:520px']
+                  tr
+                    th rel="tooltip" data-container="body" data-original-title='Position' Pos *
+                    th Team
+                    th rel="tooltip" data-container="body" data-original-title='Played' P
+                    th rel="tooltip" data-container="body" data-original-title='Wins' W
+                    th rel="tooltip" data-container="body" data-original-title='Draws' D
+                    th rel="tooltip" data-container="body" data-original-title='Loses' L
+                    th rel="tooltip" data-container="body" data-original-title='Goals For' GF
+                    th rel="tooltip" data-container="body" data-original-title='Goals Against' GA
+                    th rel="tooltip" data-container="body" data-original-title='Goal Difference' GD
+                    th rel="tooltip" data-container="body" data-original-title='Points' Pts
+
+                    tr[ng-repeat="team in groups['#{group.name}'].teams | orderBy : ['-points', '-goal_difference', '-goals_for', 'predicted_position']"]
+                      td[style='height:20px;width:60px']
+                        select[ng-model="team.predicted_position" ng-options="item for item in #{(1..4).to_a}" ng-disabled="!team.tb"]
+                          option value="" &nbsp;
+                      td[style='height:20px;width:200px'] {{team.name}}
+                      td[style='height:20px;width:60px'] {{team.matches_played}}
+                      td[style='height:20px;width:60px'] {{team.matches_won}}
+                      td[style='height:20px;width:60px'] {{team.matches_drawn}}
+                      td[style='height:20px;width:60px'] {{team.matches_lost}}
+                      td[style='height:20px;width:60px'] {{team.goals_for}}
+                      td[style='height:20px;width:60px'] {{team.goals_against}}
+                      td[style='height:20px;width:60px'] {{team.goal_difference}}
+                      td[style='height:20px;width:60px'] {{team.points}}
+                p
+                  | * Team positions are calculated based on provided match results.
+                  br
+                  | You can manualy change team positions for teams that need tie-break criteria.
+                button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE

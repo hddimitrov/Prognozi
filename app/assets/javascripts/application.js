@@ -22,7 +22,7 @@
 $(document).ready(function() {
   $('a[rel=popover]').popover();
   $('.tooltip').tooltip();
-  $('a[rel=tooltip]').tooltip();
+  $('[rel=tooltip]').tooltip();
   // $('.matches-predictions .chzn-select').chosen({disable_search: true});
 
   $('.matches-predictions select').on('change', function() {
