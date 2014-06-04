@@ -26,6 +26,7 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
       team.goals_for = 0;
       team.goals_against = 0;
       team.goal_difference = 0;
+      team.tb = false;
     });
 
     angular.forEach($scope.groups[group_name].matches, function(match, key) {
@@ -65,7 +66,19 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
         }
       }
     });
-  };
+
+    teams = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for', 'predicted_position'])
+    for(i=0; i<teams.length; i++) {
+      teams[i].predicted_position = i+1;
+      console.log(i+1)
+      for(j=1; j<teams.length; j++) {
+        if(i< j && $scope.tiebreakNeeded(teams[i], teams[j])){
+          teams[i].tb = true;
+          teams[j].tb = true;
+        }
+      }
+    };
+  }
 
   predictionServices.loadGroupStage().then(function(response){
     $scope.groups = response;
@@ -78,11 +91,19 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
     $scope.populateKnockoutStage();
   });
 
+  $scope.tiebreakNeeded = function(team1, team2){
+    needed = false;
+    if(team1.points == team2.points && team1.goal_difference == team2.goal_difference && team1.goals_for == team2.goals_for) {
+      needed = true;
+    }
+    return needed;
+  }
+
   $scope.calculateQualifiedTeams = function(){
     var group_standings = {};
     angular.forEach($scope.groups, function(value, group_name){
       $scope.calculateGroupStandings(group_name);
-      standings = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for'])
+      standings = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for', 'predicted_position']);
       winner = standings[0];
       runner_up = standings[1];
       third = standings[2];

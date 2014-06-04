@@ -1,15 +1,20 @@
 table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions[style='width:520px']
   tr
+    th rel="tooltip" data-container="body" data-original-title='Position' Pos *
     th Team
-    th P
-    th W
-    th D
-    th L
-    th GF
-    th GA
-    th GD
-    th Pts
-    tr[ng-repeat="team in groups['#{group.name}'].teams | orderBy : ['-points', '-goal_difference', '-goals_for']"]
+    th rel="tooltip" data-container="body" data-original-title='Played' P
+    th rel="tooltip" data-container="body" data-original-title='Wins' W
+    th rel="tooltip" data-container="body" data-original-title='Draws' D
+    th rel="tooltip" data-container="body" data-original-title='Loses' L
+    th rel="tooltip" data-container="body" data-original-title='Goals For' GF
+    th rel="tooltip" data-container="body" data-original-title='Goals Against' GA
+    th rel="tooltip" data-container="body" data-original-title='Goal Difference' GD
+    th rel="tooltip" data-container="body" data-original-title='Points' Pts
+
+    tr[ng-repeat="team in groups['#{group.name}'].teams | orderBy : ['-points', '-goal_difference', '-goals_for', 'predicted_position']"]
+      td[style='height:20px;width:60px']
+        select[ng-model="team.predicted_position" ng-options="item for item in #{(1..4).to_a}" ng-disabled="!team.tb"]
+          option value="" &nbsp;
       td[style='height:20px;width:200px'] {{team.name}}
       td[style='height:20px;width:60px'] {{team.matches_played}}
       td[style='height:20px;width:60px'] {{team.matches_won}}
@@ -18,4 +23,8 @@ table.table-standard.table.table-bordered.table-striped.table-condensed.standing
       td[style='height:20px;width:60px'] {{team.goals_for}}
       td[style='height:20px;width:60px'] {{team.goals_against}}
       td[style='height:20px;width:60px'] {{team.goal_difference}}
-      td[style='height:20px;width:60px;'] {{team.points}}
+      td[style='height:20px;width:60px'] {{team.points}}
+p
+  | * Team positions are calculated based on provided match results.
+  br
+  | You can manualy change team positions for teams that need tie-break criteria.
