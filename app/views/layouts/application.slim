@@ -41,14 +41,18 @@ html xmlns:og='http://ogp.me/ns#'
     .container
       .row
         ul.nav.nav-pills
-          li.active
-            a[href="/predictions"] Predictions
-          li.active
-            a[href="/standings"] Participants
-          li.active
-            a[href="/scoring"] Points
+          - if user_signed_in?
+            li.active
+              a[href="/predictions"] Predictions
+            li.active
+              a[href="/standings"] Participants
+          - else
+            li.active
+              a[href="/users/sign_in"] Registration
           li.active
             a[href="/rules"] Rules
+          li.active
+            a[href="/scoring"] Scoring
       br
       .row
         .main-content.span4

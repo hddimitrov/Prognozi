@@ -1,13 +1,13 @@
 class ParticipantsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, only: [:ranking]
 
   def ranking
     @participants = User.order('group_phase_points')
   end
 
-  def scoring
+  def rules
   end
 
-  def rules
+  def scoring
   end
 end
