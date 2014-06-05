@@ -40,4 +40,17 @@ class User < ActiveRecord::Base
 
     nick
   end
+
+  def group_stage_ready?
+    return self.match_predictions.where('host_score IS NOT NULL').where('guest_score IS NOT NULL').count == 48
+  end
+
+  def eliminations_ready?
+    return self.elimination_predictions.count == 31
+  end
+
+  def top_scorer_ready?
+    return self.top_scorer_prediction.present?
+  end
+
 end
