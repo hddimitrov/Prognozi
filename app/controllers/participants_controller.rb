@@ -5,6 +5,9 @@ class ParticipantsController < ApplicationController
     @participants = User.order('group_phase_points')
   end
 
+  def scoring
+  end
+
   def rules
   end
 end

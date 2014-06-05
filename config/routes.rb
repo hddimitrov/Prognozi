@@ -18,6 +18,7 @@ Prognozi::Application.routes.draw do
   match '/save_knockout_stage' => 'predictions#save_knockout_stage',  via: :post
 
   match '/standings'     => 'participants#ranking',   via: :get
+  match '/scoring'     => 'participants#scoring',   via: :get
   match '/rules'     => 'participants#rules',   via: :get
 
   # match '/decline_invitation'           => 'rooms#room_inv_decline',   via: :post
