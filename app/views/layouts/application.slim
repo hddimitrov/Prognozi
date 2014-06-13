@@ -31,10 +31,10 @@ html xmlns:og='http://ogp.me/ns#'
                 = current_user.name
               br
               span
-                | Group Stage Points: #{current_user.group_phase_points}
+                | Group Stage Points: #{current_user.group_phase_points.to_i}
               br
               span
-                | Knockout Stage Points: #{current_user.elimination_phase_points}
+                | Knockout Stage Points: #{current_user.elimination_phase_points.to_i}
               br
               = link_to('Logout', destroy_user_session_path, :method => :delete)
 

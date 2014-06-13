@@ -1,0 +1,27 @@
+table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions[style='width:520px']
+  tr
+    th rel="tooltip" data-container="body" data-original-title='Predicted Position' Prediction
+    th Team
+    / th rel="tooltip" data-container="body" data-original-title='Played' P
+    / th rel="tooltip" data-container="body" data-original-title='Wins' W
+    / th rel="tooltip" data-container="body" data-original-title='Draws' D
+    / th rel="tooltip" data-container="body" data-original-title='Loses' L
+    / th rel="tooltip" data-container="body" data-original-title='Goals For' GF
+    / th rel="tooltip" data-container="body" data-original-title='Goals Against' GA
+    / th rel="tooltip" data-container="body" data-original-title='Goal Difference' GD
+    th rel="tooltip" data-container="body" data-original-title='Official Position' Pos
+    th rel="tooltip" data-container="body" data-original-title='Player Points' Points
+    - for team in standings
+      tr
+        td[style='height:20px;width:115px'] = team.predicted_position
+        td[style='height:20px;width:285px'] = team.name
+        / td[style='height:20px;width:40px'] = team.matches_played
+        / td[style='height:20px;width:40px'] = team.matches_won
+        / td[style='height:20px;width:40px'] = team.matches_drawn
+        / td[style='height:20px;width:30px'] = team.matches_lost
+        / td[style='height:20px;width:30px'] = team.goals_for
+        / td[style='height:20px;width:30px'] = team.goals_against
+        / td[style='height:20px;width:30px'] = team.goal_difference
+        / td[style='height:20px;width:30px'] = team.points
+        td[style='height:20px;width:60px'] = team.position
+        td[style='height:20px;width:60px;text-align:center;font-weight:bold'] = team.player_points.to_i

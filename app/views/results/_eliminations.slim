@@ -1,0 +1,24 @@
+.row.col-md-14
+  - eliminations.each do |phase, teams|
+    .col-md-2
+      strong
+        - case phase
+        - when :ef
+          | 1/8-finalists
+        - when :qf
+          | 1/4-finalists
+        - when :sf
+          | 1/2-finalists
+        - when :f
+          | Finalists
+        - when :c
+          | Champion
+        end
+      table.table-standard.table.table-bordered.table-striped.table-condensed[style='width:220px']
+        tr
+          th Team
+          th rel="tooltip" data-container="body" data-original-title='Player Points' Points
+          - for team in teams
+            tr
+              td[style='height:20px;width:200px'] = team[:team_name]
+              td[style='height:20px;width:20px;text-align:center;font-weight:bold'] 0

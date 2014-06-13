@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140603040437) do
+ActiveRecord::Schema.define(:version => 20140610205146) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -227,17 +227,19 @@ ActiveRecord::Schema.define(:version => 20140603040437) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                    :default => "",  :null => false
-    t.string   "encrypted_password",       :default => "",  :null => false
+    t.string   "email",                    :default => "",   :null => false
+    t.string   "encrypted_password",       :default => "",   :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "name"
     t.string   "referer_name"
     t.float    "group_phase_points",       :default => 0.0
     t.float    "elimination_phase_points", :default => 0.0
+    t.boolean  "q_active",                 :default => true
+    t.string   "token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

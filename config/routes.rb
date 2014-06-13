@@ -34,6 +34,9 @@ Prognozi::Application.routes.draw do
   # match 'auth/:provider/callback', to: 'sessions#oauth_success'
   # match 'auth/failure', to: redirect('/')
 
+  match '/results/:token'       => 'results#index',   via: :get
+  match '/load_group_results'   => 'results#load_group_stage',   via: :get
+
   match '/dev'     => 'predictions#dev',   via: :get
   match '/points'  => 'predictions#points',   via: :get
 

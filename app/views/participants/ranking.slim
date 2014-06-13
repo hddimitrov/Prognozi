@@ -5,14 +5,72 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
     th Total Points
     th Group Stage Points
     th Knockout Stage Points
-    th Predictions *
-  - @participants.each_with_index do |user, idx|
+    th Predictions
+    th Prize
+  - @active_participants.each_with_index do |user, idx|
+    - case idx
+    - when 0
+      tr
+        td = idx + 1
+        td = user.name
+        td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
+        td = user.group_phase_points.to_i
+        td = user.elimination_phase_points.to_i
+        td
+          a[href="/results/#{user.token}" target="_blank"] View
+        td 210
+    - when 1
+      tr
+        td = idx + 1
+        td = user.name
+        td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
+        td = user.group_phase_points.to_i
+        td = user.elimination_phase_points.to_i
+        td
+          a[href="/results/#{user.token}" target="_blank"] View
+        td 120
+    - when 2
+      tr
+        td = idx + 1
+        td = user.name
+        td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
+        td = user.group_phase_points.to_i
+        td = user.elimination_phase_points.to_i
+        td
+          a[href="/results/#{user.token}" target="_blank"] View
+        td 60
+    - when 3
+      tr
+        td = idx + 1
+        td = user.name
+        td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
+        td = user.group_phase_points.to_i
+        td = user.elimination_phase_points.to_i
+        td
+          a[href="/results/#{user.token}" target="_blank"] View
+        td 20
+    - else
+      tr
+        td = idx + 1
+        td = user.name
+        td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
+        td = user.group_phase_points.to_i
+        td = user.elimination_phase_points.to_i
+        td
+          a[href="/results/#{user.token}" target="_blank"] View
+        td -
+  - @inactive_participants.each_with_index do |user, idx|
     tr
-      td = idx + 1
+      td DNS
       td = user.name
-      td = user.group_phase_points + user.elimination_phase_points
-      td = user.group_phase_points
-      td = user.elimination_phase_points
-      td
-        a[href='javascript:void(0);'] View
-| * Predictions made by all participants will be provided after the start of the tournament.
+      td -
+      td -
+      td -
+      td -
+      td -
+/ | * Predictions made by all participants will be provided after the start of the tournament.
+br
+| ** DNS - Player did not submit predictions
+
+
+

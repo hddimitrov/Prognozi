@@ -29,34 +29,35 @@
             .controls
               button.btn.btn-success Login
     #create.tab-pane.fade
-      = form_for(resource, as: resource_name, url: new_registration_path(resource_name), class: 'form-horizontal', style: 'width:300px !important;') do |f|
+      | Sorry, New registrations are not accepted
+      / = form_for(resource, as: resource_name, url: new_registration_path(resource_name), class: 'form-horizontal', style: 'width:300px !important;') do |f|
 
-        fieldset
-          #legend
-            legend Create Account
+      /   fieldset
+      /     #legend
+      /       legend Create Account
 
-          = devise_error_messages!
+      /     = devise_error_messages!
 
-          label Name*
-          br
-          input.input-xlarge[name="user[name]" type="text"]
-          br
-          label Referal Name*(Who gave you the site link?)
-          br
-          input.input-xlarge[name="user[referer_name]" type="text"]
-          br
-          label Email*
-          br
-          input.input-xlarge[name="user[email]" type="text"]
-          br
-          label Password*
-          br
-          input.input-xlarge[name="user[password]" type="password"]
-          br
-          label Confirm Password*
-          br
-          input.input-xlarge[name="user[password_confirmation]" type="password"]
-          br
-          br
-          button.btn.btn-primary Create Account
+      /     label Name*
+      /     br
+      /     input.input-xlarge[name="user[name]" type="text"]
+      /     br
+      /     label Referal Name*(Who gave you the site link?)
+      /     br
+      /     input.input-xlarge[name="user[referer_name]" type="text"]
+      /     br
+      /     label Email*
+      /     br
+      /     input.input-xlarge[name="user[email]" type="text"]
+      /     br
+      /     label Password*
+      /     br
+      /     input.input-xlarge[name="user[password]" type="password"]
+      /     br
+      /     label Confirm Password*
+      /     br
+      /     input.input-xlarge[name="user[password_confirmation]" type="password"]
+      /     br
+      /     br
+      /     button.btn.btn-primary Create Account
 

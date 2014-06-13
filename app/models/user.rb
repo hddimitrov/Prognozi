@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation,
+  attr_accessible :email, :password, :password_confirmation, :q_active, :token,
                   :name, :referer_name, :group_phase_points, :elimination_phase_points
 
 
@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_one :top_scorer_prediction, dependent: :delete
 
   has_many :prediction_points, dependent: :delete_all
+
+  after_create :set_token
 
   def nick
     if name.present?
@@ -51,6 +53,11 @@ class User < ActiveRecord::Base
 
   def top_scorer_ready?
     return self.top_scorer_prediction.present?
+  end
+
+  def set_token
+    self.token = rand(36**8).to_s(36)
+    self.save
   end
 
 end

@@ -6,7 +6,9 @@ class PredictionsController < ApplicationController
   end
 
   def index
-    @groups = Group.where(tournament_id: current_tournament.id)
+    redirect_to controller: :results, action: :index, token: current_user.token and return
+
+    # @groups = Group.where(tournament_id: current_tournament.id)
   end
 
   def match
