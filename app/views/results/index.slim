@@ -3,10 +3,10 @@
 br
 p
   | Group Stage Points:
-    #{current_user.group_phase_points.to_i}
+    #{@user.group_phase_points.to_i}
   br
   |    Knockout Stage Points:
-    #{current_user.elimination_phase_points.to_i}
+    #{@user.elimination_phase_points.to_i}
 / Group Stage
 hr
 - @groups.values.in_groups_of(2).each do |two_groups|
