@@ -25,6 +25,8 @@ html xmlns:og='http://ogp.me/ns#'
             img src="http://upload.wikimedia.org/wikipedia/en/thumb/e/e8/WC-2014-Brasil.svg/480px-WC-2014-Brasil.svg.png" width="80" height="100" alt="logo"
             = current_tournament.name
           / h3.pull-left Predictions deadline: #{l current_tournament.start_at, format: :short} EEST
+          / br
+          / | The site will not be available from 18:00 19.06.2014 till 09:00 23.06.2013
           p.pull-right
             - if user_signed_in?
               span

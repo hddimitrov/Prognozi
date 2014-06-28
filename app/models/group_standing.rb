@@ -16,7 +16,7 @@ class GroupStanding < ActiveRecord::Base
   private
     def calculate_prediction_points
       if position_changed?
-        GroupStandingPrediction.where(group_id: self.group_id, position: self.position).where(user_id: 1).each do |prediction|
+        GroupStandingPrediction.where(group_id: self.group_id, position: self.position).each do |prediction|
           points = 0
 
           if(self.team_id == prediction.team_id and self.position == prediction.position)
