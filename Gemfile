@@ -17,9 +17,10 @@ gem 'pg'
 group :assets do
   gem 'coffee-rails', '~> 4.1.1'
   # gem 'uglifier', '>= 1.0.3'
-  gem 'sass-rails',   '~> 5.0.4'
-  gem 'bootstrap-sass', '~> 3.3.6'
 end
+
+gem 'sass-rails',   '~> 5.0.4'
+gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'slim-rails', '~> 3.0.1'
 gem 'jquery-rails', '~> 4.1.1'

@@ -23,5 +23,5 @@ production:
   encoding: unicode
   pool: 5
   database: prognozi_production
-  username: prognozi
+  username: pbg2
   password:

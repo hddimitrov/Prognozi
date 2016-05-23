@@ -3,9 +3,9 @@ ActiveAdmin.register EliminationPhase do
   actions :all, except: [:destroy]
 
 
-  filter :elimination, as: :select, collection: Elimination.where(tournament_id: $current_tournament)
-  filter :team, as: :select, collection: Team.where(tournament_id: $current_tournament)
-  filter :opponent, as: :select, collection: Team.where(tournament_id: $current_tournament)
+  # filter :elimination, as: :select, collection: Elimination.where(tournament_id: $current_tournament)
+  # filter :team, as: :select, collection: Team.where(tournament_id: $current_tournament)
+  # filter :opponent, as: :select, collection: Team.where(tournament_id: $current_tournament)
 
   index do
     column :id
