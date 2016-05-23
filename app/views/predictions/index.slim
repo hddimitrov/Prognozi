@@ -6,31 +6,22 @@
       a[href="#eliminations" data-toggle='tab' ng-click='populateKnockoutStage()'] Knockout stage
     li
       a[href="#top_scorer" data-toggle='tab'] Top scorer
-  .tab-content
+  .tab-content[style="padding-top:10px"]
     .tab-pane.active#groups
       .tabbable
-        hr
-        ul.nav.nav-pills
+        ul.nav.nav-pills#groups-nav
           - @groups.each do |group|
-            - if group.name == 'A'
-              li.active
-                a[href="#group#{group.name}" data-toggle='tab' ng-click="current_group='#{group.name}';calculateGroupStandings('#{group.name}')"] = group.name
-            - else
-              li
-                a[href="#group#{group.name}" data-toggle='tab' ng-click="current_group='#{group.name}';calculateGroupStandings('#{group.name}')"] = group.name
-        hr
+            li[ng-class="{'active' : current_group == '#{group.name}'}"]
+              a[href="#group#{group.name}" data-toggle='tab' ng-click="current_group='#{group.name}';"] = group.name
+          li[ng-class="{'active': current_group == '3rd'}"]
+            a[href="#3rd-placed" data-toggle='tab' ng-click="current_group='3rd';"] Third-placed teams
         .tab-content
           - @groups.each do |group|
-            - if group.name == 'A'
-              .tab-pane.active[id="group#{group.name}"]
-                  = render 'predictions/match_predictions', group: group
-                  = render 'predictions/group_standing_predictions', group: group
-                  button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
-            - else
-              .tab-pane[id="group#{group.name}"]
-                  = render 'predictions/match_predictions', group: group
-                  = render 'predictions/group_standing_predictions', group: group
-                  button.btn-lg.btn-primary[ng-click="calculateQualifiedTeams()"] SAVE
+            .tab-pane[id="group#{group.name}" ng-class="{'active': current_group == '#{group.name}'}"]
+              = render 'predictions/match_predictions', group: group
+              = render 'predictions/group_standing_predictions', group: group
+          .tab-pane#3rd-placed[ng-class="{'active': current_group == '3rd'}"]
+            = render 'predictions/third_placed_teams'
     .tab-pane#eliminations
       = render 'predictions/knockout_stage_predictions'
     .tab-pane#top_scorer

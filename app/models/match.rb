@@ -1,5 +1,7 @@
 class Match < ActiveRecord::Base
-  just_define_datetime_picker :start_at, add_to_attr_accessible: true
+  include ActiveRecord::UnionScope
+
+  # just_define_datetime_picker :start_at, add_to_attr_accessible: true
   validates :start_at, presence: true
 
   attr_accessible :guest_id, :guest_score, :host_id, :host_score, :sign,
@@ -10,10 +12,16 @@ class Match < ActiveRecord::Base
   belongs_to :host, class_name: 'Team'
   belongs_to :guest, class_name: 'Team'
   belongs_to :phase, polymorphic: true
+  belongs_to :group, -> { where(matches: {phase_type: 'Group'}) }, foreign_key: 'phase_id'
+  belongs_to :elimination, -> { where(matches: {phase_type: 'Elimination'}) }, foreign_key: 'phase_id'
 
   has_many :match_predictions
 
   after_save :calculate_prediction_points
+
+  scope :group_games, -> { joins(:group).where(groups: {tournament_id: $current_tournament})}
+  scope :elimination_games, -> { joins(:elimination).where(eliminations: {tournament_id: $current_tournament}) }
+  scope :all_games, -> {union_scope(group_games, elimination_games)}
 
   def name
     "#{host.try(:name)} - #{guest.try(:name)}"
@@ -49,7 +57,7 @@ class Match < ActiveRecord::Base
               points += $point_rules.m_sign_points
             end
 
-            pp = PredictionPoint.find_or_initialize_by_user_id_and_prediction_type_and_prediction_id(prediction.user_id, 'MatchPrediction', prediction.id)
+            pp = PredictionPoint.find_or_initialize_by(user_id: prediction.user_id, prediction_type: 'MatchPrediction', prediction_id: prediction.id)
             pp.points = points
             pp.save
           end

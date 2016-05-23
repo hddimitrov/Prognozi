@@ -1,8 +1,8 @@
-ActiveAdmin.register GroupStanding do
+ ActiveAdmin.register GroupStanding do
   menu parent: 'Results', priority: 2
   actions :all, except: [:destroy]
 
-  filter :group
+  filter :group, as: :select, collection: Group.where(tournament_id: $current_tournament)
 
   index do
     column :group
@@ -15,6 +15,12 @@ ActiveAdmin.register GroupStanding do
     column :matches_lost
     column :goal_difference
 
-    default_actions
+    actions
+  end
+
+  controller do
+    def scoped_collection
+      super.joins(:group).where(groups: {tournament_id: $current_tournament})
+    end
   end
 end

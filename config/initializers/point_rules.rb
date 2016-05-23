@@ -1,3 +1,5 @@
+$current_tournament = 2
+
 $point_rules = OpenStruct.new({
   m_sign_points: 1,
   m_score_points: 5,

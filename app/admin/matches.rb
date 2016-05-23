@@ -3,9 +3,9 @@ ActiveAdmin.register Match do
   actions :all, except: [:destroy]
 
   filter :phase_type, as: :select, collection: [['Group', 'Group'], ['Elimination', 'Elimination']]
-  # filter :phase_id
-  filter :host
-  filter :guest
+  filter :phase_id
+  filter :host, as: :select, collection: Team.where(tournament_id: $current_tournament).to_a
+  filter :guest, as: :select, collection: Team.where(tournament_id: $current_tournament).to_a
 
   index do
     column :code
@@ -16,7 +16,7 @@ ActiveAdmin.register Match do
     column :sign
     column :result
 
-    default_actions
+    actions
   end
 
   form do |f|
@@ -28,10 +28,16 @@ ActiveAdmin.register Match do
       f.input :phase_type, label: 'Phase Type', as: :select, collection: [['Group', 'Group'], ['Elimination', 'Elimination']]
       f.input :phase_id, label: 'Phase ID'
       f.input :code
-      f.input :start_at, as: :just_datetime_picker
+      f.input :start_at, as: :datetime
       f.input :location
     end
 
     f.buttons
+  end
+
+  controller do
+    def scoped_collection
+      Match.all_games
+    end
   end
 end

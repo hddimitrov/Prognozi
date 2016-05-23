@@ -1,0 +1,37 @@
+code,start_at,team,opponent,group,venue
+101,Friday 10 June 21:00,France,Romania,A,St-Denis
+102,Saturday 11 June 15:00,Albania,Switzerland,A,Lens
+103,Saturday 11 June 18:00,Wales,Slovakia,B,Bordeaux
+104,Saturday 11 June 21:00,England,Russia,B,Marseille
+105,Sunday 12 June 15:00,Turkey,Croatia,D,Paris
+106,Sunday 12 June 18:00,Poland,Northern Ireland,C,Nice
+107,Sunday 12 June 21:00,Germany,Ukraine,C,Lille
+108,Monday 13 June 15:00,Spain,Czech Republic,D,Toulouse
+109,Monday 13 June 18:00,Republic of Ireland,Sweden,E,St-Denis
+110,Monday 13 June 21:00,Belgium,Italy,E,Lyon
+111,Tuesday 14 June 18:00,Austria,Hungary,F,Bordeaux
+112,Tuesday 14 June 21:00,Portugal,Iceland,F,St-Etienne
+113,Wednesday 15 June 15:00,Russia,Slovakia,B,Lille
+114,Wednesday 15 June 18:00,Romania,Switzerland,A,Paris
+115,Wednesday 15 June 21:00,France,Albania,A,Marseille
+116,Thursday 16 June 15:00,England,Wales,B,Lens
+117,Thursday 16 June 18:00,Ukraine,Northern Ireland,C,Lyon
+118,Thursday 16 June 21:00,Germany,Poland,C,St-Denis
+119,Friday 17 June 15:00,Italy,Sweden,E,Toulouse
+120,Friday 17 June 18:00,Czech Republic,Croatia,D,St-Etienne
+121,Friday 17 June 21:00,Spain,Turkey,D,Nice
+122,Saturday 18 June 15:00,Belgium,Republic of Ireland,E,Bordeaux
+123,Saturday 18 June 18:00,Iceland,Hungary,F,Marseille
+124,Saturday 18 June 21:00,Portugal,Austria,F,Paris
+125,Sunday 19 June 21:00,Switzerland,France,A,Lille
+126,Sunday 19 June 21:00,Romania,Albania,A,Lyon
+127,Monday 20 June 21:00,Slovakia,England,B,St-Etienne
+128,Monday 20 June 21:00,Russia,Wales,B,Toulouse
+129,Tuesday 21 June 18:00,Northern Ireland,Germany,C,Paris
+130,Tuesday 21 June 18:00,Ukraine,Poland,C,Marseille
+131,Tuesday 21 June 21:00,Croatia,Spain,D,Bordeaux
+132,Tuesday 21 June 21:00,Czech Republic,Turkey,D,Lens
+133,Wednesday 22 June 18:00,Hungary,Portugal,F,Lyon
+134,Wednesday 22 June 18:00,Iceland,Austria,F,St-Denis
+135,Wednesday 22 June 21:00,Sweden,Belgium,E,Nice
+136,Wednesday 22 June 21:00,Italy,Republic of Ireland,E,Lille

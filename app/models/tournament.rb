@@ -5,5 +5,7 @@ class Tournament < ActiveRecord::Base
   has_many :eliminations
 
   has_many :rooms
+  has_many :teams
+  has_many :top_scorer_predictions
 
 end

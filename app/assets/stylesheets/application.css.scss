@@ -35,6 +35,9 @@ table.matches-predictions {
 }
 
 table.standings-predictions{
+  tr.qualifies {
+    background-color: #BBF3BB;
+  }
   td {
     .standings-prediction-check{
       display: none;

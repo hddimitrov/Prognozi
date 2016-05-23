@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_tournament
 
   def current_tournament
-    @current_tournament = Tournament.find_by_name('2014 FIFA World Cup')
+    @current_tournament = Tournament.find $current_tournament
   end
 end

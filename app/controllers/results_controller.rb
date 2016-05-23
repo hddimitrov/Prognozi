@@ -38,7 +38,7 @@ class ResultsController < ApplicationController
                     .joins("INNER JOIN eliminations ON elimination_predictions.elimination_id = eliminations.id")
                     .joins("LEFT OUTER JOIN prediction_points ON prediction_points.prediction_type = 'EliminationPrediction' and prediction_points.prediction_id = elimination_predictions.id and prediction_points.user_id = elimination_predictions.user_id")
                     .select("teams.id team_id, teams.name team_name, eliminations.code stage, prediction_points.points player_points")
-    .find_each do |ep|
+    .each do |ep|
       @eliminations[:ef] << {team_name: ep.team_name, player_points: ep.player_points} if ep.stage == 'ef'
       @eliminations[:qf] << {team_name: ep.team_name, player_points: ep.player_points} if ep.stage == 'qf'
       @eliminations[:sf] << {team_name: ep.team_name, player_points: ep.player_points} if ep.stage == 'sf'

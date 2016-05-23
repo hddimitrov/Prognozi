@@ -31,6 +31,6 @@ menu :priority => 2, :if => proc{ current_admin_user.email == 'ico@admin.com' }
       link_to 'Impersonate', impersonate_ivan_user_path(user), :target => '_blank'
     end
 
-    default_actions
+    actions
   end
 end

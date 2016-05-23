@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-  attr_accessible :name, :flag
+  attr_accessible :name, :flag, :tournament_id
 
   has_many :home_matches, foreign_key: :host_id, class_name: :Match
   has_many :away_matches, foreign_key: :guest_id, class_name: :Match
@@ -9,4 +9,6 @@ class Team < ActiveRecord::Base
   has_many :elimination_phase_predictions
   has_one :group_standing
   has_many :group_standing_predictions
+
+  belongs_to :tournament
 end

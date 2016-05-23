@@ -1,5 +1,6 @@
 angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictionServices', function($scope, $filter, predictionServices) {
   $scope.groups = {};
+  $scope.third_placed_teams = {};
   $scope.last_16 = {};
   $scope.eliminations = {};
   $scope.quarter_f = {};
@@ -8,6 +9,19 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
   $scope.champion = {};
 
   $scope.current_group = 'A';
+
+  predictionServices.loadGroupStage().then(function(response) {
+    $scope.groups = response;
+    angular.forEach($scope.groups, function(value, group_name) {
+      $scope.calculateGroupStandings(group_name);
+    })
+  });
+
+  predictionServices.loadKnockoutStage().then(function(response){
+    $scope.last_16 = response.last_16;
+    $scope.eliminations = response.eliminations;
+    $scope.populateKnockoutStage();
+  });
 
   $scope.predictMatch = function(match){
     prediction = {};
@@ -67,28 +81,21 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
       }
     });
 
-    teams = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for', 'predicted_position'])
-    for(i=0; i<teams.length; i++) {
-      teams[i].predicted_position = i+1;
-      for(j=1; j<teams.length; j++) {
-        if(i< j && $scope.tiebreakNeeded(teams[i], teams[j])){
-          teams[i].tb = true;
-          teams[j].tb = true;
-        }
+    teams = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for', '-coef'])
+    for(i=1; i <= teams.length; i++) {
+      if (i == 3) {
+        teams[i-1].group = group_name;
+        $scope.third_placed_teams[group_name] = teams[i-1];
       }
+      // teams[i].predicted_position = i+1;
+      // for(j=1; j<teams.length; j++) {
+      //   if(i< j && $scope.tiebreakNeeded(teams[i], teams[j])){
+      //     teams[i].tb = true;
+      //     teams[j].tb = true;
+      //   }
+      // }
     };
-  }
-
-  predictionServices.loadGroupStage().then(function(response){
-    $scope.groups = response;
-    $scope.calculateGroupStandings($scope.current_group);
-  });
-
-  predictionServices.loadKnockoutStage().then(function(response){
-    $scope.last_16 = response.last_16;
-    $scope.eliminations = response.eliminations;
-    $scope.populateKnockoutStage();
-  });
+  };
 
   $scope.tiebreakNeeded = function(team1, team2){
     needed = false;
@@ -96,32 +103,35 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
       needed = true;
     }
     return needed;
-  }
+  };
+
+  $scope.calc3rdPlacedTeams = function() {
+  };
 
   $scope.calculateQualifiedTeams = function(){
-    var group_standings = {};
-    angular.forEach($scope.groups, function(value, group_name){
-      $scope.calculateGroupStandings(group_name);
-      standings = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for', 'predicted_position']);
-      winner = standings[0];
-      runner_up = standings[1];
-      third = standings[2];
-      last = standings[3];
-      group_standings[group_name] = {winner: winner.id, runner_up: runner_up.id, third: third.id, last: last.id};
+    // var group_standings = {};
+    // angular.forEach($scope.groups, function(value, group_name){
+    //   $scope.calculateGroupStandings(group_name);
+    //   standings = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for', '-coef']);
+    //   winner = standings[0];
+    //   runner_up = standings[1];
+    //   third = standings[2];
+    //   last = standings[3];
+    //   group_standings[group_name] = {winner: winner.id, runner_up: runner_up.id, third: third.id, last: last.id};
 
-      if(winner.points > 0) {
-        $scope.last_16.winners[group_name] = {team_id: winner.id, team_name: winner.name};
-      } else{
-        $scope.last_16.winners[group_name] = {team_id: undefined, team_name: undefined};
-      }
-      if(runner_up.points > 0) {
-        $scope.last_16.runners_up[group_name] = {team_id: runner_up.id, team_name: runner_up.name};
-      } else {
-        $scope.last_16.runners_up[group_name] = {team_id: undefined, team_name: undefined};
-      }
-    });
+    //   if(winner.points > 0) {
+    //     $scope.last_16.winners[group_name] = {team_id: winner.id, team_name: winner.name};
+    //   } else{
+    //     $scope.last_16.winners[group_name] = {team_id: undefined, team_name: undefined};
+    //   }
+    //   if(runner_up.points > 0) {
+    //     $scope.last_16.runners_up[group_name] = {team_id: runner_up.id, team_name: runner_up.name};
+    //   } else {
+    //     $scope.last_16.runners_up[group_name] = {team_id: undefined, team_name: undefined};
+    //   }
+    // });
 
-    predictionServices.saveGroupStage(group_standings);
+    // predictionServices.saveGroupStage(group_standings);
   }
 
   $scope.populateKnockoutStage = function(){
