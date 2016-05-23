@@ -1,5 +1,5 @@
-AdminUser.find_or_initialize_by(email: 'ico@admin.com', password: 'password', password_confirmation: 'password').save!
-AdminUser.find_or_initialize_by(email: 'ivan@admin.com', password: 'password', password_confirmation: 'password').save!
+# AdminUser.find_or_initialize_by(email: 'ico@admin.com', password: 'password', password_confirmation: 'password').save!
+# AdminUser.find_or_initialize_by(email: 'ivan@admin.com', password: 'password', password_confirmation: 'password').save!
 
 # world_cup_2014 = Tournament.create(name: '2014 FIFA World Cup', start_at: '2014-06-12 00:00:00')
 uefa_euro_2016 = Tournament.create(name: 'UEFA Euro 2016', start_at: '2016-06-10 21:00:00')
