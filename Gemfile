@@ -5,9 +5,9 @@ gem 'protected_attributes'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-group :development do
-  gem 'sqlite3', '>= 1.3.11'
-end
+# group :development do
+#   gem 'sqlite3', '>= 1.3.11'
+# end
 
 gem 'pg'
 
