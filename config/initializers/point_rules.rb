@@ -1,4 +1,4 @@
-$current_tournament = 2
+$current_tournament = Rails.env.production? ? 1 : 2
 
 $point_rules = OpenStruct.new({
   m_sign_points: 1,
