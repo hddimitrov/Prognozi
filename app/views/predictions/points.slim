@@ -44,7 +44,7 @@ div[ng-controller='points_testing']
       th TopScorer
       th Pts
       th
-    tr[ng-repeat="user in users | orderBy:'name'"]
+    tr[ng-repeat="user in users | orderBy:'-points'"]
       td[style='height:20px;width:200px'] {{user.name}}
       td[style='height:20px;width:60px'] {{user.signs}}
       td[style='height:20px;width:60px'] {{user.scores}}

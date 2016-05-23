@@ -1,5 +1,5 @@
 class PredictionsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:points]
 
   def dev
     @groups = Group.where(tournament_id: $current_tournament)
