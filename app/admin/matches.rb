@@ -4,8 +4,8 @@ ActiveAdmin.register Match do
 
   filter :phase_type, as: :select, collection: [['Group', 'Group'], ['Elimination', 'Elimination']]
   filter :phase_id
-  # filter :host, as: :select, collection: Team.where(tournament_id: $current_tournament).to_a
-  # filter :guest, as: :select, collection: Team.where(tournament_id: $current_tournament).to_a
+  filter :host, as: :select, collection: Team.where(tournament_id: $current_tournament).to_a
+  filter :guest, as: :select, collection: Team.where(tournament_id: $current_tournament).to_a
 
   index do
     column :code

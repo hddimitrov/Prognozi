@@ -2,7 +2,7 @@
   menu parent: 'Results', priority: 2
   actions :all, except: [:destroy]
 
-  # filter :group, as: :select, collection: Group.where(tournament_id: $current_tournament)
+  filter :group, as: :select, collection: Group.where(tournament_id: $current_tournament)
 
   index do
     column :group
