@@ -1,7 +1,7 @@
 .flag_16 { background-repeat: no-repeat; }
 .left_16 { padding-left: 20px; background-position: left top; }
 .right_16 { padding-right: 20px; background-position: right top; }
-.flag_16 { background-image: url('http://s1.swimg.net/gsmf/557/img/flags/16x16/plain/map.png'); background-repeat: no-repeat; }
+.flag_16 { background-image: url(image_path('map.png')); background-repeat: no-repeat; }
 .afghanistan_16_left { background-position: 0 -17px; }
 .afghanistan_16_right { background-position: 100% -17px; }
 .africa_16_left { background-position: 0 -33px; }
