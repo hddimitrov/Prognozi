@@ -71,29 +71,30 @@ class PredictionsController < ApplicationController
   end
 
   def load_knockout_stage
-    teams = {last_16: {winners: {}, runners_up: {}}, eliminations: {qf:[], sf:[], f:[], c: []}}
-    current_user.group_standing_predictions
-      .joins("INNER JOIN groups ON group_standing_predictions.group_id = groups.id")
-      .joins("INNER JOIN teams ON group_standing_predictions.team_id = teams.id")
-      .where('groups.tournament_id' => current_tournament.id)
-      .select('groups.name group_name, teams.id team_id, teams.name team_name, position')
-    .each do |sp|
-      if sp.position == 1 and
-        teams[:last_16][:winners][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
-      end
-      if sp.position == 2
-        teams[:last_16][:runners_up][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
-      end
-    end
+    teams = {qf:[], sf:[], f:[], c: []}
+    # current_user.group_standing_predictions
+    #   .joins("INNER JOIN groups ON group_standing_predictions.group_id = groups.id")
+    #   .joins("INNER JOIN teams ON group_standing_predictions.team_id = teams.id")
+    #   .where('groups.tournament_id' => current_tournament.id)
+    #   .select('groups.name group_name, teams.id team_id, teams.name team_name, position')
+    # .each do |sp|
+    #   if sp.position == 1 and
+    #     teams[:last_16][:winners][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
+    #   end
+    #   if sp.position == 2
+    #     teams[:last_16][:runners_up][sp.group_name] = {team_id: sp.team_id, team_name: sp.team_name}
+    #   end
+    # end
 
-    current_user.elimination_predictions.joins('INNER JOIN teams ON elimination_predictions.team_id = teams.id')
-      .joins("INNER JOIN eliminations ON elimination_predictions.elimination_id = eliminations.id AND eliminations.code IN ('qf','sf','f','c')")
+    current_user.elimination_predictions
+      .joins('INNER JOIN teams ON elimination_predictions.team_id = teams.id')
+      .joins("INNER JOIN eliminations ON elimination_predictions.elimination_id = eliminations.id AND eliminations.code IN ('qf','sf','f','c') AND eliminations.tournament_id = #{$current_tournament}")
       .select("teams.id team_id, teams.name team_name, eliminations.code stage")
     .each do |ep|
-      teams[:eliminations][:qf] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'qf'
-      teams[:eliminations][:sf] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'sf'
-      teams[:eliminations][:f] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'f'
-      teams[:eliminations][:c] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'c'
+      teams[:qf] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'qf'
+      teams[:sf] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'sf'
+      teams[:f] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'f'
+      teams[:c] << {team_id: ep.team_id, team_name: ep.team_name} if ep.stage == 'c'
     end
 
     render json: teams

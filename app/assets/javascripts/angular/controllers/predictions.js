@@ -1,7 +1,8 @@
 angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictionServices', function($scope, $filter, predictionServices) {
   $scope.groups = {};
   $scope.third_placed_teams = {};
-  $scope.last_16 = {};
+  $scope.last_16_top = {};
+  $scope.last_16_bottom = {};
   $scope.eliminations = {};
   $scope.quarter_f = {};
   $scope.semi_f = {};
@@ -18,8 +19,7 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
   });
 
   predictionServices.loadKnockoutStage().then(function(response){
-    $scope.last_16 = response.last_16;
-    $scope.eliminations = response.eliminations;
+    $scope.eliminations = response;
     $scope.populateKnockoutStage();
   });
 
@@ -80,21 +80,7 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
         }
       }
     });
-
-    teams = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for', '-coef'])
-    for(i=1; i <= teams.length; i++) {
-      if (i == 3) {
-        teams[i-1].group = group_name;
-        $scope.third_placed_teams[group_name] = teams[i-1];
-      }
-      // teams[i].predicted_position = i+1;
-      // for(j=1; j<teams.length; j++) {
-      //   if(i< j && $scope.tiebreakNeeded(teams[i], teams[j])){
-      //     teams[i].tb = true;
-      //     teams[j].tb = true;
-      //   }
-      // }
-    };
+    $scope.calculateQualifiedTeams();
   };
 
   $scope.tiebreakNeeded = function(team1, team2){
@@ -105,36 +91,67 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
     return needed;
   };
 
-  $scope.calc3rdPlacedTeams = function() {
+  $scope.calculateQualifiedTeams = function() {
+    group_standings = {};
+    angular.forEach($scope.groups, function(value, group_name) {
+      group_standings[group_name] = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for', '-coef']);
+      for(i=1;i<=group_standings[group_name].length; i++) {
+        if(i == 1) {
+          if(group_name == 'A') {
+            $scope.last_16_top[7] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+          if(group_name == 'B') {
+            $scope.last_16_top[3] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+          if(group_name == 'C') {
+            $scope.last_16_top[5] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+          if(group_name == 'D') {
+            $scope.last_16_top[2] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+          if(group_name == 'E') {
+            $scope.last_16_top[6] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+          if(group_name == 'F') {
+            $scope.last_16_top[4] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+        }
+        if(i == 2) {
+          if(group_name == 'A') {
+            $scope.last_16_top[1] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+          if(group_name == 'B') {
+            $scope.last_16_top[8] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+          if(group_name == 'C') {
+            $scope.last_16_bottom[1] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+          if(group_name == 'D') {
+            $scope.last_16_bottom[6] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+          if(group_name == 'E') {
+            $scope.last_16_bottom[4] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+          if(group_name == 'F') {
+            $scope.last_16_bottom[8] = {team_id: group_standings[group_name][i-1].id, team_name: group_standings[group_name][i-1].name};
+          }
+        }
+        if (i == 3) {
+          group_standings[group_name][i-1].group = group_name;
+          $scope.third_placed_teams[group_name] = group_standings[group_name][i-1];
+        }
+      }
+    });
+    teams = []
+    angular.forEach($scope.third_placed_teams, function(value, key) {
+      teams.push(value);
+    });
+    third_standings = $filter('orderBy')(teams, ['-points','-goal_difference', '-goals_for', '-coef']);
+    console.log($scope.last_16_bottom);
+    $scope.populateKnockoutStage();
   };
 
-  $scope.calculateQualifiedTeams = function(){
-    // var group_standings = {};
-    // angular.forEach($scope.groups, function(value, group_name){
-    //   $scope.calculateGroupStandings(group_name);
-    //   standings = $filter('orderBy')($scope.groups[group_name].teams, ['-points','-goal_difference', '-goals_for', '-coef']);
-    //   winner = standings[0];
-    //   runner_up = standings[1];
-    //   third = standings[2];
-    //   last = standings[3];
-    //   group_standings[group_name] = {winner: winner.id, runner_up: runner_up.id, third: third.id, last: last.id};
-
-    //   if(winner.points > 0) {
-    //     $scope.last_16.winners[group_name] = {team_id: winner.id, team_name: winner.name};
-    //   } else{
-    //     $scope.last_16.winners[group_name] = {team_id: undefined, team_name: undefined};
-    //   }
-    //   if(runner_up.points > 0) {
-    //     $scope.last_16.runners_up[group_name] = {team_id: runner_up.id, team_name: runner_up.name};
-    //   } else {
-    //     $scope.last_16.runners_up[group_name] = {team_id: undefined, team_name: undefined};
-    //   }
-    // });
-
-    // predictionServices.saveGroupStage(group_standings);
-  }
-
-  $scope.populateKnockoutStage = function(){
+  $scope.populateKnockoutStage = function() {
     if(angular.isUndefined($scope.quarter_f)){
       $scope.quarter_f = {};
     }
@@ -148,88 +165,88 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
       $scope.champion = {};
     }
 
-    angular.forEach($scope.last_16.winners, function(value, key) {
-      if(angular.isDefined(value.team_id) && $filter('getByProperty')('team_id', value.team_id, $scope.eliminations.qf) !== null){
-        if(key == 'A'){
-          $scope.quarter_f[49] = value;
-        }
-        if(key == 'B'){
-          $scope.quarter_f[51] = value;
-        }
-        if(key == 'C'){
-          $scope.quarter_f[50] = value;
-        }
-        if(key == 'D'){
-          $scope.quarter_f[52] = value;
-        }
-        if(key == 'E'){
-          $scope.quarter_f[53] = value;
-        }
-        if(key == 'F'){
-          $scope.quarter_f[55] = value;
-        }
-        if(key == 'G'){
-          $scope.quarter_f[54] = value;
-        }
-        if(key == 'H'){
-          $scope.quarter_f[56] = value;
-        }
-      }
-    });
+    // angular.forEach($scope.last_16.winners, function(value, key) {
+    //   if(angular.isDefined(value.team_id) && $filter('getByProperty')('team_id', value.team_id, $scope.eliminations.qf) !== null){
+    //     if(key == 'A'){
+    //       $scope.quarter_f[37] = value;
+    //     }
+    //     if(key == 'B'){
+    //       $scope.quarter_f[39] = value;
+    //     }
+    //     if(key == 'C'){
+    //       $scope.quarter_f[38] = value;
+    //     }
+    //     if(key == 'D'){
+    //       $scope.quarter_f[40] = value;
+    //     }
+    //     if(key == 'E'){
+    //       $scope.quarter_f[41] = value;
+    //     }
+    //     if(key == 'F'){
+    //       $scope.quarter_f[43] = value;
+    //     }
+    //     if(key == 'G'){
+    //       $scope.quarter_f[42] = value;
+    //     }
+    //     if(key == 'H'){
+    //       $scope.quarter_f[44] = value;
+    //     }
+    //   }
+    // });
 
-    angular.forEach($scope.last_16.runners_up, function(value, key) {
-      if(angular.isDefined(value.team_id) && $filter('getByProperty')('team_id', value.team_id, $scope.eliminations.qf) !== null){
-        if(key == 'A'){
-          $scope.quarter_f[51] = value;
-        }
-        if(key == 'B'){
-          $scope.quarter_f[49] = value;
-        }
-        if(key == 'C'){
-          $scope.quarter_f[52] = value;
-        }
-        if(key == 'D'){
-          $scope.quarter_f[50] = value;
-        }
-        if(key == 'E'){
-          $scope.quarter_f[55] = value;
-        }
-        if(key == 'F'){
-          $scope.quarter_f[53] = value;
-        }
-        if(key == 'G'){
-          $scope.quarter_f[56] = value;
-        }
-        if(key == 'H'){
-          $scope.quarter_f[54] = value;
-        }
-      }
-    });
+    // angular.forEach($scope.last_16.runners_up, function(value, key) {
+    //   if(angular.isDefined(value.team_id) && $filter('getByProperty')('team_id', value.team_id, $scope.eliminations.qf) !== null){
+    //     if(key == 'A'){
+    //       $scope.quarter_f[39] = value;
+    //     }
+    //     if(key == 'B'){
+    //       $scope.quarter_f[37] = value;
+    //     }
+    //     if(key == 'C'){
+    //       $scope.quarter_f[40] = value;
+    //     }
+    //     if(key == 'D'){
+    //       $scope.quarter_f[38] = value;
+    //     }
+    //     if(key == 'E'){
+    //       $scope.quarter_f[43] = value;
+    //     }
+    //     if(key == 'F'){
+    //       $scope.quarter_f[41] = value;
+    //     }
+    //     if(key == 'G'){
+    //       $scope.quarter_f[44] = value;
+    //     }
+    //     if(key == 'H'){
+    //       $scope.quarter_f[42] = value;
+    //     }
+    //   }
+    // });
 
     angular.forEach($scope.quarter_f, function(value, key) {
       if(angular.isDefined(value.team_id) && $filter('getByProperty')('team_id', value.team_id, $scope.eliminations.sf) !== null){
-        if(key == 49 || key == 50){
-          $scope.semi_f[57] = value;
+        if(key == 37 || key == 39){
+          $scope.semi_f[45] = value;
         }
-        if(key == 53 || key == 54){
-          $scope.semi_f[58] = value;
+        if(key == 38 || key == 42){
+          $scope.semi_f[46] = value;
         }
-        if(key == 51 || key == 52){
-          $scope.semi_f[59] = value;
+        if(key == 41 || key == 43){
+          $scope.semi_f[47] = value;
         }
-        if(key == 55 || key == 56){
-          $scope.semi_f[60] = value;
+        if(key == 40 || key == 44){
+          $scope.semi_f[48] = value;
         }
       }
     });
 
     angular.forEach($scope.semi_f, function(value, key) {
       if(angular.isDefined(value.team_id) && $filter('getByProperty')('team_id', value.team_id, $scope.eliminations.f) !== null){
-        if(key == 57 || key == 58){
-          $scope.finalists[61] = value;
+        if(key == 45 || key == 46){
+          $scope.finalists[49] = value;
         }
-        if(key == 59 || key == 60){
-          $scope.finalists[62] = value;
+        if(key == 47 || key == 48){
+          $scope.finalists[50] = value;
         }
       }
     });
