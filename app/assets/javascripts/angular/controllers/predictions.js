@@ -142,11 +142,104 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
         }
       }
     });
-    teams = []
+    teams = [];
     angular.forEach($scope.third_placed_teams, function(value, key) {
-      teams.push(value);
+      teams.push(key);
     });
-    third_standings = $filter('orderBy')(teams, ['-points','-goal_difference', '-goals_for', '-coef']);
+    third_standings = $filter('orderBy')(teams, ['-points','-goal_difference', '-goals_for', '-coef']).slice(0,4).sort().join('');
+    console.log(third_standings);
+    if(third_standings == 'ABCD') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['C'].id, team_name: $scope.third_placed_teams['C'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['D'].id, team_name: $scope.third_placed_teams['D'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['A'].id, team_name: $scope.third_placed_teams['A'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['B'].id, team_name: $scope.third_placed_teams['B'].name};
+    }
+    if(third_standings == 'ABCE') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['C'].id, team_name: $scope.third_placed_teams['C'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['A'].id, team_name: $scope.third_placed_teams['A'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['B'].id, team_name: $scope.third_placed_teams['B'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['E'].id, team_name: $scope.third_placed_teams['E'].name};
+    }
+    if(third_standings == 'ABCF') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['C'].id, team_name: $scope.third_placed_teams['C'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['A'].id, team_name: $scope.third_placed_teams['A'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['B'].id, team_name: $scope.third_placed_teams['B'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['F'].id, team_name: $scope.third_placed_teams['F'].name};
+    }
+    if(third_standings == 'ABDE') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['D'].id, team_name: $scope.third_placed_teams['D'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['A'].id, team_name: $scope.third_placed_teams['A'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['B'].id, team_name: $scope.third_placed_teams['B'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['E'].id, team_name: $scope.third_placed_teams['E'].name};
+    }
+    if(third_standings == 'ABDF') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['D'].id, team_name: $scope.third_placed_teams['D'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['A'].id, team_name: $scope.third_placed_teams['A'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['B'].id, team_name: $scope.third_placed_teams['B'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['F'].id, team_name: $scope.third_placed_teams['F'].name};
+    }
+    if(third_standings == 'ABEF') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['E'].id, team_name: $scope.third_placed_teams['E'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['A'].id, team_name: $scope.third_placed_teams['A'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['B'].id, team_name: $scope.third_placed_teams['B'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['F'].id, team_name: $scope.third_placed_teams['F'].name};
+    }
+    if(third_standings == 'ACDE') {
+      console.log('here')
+      console.log($scope.third_placed_teams);
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['C'].id, team_name: $scope.third_placed_teams['C'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['D'].id, team_name: $scope.third_placed_teams['D'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['A'].id, team_name: $scope.third_placed_teams['A'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['E'].id, team_name: $scope.third_placed_teams['E'].name};
+    }
+    if(third_standings == 'ACDF') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['C'].id, team_name: $scope.third_placed_teams['C'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['D'].id, team_name: $scope.third_placed_teams['D'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['A'].id, team_name: $scope.third_placed_teams['A'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['F'].id, team_name: $scope.third_placed_teams['F'].name};
+    }
+    if(third_standings == 'ACEF') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['C'].id, team_name: $scope.third_placed_teams['C'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['A'].id, team_name: $scope.third_placed_teams['A'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['F'].id, team_name: $scope.third_placed_teams['F'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['E'].id, team_name: $scope.third_placed_teams['E'].name};
+    }
+    if(third_standings == 'ADEF') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['D'].id, team_name: $scope.third_placed_teams['D'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['A'].id, team_name: $scope.third_placed_teams['A'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['F'].id, team_name: $scope.third_placed_teams['F'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['E'].id, team_name: $scope.third_placed_teams['E'].name};
+    }
+    if(third_standings == 'BCDE') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['C'].id, team_name: $scope.third_placed_teams['C'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['D'].id, team_name: $scope.third_placed_teams['D'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['B'].id, team_name: $scope.third_placed_teams['B'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['E'].id, team_name: $scope.third_placed_teams['E'].name};
+    }
+    if(third_standings == 'BCDF') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['C'].id, team_name: $scope.third_placed_teams['C'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['D'].id, team_name: $scope.third_placed_teams['D'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['B'].id, team_name: $scope.third_placed_teams['B'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['F'].id, team_name: $scope.third_placed_teams['F'].name};
+    }
+    if(third_standings == 'BCEF') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['E'].id, team_name: $scope.third_placed_teams['E'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['C'].id, team_name: $scope.third_placed_teams['C'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['B'].id, team_name: $scope.third_placed_teams['B'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['F'].id, team_name: $scope.third_placed_teams['F'].name};
+    }
+    if(third_standings == 'BDEF') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['E'].id, team_name: $scope.third_placed_teams['E'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['D'].id, team_name: $scope.third_placed_teams['D'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['B'].id, team_name: $scope.third_placed_teams['B'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['F'].id, team_name: $scope.third_placed_teams['F'].name};
+    }
+    if(third_standings == 'CDEF') {
+      $scope.last_16_bottom[7] = {team_id: $scope.third_placed_teams['C'].id, team_name: $scope.third_placed_teams['C'].name};
+      $scope.last_16_bottom[3] = {team_id: $scope.third_placed_teams['D'].id, team_name: $scope.third_placed_teams['D'].name};
+      $scope.last_16_bottom[5] = {team_id: $scope.third_placed_teams['F'].id, team_name: $scope.third_placed_teams['F'].name};
+      $scope.last_16_bottom[2] = {team_id: $scope.third_placed_teams['E'].id, team_name: $scope.third_placed_teams['E'].name};
+    }
     console.log($scope.last_16_bottom);
     $scope.populateKnockoutStage();
   };
