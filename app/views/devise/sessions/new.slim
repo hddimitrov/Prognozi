@@ -30,13 +30,9 @@
         fieldset
           = devise_error_messages!
 
-          label Name*
+          label Full Name*
           br
           input.input-xlarge[name="user[name]" type="text"]
-          br
-          label Referal Name*(Who gave you the site link?)
-          br
-          input.input-xlarge[name="user[referer_name]" type="text"]
           br
           label Email*
           br
@@ -49,6 +45,10 @@
           label Confirm Password*
           br
           input.input-xlarge[name="user[password_confirmation]" type="password"]
+          br
+          label Referal*(Who gave you the site link?)
+          br
+          input.input-xlarge[name="user[referer_name]" type="text"]
           br
           br
           button.btn.btn-primary Create Account
