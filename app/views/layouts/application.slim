@@ -18,8 +18,8 @@ html xmlns:og='http://ogp.me/ns#'
     = csrf_meta_tags
 
   body[ng-app='pro']
-    header
-      .container
+    .container
+      header
         .row
           h1.pull-left
             img[src="#{image_url('uefa-euro-2016.svg')}" width="80" height="100" alt="logo"]
@@ -39,27 +39,25 @@ html xmlns:og='http://ogp.me/ns#'
                 | Knockout Stage Points: #{current_user.elimination_phase_points.to_i}
               br
               = link_to('Logout', destroy_user_session_path, :method => :delete)
-
-    .container
-      .row
-        ul.nav.nav-pills
-          - if user_signed_in?
+      content
+        .row
+          ul.nav.nav-pills
+            - if user_signed_in?
+              li.active
+                a[href="/predictions"] Predictions
+              li.active
+                a[href="/standings"] Participants
+            - else
+              li.active
+                a[href="/users/sign_in"] Registration
             li.active
-              a[href="/predictions"] Predictions
+              a[href="/rules"] Rules
             li.active
-              a[href="/standings"] Participants
-          - else
-            li.active
-              a[href="/users/sign_in"] Registration
-          li.active
-            a[href="/rules"] Rules
-          li.active
-            a[href="/scoring"] Scoring
-      br
-      .row
-        .main-content.span4
-          = yield
-    footer
-      hr
-      p &copy; 2014, Cerebral Assassins Ltd
+              a[href="/scoring"] Scoring
+        br
+        .row
+          .main-content.span4
+            = yield
+      footer
+        p &copy; 2016, Cerebral Assassins Ltd
 
