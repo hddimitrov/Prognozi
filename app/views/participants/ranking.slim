@@ -5,7 +5,7 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
     th Total Points
     th Group Stage Points
     th Knockout Stage Points
-    / th Predictions
+    th View Predictions *
     / th Prize
   - @active_participants.each_with_index do |user, idx|
     - case idx
@@ -16,7 +16,7 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
         td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
         td = user.group_phase_points.to_i
         td = user.elimination_phase_points.to_i
-        / td
+        td View
         /   a[href="/results/#{user.token}" target="_blank"] View
         / td 210
     - when 1
@@ -26,7 +26,7 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
         td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
         td = user.group_phase_points.to_i
         td = user.elimination_phase_points.to_i
-        / td
+        td View
         /   a[href="/results/#{user.token}" target="_blank"] View
         / td 120
     - when 2
@@ -36,7 +36,7 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
         td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
         td = user.group_phase_points.to_i
         td = user.elimination_phase_points.to_i
-        / td
+        td View
         /   a[href="/results/#{user.token}" target="_blank"] View
         / td 60
     - when 3
@@ -46,7 +46,7 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
         td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
         td = user.group_phase_points.to_i
         td = user.elimination_phase_points.to_i
-        / td
+        td View
         /   a[href="/results/#{user.token}" target="_blank"] View
         / td 20
     - else
@@ -56,7 +56,7 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
         td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
         td = user.group_phase_points.to_i
         td = user.elimination_phase_points.to_i
-        / td
+        td View
         /   a[href="/results/#{user.token}" target="_blank"] View
         / td -
   - @inactive_participants.each_with_index do |user, idx|
@@ -66,11 +66,12 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
       td -
       td -
       td -
+      td -
       / td -
-      / td -
-/ | * Predictions made by all participants will be provided after the start of the tournament.
-br
-| ** DNS - Player did not submit predictions
+p
+  | * You will be able to see the predictions of the other participants once the registration period is over (9th June 23:59).
+  br
+  | ** DNS - Player did not submit predictions
 
 
 
