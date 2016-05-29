@@ -1,5 +1,5 @@
 class PredictionsController < ApplicationController
-  before_filter :authenticate_user!, except: [:points]
+  before_filter :authenticate_user!, except: [:points, :dev]
 
   def dev
     @groups = Group.where(tournament_id: $current_tournament)
@@ -52,6 +52,7 @@ class PredictionsController < ApplicationController
     Match.group_games.joins("LEFT OUTER JOIN match_predictions ON match_predictions.match_id = matches.id AND match_predictions.user_id = #{current_user.id}")
           .joins('INNER JOIN teams AS hosts ON hosts.id = matches.host_id')
           .joins('INNER JOIN teams AS guests ON guests.id = matches.guest_id')
+          .order("matches.start_at")
           .select("match_predictions.host_score host_prediction, match_predictions.guest_score guest_prediction, hosts.name host_team, hosts.flag host_flag, guests.name guest_team, guests.flag guest_flag, matches.id, matches.start_at, matches.code, matches.phase_id")
           .to_a.group_by(&:phase_id)
     .each do |group_id, matches|

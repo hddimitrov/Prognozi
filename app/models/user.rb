@@ -2,7 +2,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :q_active, :token,
                   :name, :referer_name, :group_phase_points, :elimination_phase_points
 
-
+  def user_params
+    params.require(:user).permit(:email, :password, :name, :referer_name, :group_phase_points, :elimination_phase_points)
+  end
 
   validates :name, :presence => true
   validates :referer_name, :presence => true

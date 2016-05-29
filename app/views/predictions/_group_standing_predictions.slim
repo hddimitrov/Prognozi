@@ -11,7 +11,8 @@ table.table-standard.table.table-bordered.table-striped.table-condensed.standing
     th rel="tooltip" data-container="body" data-original-title='Goal Difference' GD
     th rel="tooltip" data-container="body" data-original-title='Points' Pts
 
-    tr[ng-repeat="team in groups['#{group.name}'].teams | orderBy : ['-points', '-goal_difference', '-goals_for', '-coef']"]
+    tr[ng-repeat="team in groups['#{group.name}'].teams | orderBy : ['-points', 'tb' ,'-goal_difference', '-goals_for', '-coef']"
+    ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group.name}') > -1)}"]
       td[style='height:20px;width:60px'] {{$index + 1}}
       td[style='height:20px;width:200px']
         span.flag_16.left_16[ng-class="{'{{team.flag}}_16_left' : true}"]
@@ -32,7 +33,6 @@ p
     li Higher number of points obtained in the matches played between the teams in question
     li Superior goal difference resulting from the matches played between the teams in question
     li Higher number of goals scored in the matches played between the teams in question
-    li If, after having applied criteria 1 to 3, teams still have an equal ranking, criteria 1 to 3 are reapplied exclusively to the matches between the teams in question to determine their final rankings. If this procedure does not lead to a decision, criteria 5 to 7 apply;
     li Superior goal difference in all group matches
     li Higher number of goals scored in all group matches
     li Position in the UEFA national team coefficient ranking system.

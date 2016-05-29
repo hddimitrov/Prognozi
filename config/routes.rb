@@ -1,5 +1,5 @@
 Prognozi::Application.routes.draw do
-  root :to => 'predictions#points'
+  root to: 'predictions#index'
 
   devise_for :users, only: [:sessions]
 
