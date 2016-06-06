@@ -327,18 +327,19 @@ angular.module('pro').controller('predictions', ['$scope', '$filter', 'predictio
   };
 
   $scope.populateKnockoutStage = function() {
-    if(angular.isUndefined($scope.quarter_f)){
+    console.log('pop knock');
+    // if(angular.isUndefined($scope.quarter_f)){
       $scope.quarter_f = {};
-    }
-    if(angular.isUndefined($scope.semi_f)){
+    // }
+    // if(angular.isUndefined($scope.semi_f)){
       $scope.semi_f = {};
-    }
-    if(angular.isUndefined($scope.finalists)){
+    // }
+    // if(angular.isUndefined($scope.finalists)){
       $scope.finalists = {};
-    }
-    if(angular.isUndefined($scope.champion)){
+    // }
+    // if(angular.isUndefined($scope.champion)){
       $scope.champion = {};
-    }
+    // }
 
     angular.forEach($scope.last_16_top, function(value, key) {
       if(angular.isDefined(value.team_id) && $filter('getByProperty')('team_id', value.team_id, $scope.eliminations.qf) !== null){
