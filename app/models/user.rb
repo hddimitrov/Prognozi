@@ -46,11 +46,11 @@ class User < ActiveRecord::Base
   end
 
   def group_stage_ready?
-    return self.match_predictions.where('host_score IS NOT NULL').where('guest_score IS NOT NULL').count == 48
+    return self.match_predictions.where('host_score IS NOT NULL').where('guest_score IS NOT NULL').count == 36
   end
 
   def eliminations_ready?
-    return self.elimination_predictions.count == 31
+    return self.elimination_predictions.count == 15
   end
 
   def top_scorer_ready?
