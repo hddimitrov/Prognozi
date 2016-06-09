@@ -1,9 +1,10 @@
 br
-= form_tag top_scorer_prediction_path, remote: true, method: :post
- = text_field_tag :name, current_user.top_scorer_prediction.try(:name)
- br
- br
- button.btn-lg.btn-primary.pull-left SAVE
+= current_user.top_scorer_prediction.try(:name)
+/ = form_tag top_scorer_prediction_path, remote: true, method: :post
+/  = text_field_tag :name, current_user.top_scorer_prediction.try(:name)
+ / br
+ / br
+ / button.btn-lg.btn-primary.pull-left SAVE
 br
 br
 hr
