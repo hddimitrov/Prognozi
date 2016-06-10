@@ -2,8 +2,8 @@
   ul.nav.nav-tabs
     li.active
       a data-toggle="tab" href="#login"  Login
-    li
-      a data-toggle="tab" href="#create"  Register
+    / li
+    /   a data-toggle="tab" href="#create"  Register
   #myTabContent.tab-content
     #login.tab-pane.active.in
       = form_for(resource, as: resource_name, url: new_session_path(resource_name), class: 'form-horizontal', style: 'width:300px !important;') do |f|
