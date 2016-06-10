@@ -7,7 +7,6 @@ table.table-standard.table.table-bordered.table-striped.table-condensed.matches-
     th[rel="tooltip" data-container="body" data-original-title='Official Score' style='text-align:center'] Score
     th rel="tooltip" data-container="body" data-original-title='Player Points' Points
     - for match in matches
-      = match.host_prediction
       tr
         td[style='height:20px;width:100px'] = l match.start_at, format: :short
         td[style='height:20px;width:100px;text-align:right'] = match.host_team
