@@ -5,12 +5,12 @@
         .bracketbox
           span.info (37)25 June – Saint-Étienne
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(37, last_16_top[1].team_id, last_16_top[1].team_name)"] {{last_16_top[1].team_name || '2nd A'}}
             - else
               span[] {{last_16_top[1].team_name || '2nd A'}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(37, last_16_bottom[1].team_id, last_16_bottom[1].team_name)"] {{last_16_bottom[1].team_name || '2nd B'}}
             - else
               span[] {{last_16_bottom[1].team_name || '2nd B'}}
@@ -18,12 +18,12 @@
         .bracketbox
           span.info (39)26 June – Lens
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(39, last_16_top[2].team_id, last_16_top[2].team_name)"] {{last_16_top[2].team_name || '1st D'}}
             - else
               span[] {{last_16_top[2].team_name || '1st D'}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(39, last_16_bottom[2].team_id, last_16_bottom[2].team_name)"] {{last_16_bottom[2].team_name || '3rd B/E/F'}}
             - else
               span[] {{last_16_bottom[2].team_name || '3rd B/E/F'}}
@@ -31,12 +31,12 @@
         .bracketbox
           span.info (38) 25 June – Paris
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(38, last_16_top[3].team_id, last_16_top[3].team_name)"] {{last_16_top[3].team_name || '1st B'}}
             - else
               span[] {{last_16_top[3].team_name || '1st B'}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(38, last_16_bottom[3].team_id, last_16_bottom[3].team_name)"] {{last_16_bottom[3].team_name || '3rd A/C/D'}}
             - else
               span[] {{last_16_bottom[3].team_name || '3rd A/C/D'}}
@@ -44,12 +44,12 @@
         .bracketbox
           span.info (42) 26 June – Toulouse
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(42, last_16_top[4].team_id, last_16_top[4].team_name)"] {{last_16_top[4].team_name || '1st F'}}
             - else
               span[] {{last_16_top[4].team_name || '1st F'}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(42, last_16_bottom[4].team_id, last_16_bottom[4].team_name)"] {{last_16_bottom[4].team_name || '2nd E'}}
             - else
               span[] {{last_16_bottom[4].team_name || '2nd E'}}
@@ -57,12 +57,12 @@
         .bracketbox
           span.info (41) 26 June – Lille
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(41, last_16_top[5].team_id, last_16_top[5].team_name)"] {{last_16_top[5].team_name || '1st C'}}
             - else
               span[] {{last_16_top[5].team_name || '1st C'}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(41, last_16_bottom[5].team_id, last_16_bottom[5].team_name)"] {{last_16_bottom[5].team_name || '3rd A/B/F'}}
             - else
               span[] {{last_16_bottom[5].team_name || '3rd A/B/F'}}
@@ -70,12 +70,12 @@
         .bracketbox
           span.info (43) 27 June – Saint-Denis
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(43, last_16_top[6].team_id, last_16_top[6].team_name)"] {{last_16_top[6].team_name || '1st E'}}
             - else
               span[] {{last_16_top[6].team_name || '1st E'}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(43, last_16_bottom[6].team_id, last_16_bottom[6].team_name)"] {{last_16_bottom[6].team_name || '2nd D'}}
             - else
               span[] {{last_16_bottom[6].team_name || '2nd D'}}
@@ -83,12 +83,12 @@
         .bracketbox
           span.info (40) 26 June – Lyon
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(40, last_16_top[7].team_id, last_16_top[7].team_name)"] {{last_16_top[7].team_name || '1st A'}}
             - else
               span[] {{last_16_top[7].team_name || '1st A'}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(40, last_16_bottom[7].team_id, last_16_bottom[7].team_name)"] {{last_16_bottom[7].team_name || '3rd C/D/E'}}
             - else
               span[] {{last_16_bottom[7].team_name || '3rd C/D/E'}}
@@ -96,12 +96,12 @@
         .bracketbox
           span.info (44) 27 June – Nice
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(44, last_16_top[8].team_id, last_16_top[8].team_name)"] {{last_16_top[8].team_name || '2nd B'}}
             - else
               span[] {{last_16_top[8].team_name || '2nd B'}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_qf(44, last_16_bottom[8].team_id, last_16_bottom[8].team_name)"] {{last_16_bottom[8].team_name || '2nd F'}}
             - else
               span[] {{last_16_bottom[8].team_name || '2nd F'}}
@@ -111,12 +111,12 @@
         .bracketbox
           span.info (45)30 June – Marseille
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_sf(45, quarter_f[37].team_id, quarter_f[37].team_name)"] {{quarter_f[37].team_name}}
             - else
               span[] {{quarter_f[37].team_name}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_sf(45, quarter_f[39].team_id, quarter_f[39].team_name)"] {{quarter_f[39].team_name}}
             - else
               span[] {{quarter_f[39].team_name}}
@@ -124,12 +124,12 @@
         .bracketbox
           span.info (46)1 July – Lille
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_sf(46, quarter_f[38].team_id, quarter_f[38].team_name)"] {{quarter_f[38].team_name}}
             - else
               span[] {{quarter_f[38].team_name}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_sf(46, quarter_f[42].team_id, quarter_f[42].team_name)"] {{quarter_f[42].team_name}}
             - else
               span[] {{quarter_f[42].team_name}}
@@ -137,12 +137,12 @@
         .bracketbox
           span.info (47)2 July – Bordeaux
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_sf(47, quarter_f[41].team_id, quarter_f[41].team_name)"] {{quarter_f[41].team_name}}
             - else
               span[] {{quarter_f[41].team_name}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_sf(47, quarter_f[43].team_id, quarter_f[43].team_name)"] {{quarter_f[43].team_name}}
             - else
               span[] {{quarter_f[43].team_name}}
@@ -150,12 +150,12 @@
         .bracketbox
           span.info (48)3 July – Saint-Denis
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_sf(48, quarter_f[40].team_id, quarter_f[40].team_name)"] {{quarter_f[40].team_name}}
             - else
               span[] {{quarter_f[40].team_name}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_sf(48, quarter_f[44].team_id, quarter_f[44].team_name)"] {{quarter_f[44].team_name}}
             - else
               span[] {{quarter_f[44].team_name}}
@@ -167,12 +167,12 @@
         .bracketbox
           span.info (49)6 July – Lyon
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_f(49, semi_f[45].team_id, semi_f[45].team_name)"] {{semi_f[45].team_name}}
             - else
               span[]{{semi_f[45].team_name}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_f(49, semi_f[46].team_id, semi_f[46].team_name)"] {{semi_f[46].team_name}}
             - else
               span[]{{semi_f[46].team_name}}
@@ -180,12 +180,12 @@
         .bracketbox
           span.info (50)7 July – Marseille
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_f(50, semi_f[47].team_id, semi_f[47].team_name)"] {{semi_f[47].team_name}}
             - else
               span[]{{semi_f[47].team_name}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="go_through_f(50, semi_f[48].team_id, semi_f[48].team_name)"] {{semi_f[48].team_name}}
             - else
               span[]{{semi_f[48].team_name}}
@@ -197,12 +197,12 @@
         .bracketbox
           span.info (51)10 July – Saint-Denis
           span.teama
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="win(finalists[49].team_id, finalists[49].team_name)"] {{finalists[49].team_name}}
             - else
               span[]{{finalists[49].team_name}}
           span.teamb
-            - if current_user.id == 1 || current_user.id == 43
+            - if current_user.id == 1
               a[href='javascript:void(0);' ng-click="win(finalists[50].team_id, finalists[50].team_name)"] {{finalists[50].team_name}}
             - else
               span[]{{finalists[50].team_name}}

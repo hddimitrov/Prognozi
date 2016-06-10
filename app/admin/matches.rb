@@ -25,14 +25,9 @@ ActiveAdmin.register Match do
       f.input :host_score
       f.input :guest
       f.input :guest_score
-      f.input :phase_type, label: 'Phase Type', as: :select, collection: [['Group', 'Group'], ['Elimination', 'Elimination']]
-      f.input :phase_id, label: 'Phase ID'
-      f.input :code
-      f.input :start_at, as: :datetime
-      f.input :location
     end
 
-    f.buttons
+    f.actions
   end
 
   controller do

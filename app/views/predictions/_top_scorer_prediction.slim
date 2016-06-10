@@ -1,5 +1,5 @@
 br
-- if current_user.id ==  1 || current_user.id > 64
+- if current_user.id ==  1
   = form_tag top_scorer_prediction_path, remote: true, method: :post
    = text_field_tag :name, current_user.top_scorer_prediction.try(:name)
    br
