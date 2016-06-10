@@ -1,77 +1,38 @@
-table.table-standard.table.table-bordered.table-striped.table-condensed
-  tr
-    th Rnk
-    th Name
-    th Total Points
-    th Group Stage Points
-    th Knockout Stage Points
-    th Predictions *
-    / th Prize
-  - @active_participants.each_with_index do |user, idx|
-    - case idx
-    - when 0
+- prizes = [240, 160, 90, 60, 40, 20]
+.row
+  .col-xs-7
+    table.table-standard.table.table-bordered.table-striped.table-condensed
       tr
-        td = idx + 1
-        td = user.name
-        td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
-        td = user.group_phase_points.to_i
-        td = user.elimination_phase_points.to_i
-        td
-          a[href="/results/#{user.token}" target="_blank"] View
-        / td 210
-    - when 1
-      tr
-        td = idx + 1
-        td = user.name
-        td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
-        td = user.group_phase_points.to_i
-        td = user.elimination_phase_points.to_i
-        td
-          a[href="/results/#{user.token}" target="_blank"] View
-        / td 120
-    - when 2
-      tr
-        td = idx + 1
-        td = user.name
-        td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
-        td = user.group_phase_points.to_i
-        td = user.elimination_phase_points.to_i
-        td
-          a[href="/results/#{user.token}" target="_blank"] View
-        / td 60
-    - when 3
-      tr
-        td = idx + 1
-        td = user.name
-        td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
-        td = user.group_phase_points.to_i
-        td = user.elimination_phase_points.to_i
-        td
-          a[href="/results/#{user.token}" target="_blank"] View
-        / td 20
-    - else
-      tr
-        td = idx + 1
-        td = user.name
-        td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
-        td = user.group_phase_points.to_i
-        td = user.elimination_phase_points.to_i
-        td
-          a[href="/results/#{user.token}" target="_blank"] View
-        / td -
-  - @inactive_participants.each_with_index do |user, idx|
-    tr
-      td DNS
-      td = user.name
-      td -
-      td -
-      td -
-      td -
-      / td -
-p
-  | * You will be able to see the predictions of the other participants once the registration period is over (9th June 23:59).
-  br
-  | ** DNS - Player did not submit predictions
+        th Rnk
+        th Name
+        th Total Points
+        th Group Points
+        th Elimination Points
+        th Predictions
+        th Prize
+      - @active_participants.each_with_index do |user, idx|
+        tr
+          td = idx + 1
+          td = user.name
+          td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
+          td = user.group_phase_points.to_i
+          td = user.elimination_phase_points.to_i
+          td
+            a[href="/results/#{user.token}" target="_blank"] View
+          td = prizes[idx]
+      - @inactive_participants.each_with_index do |user, idx|
+        tr
+          td DNS
+          td = user.name
+          td -
+          td -
+          td -
+          td -
+          / td -
+    p
+      | * You will be able to see the predictions of the other participants once the registration period is over (9th June 23:59).
+      br
+      | ** DNS - Player did not submit predictions
 
 
 
