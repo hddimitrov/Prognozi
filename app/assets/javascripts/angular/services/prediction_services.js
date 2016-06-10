@@ -11,8 +11,8 @@ prediction_services.factory('predictionServices', ['$http', function($http) {
 
       return promise;
     },
-    loadGroupStage: function() {
-      var promise = $http.get('/load_group_stage').then(function (response) {
+    loadGroupStage: function(user_id) {
+      var promise = $http.get('/load_group_stage?user_id=' + user_id).then(function (response) {
         return response.data;
       });
 

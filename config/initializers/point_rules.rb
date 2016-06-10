@@ -12,5 +12,5 @@ $point_rules = OpenStruct.new({
   e_sf_points: 8,
   e_f_points: 12,
   e_c_points: 17,
-  top_scorer_points: 7
+  top_scorer_points: 6
 })

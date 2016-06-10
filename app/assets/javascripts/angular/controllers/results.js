@@ -10,14 +10,14 @@ angular.module('pro').controller('results', ['$scope', '$filter', 'predictionSer
   $scope.finalists = {};
   $scope.champion = {};
 
-  $scope.current_group = 'A';
-
-  predictionServices.loadGroupStage().then(function(response) {
-    $scope.groups = response;
-    angular.forEach($scope.groups, function(value, group_name) {
-      $scope.calculateGroupStandings(group_name);
-    })
-  });
+  $scope.loadResults = function(user_id) {
+    predictionServices.loadGroupStage(user_id).then(function(response) {
+      $scope.groups = response;
+      angular.forEach($scope.groups, function(value, group_name) {
+        $scope.calculateGroupStandings(group_name);
+      })
+    });
+  }
 
   $scope.calculateGroupStandings = function(group_name) {
     angular.forEach($scope.groups[group_name].teams, function(team, key) {

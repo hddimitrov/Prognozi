@@ -9,7 +9,7 @@
     |    Knockout Stage Points:
       #{@user.elimination_phase_points.to_i}
 / Group Stage
-.row[ng-controller='results']
+.row[ng-controller='results' ng-init="loadResults(#{@user.id})"]
   - @groups.values.in_groups_of(2).each do |two_groups|
     .row.col-xs-12
       - two_groups.each do |group|

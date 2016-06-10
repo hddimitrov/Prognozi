@@ -47,9 +47,10 @@ class PredictionsController < ApplicationController
   end
 
   def load_group_stage
+    user_id = params[:user_id].to_i > 0 ? params[:user_id] : current_user.id
     all_groups = Group.where(tournament_id: $current_tournament)
     groups = {}
-    Match.group_games.joins("LEFT OUTER JOIN match_predictions ON match_predictions.match_id = matches.id AND match_predictions.user_id = #{current_user.id}")
+    Match.group_games.joins("LEFT OUTER JOIN match_predictions ON match_predictions.match_id = matches.id AND match_predictions.user_id = #{user_id}")
           .joins('INNER JOIN teams AS hosts ON hosts.id = matches.host_id')
           .joins('INNER JOIN teams AS guests ON guests.id = matches.guest_id')
           .order("matches.start_at")
@@ -64,7 +65,7 @@ class PredictionsController < ApplicationController
     groups.each do |group_name, matches|
       group_id = all_groups.detect{ |x| x.name == group_name}.id
       groups[group_name][:teams] = Team.joins(:group_standing).where('group_standings.group_id' => group_id)
-                                       .joins("LEFT OUTER JOIN group_standing_predictions ON group_standing_predictions.group_id = group_standings.group_id AND group_standing_predictions.team_id = group_standings.team_id and group_standing_predictions.user_id = #{current_user.id}")
+                                       .joins("LEFT OUTER JOIN group_standing_predictions ON group_standing_predictions.group_id = group_standings.group_id AND group_standing_predictions.team_id = group_standings.team_id and group_standing_predictions.user_id = #{user_id}")
                                        .select("group_standing_predictions.position predicted_position, teams.*")
     end
 
