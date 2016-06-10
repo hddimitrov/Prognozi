@@ -1,4 +1,4 @@
-table.table-standard.table.table-bordered.table-striped.table-condensed.matches-predictions[style='width:520px']
+table.table-standard.table.table-bordered.table-striped.table-condensed.matches-predictions
   tr
     th Kick-off
     th[style='text-align:right'] Host
@@ -8,9 +8,11 @@ table.table-standard.table.table-bordered.table-striped.table-condensed.matches-
     th rel="tooltip" data-container="body" data-original-title='Player Points' Points
     - for match in matches
       tr
-        td[style='height:20px;width:100px'] = l match.start_at, format: :short
-        td[style='height:20px;width:100px;text-align:right'] = match.host_team
-        td[style='height:20px;width:50px;text-align:center'] = "#{match.host_prediction} : #{match.guest_prediction}"
-        td[style='height:20px;width:100px'] = match[:guest_team]
-        td[style='height:20px;width:50px;text-align:center'] = "#{match.host_result} : #{match.guest_result}"
-        td[style='height:20px;width:20px;text-align:center;font-weight:bold'] = match[:points].to_i
+        td = l match.start_at, format: :short
+        td.text-right = match.host_team
+        td.text-center = "#{match.host_prediction} : #{match.guest_prediction}"
+        td = match[:guest_team]
+        td.text-center = "#{match.host_result} : #{match.guest_result}"
+        td.text-center[style="width:10px"]
+          strong
+            = match[:points].to_i

@@ -1,4 +1,4 @@
-table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions[style='width:520px']
+table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions
   tr
     th rel="tooltip" data-container="body" data-original-title='Predicted Position' Pos
     th Team
@@ -10,18 +10,19 @@ table.table-standard.table.table-bordered.table-striped.table-condensed.standing
     th rel="tooltip" data-container="body" data-original-title='Player Points' Points
     tr[ng-repeat="team in groups['#{group[:name]}'].teams | orderBy : ['-points', 'tb' ,'-goal_difference', '-goals_for', '-coef']"
     ]
-      td[style='height:20px;width:115px' ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"] {{$index + 1}}
+      td[ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"] {{$index + 1}}
       td[style='height:20px;width:285px' ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"]
           span.flag_16.left_16[ng-class="{'{{team.flag}}_16_left' : true}"]
           | {{team.name}}
-      td[style='height:20px;width:30px' ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"] {{team.points}}
-      td[style='height:20px;width:30px' ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"] {{team.goals_for}}
-      td[style='height:20px;width:30px' ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"] {{team.goals_against}}
-      td[style='height:20px;width:30px' ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"] {{team.goal_difference}}
-      td[style='height:20px;width:60px']
-      td[style='height:20px;width:60px;text-align:center;font-weight:bold'] 0
+      td[ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"] {{team.points}}
+      td[ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"] {{team.goals_for}}
+      td[ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"] {{team.goals_against}}
+      td[ng-class="{'qualifies' : $index < 2 || ($index == 2 && third_standings.indexOf('#{group[:name]}') > -1)}"] {{team.goal_difference}}
+      td[]
+      td.text-center
+        strong 0
 
-table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions[style='width:520px']
+table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions
   tr
     th Bonus Points
-    th[style='height:20px;width:60px;text-align:center;font-weight:bold'] 0
+    th.text-center[style="width:46px"] 0

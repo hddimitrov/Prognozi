@@ -21,24 +21,25 @@ html xmlns:og='http://ogp.me/ns#'
     .container
       header
         .row
-          h1.pull-left
-            img[src="#{image_url('uefa-euro-2016.svg')}" width="80" height="100" alt="logo"]
-            = current_tournament.name
-          / h3.pull-left Predictions deadline: #{l current_tournament.start_at, format: :short} EEST
-          / br
-          / | The site will not be available from 18:00 19.06.2014 till 09:00 23.06.2013
-          p.pull-right
-            - if user_signed_in?
-              span
-                = current_user.name
-              br
-              span
-                | Group Stage Points: #{current_user.group_phase_points.to_i}
-              br
-              span
-                | Knockout Stage Points: #{current_user.elimination_phase_points.to_i}
-              br
-              = link_to('Logout', destroy_user_session_path, :method => :delete)
+          .col-xs-10
+            h1.pull-left
+              img[src="#{image_url('uefa-euro-2016.svg')}" width="80" height="100" alt="logo"]
+              = current_tournament.name
+            / h3.pull-left Predictions deadline: #{l current_tournament.start_at, format: :short} EEST
+            / br
+            / | The site will not be available from 18:00 19.06.2014 till 09:00 23.06.2013
+            p.pull-right
+              - if user_signed_in?
+                span
+                  = current_user.name
+                br
+                span
+                  | Group Stage Points: #{current_user.group_phase_points.to_i}
+                br
+                span
+                  | Knockout Stage Points: #{current_user.elimination_phase_points.to_i}
+                br
+                = link_to('Logout', destroy_user_session_path, :method => :delete)
       content
         .row
           ul.nav.nav-pills
