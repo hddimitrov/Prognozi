@@ -25,31 +25,31 @@
             /! Button
             .controls
               button.btn.btn-success Login
-    #create.tab-pane.active.in
-      = form_for(resource, as: resource_name, url: new_registration_path(resource_name), class: 'form-horizontal', style: 'width:300px !important;') do |f|
-        fieldset
-          = devise_error_messages!
+    / #create.tab-pane.active.in
+    /   = form_for(resource, as: resource_name, url: new_registration_path(resource_name), class: 'form-horizontal', style: 'width:300px !important;') do |f|
+    /     fieldset
+    /       = devise_error_messages!
 
-          label Full Name*
-          br
-          input.input-xlarge[name="user[name]" type="text" placeholder="Teodor Georgiev"]
-          br
-          label Email*
-          br
-          input.input-xlarge[name="user[email]" type="email"]
-          br
-          label Password*
-          br
-          input.input-xlarge[name="user[password]" type="password"]
-          br
-          label Confirm Password*
-          br
-          input.input-xlarge[name="user[password_confirmation]" type="password"]
-          br
-          label Referal*(Who gave you the site link?)
-          br
-          input.input-xlarge[name="user[referer_name]" type="text" placeholder="Stoyan Simov"]
-          br
-          br
-          button.btn.btn-primary Create Account
+    /       label Full Name*
+    /       br
+    /       input.input-xlarge[name="user[name]" type="text" placeholder="Teodor Georgiev"]
+    /       br
+    /       label Email*
+    /       br
+    /       input.input-xlarge[name="user[email]" type="email"]
+    /       br
+    /       label Password*
+    /       br
+    /       input.input-xlarge[name="user[password]" type="password"]
+    /       br
+    /       label Confirm Password*
+    /       br
+    /       input.input-xlarge[name="user[password_confirmation]" type="password"]
+    /       br
+    /       label Referal*(Who gave you the site link?)
+    /       br
+    /       input.input-xlarge[name="user[referer_name]" type="text" placeholder="Stoyan Simov"]
+    /       br
+    /       br
+    /       button.btn.btn-primary Create Account
 

@@ -16,8 +16,8 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
         td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
         td = user.group_phase_points.to_i
         td = user.elimination_phase_points.to_i
-        td View
-        /   a[href="/results/#{user.token}" target="_blank"] View
+        td
+          a[href="/results/#{user.token}" target="_blank"] View
         / td 210
     - when 1
       tr
@@ -26,8 +26,8 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
         td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
         td = user.group_phase_points.to_i
         td = user.elimination_phase_points.to_i
-        td View
-        /   a[href="/results/#{user.token}" target="_blank"] View
+        td
+          a[href="/results/#{user.token}" target="_blank"] View
         / td 120
     - when 2
       tr
@@ -36,8 +36,8 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
         td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
         td = user.group_phase_points.to_i
         td = user.elimination_phase_points.to_i
-        td View
-        /   a[href="/results/#{user.token}" target="_blank"] View
+        td
+          a[href="/results/#{user.token}" target="_blank"] View
         / td 60
     - when 3
       tr
@@ -46,8 +46,8 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
         td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
         td = user.group_phase_points.to_i
         td = user.elimination_phase_points.to_i
-        td View
-        /   a[href="/results/#{user.token}" target="_blank"] View
+        td
+          a[href="/results/#{user.token}" target="_blank"] View
         / td 20
     - else
       tr
@@ -56,8 +56,8 @@ table.table-standard.table.table-bordered.table-striped.table-condensed
         td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
         td = user.group_phase_points.to_i
         td = user.elimination_phase_points.to_i
-        td View
-        /   a[href="/results/#{user.token}" target="_blank"] View
+        td
+          a[href="/results/#{user.token}" target="_blank"] View
         / td -
   - @inactive_participants.each_with_index do |user, idx|
     tr

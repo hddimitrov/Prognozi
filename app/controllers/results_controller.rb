@@ -3,8 +3,7 @@ class ResultsController < ApplicationController
 
 
   def index
-
-    @user = User.find_by_token(params[:token]) || current_user
+    @user = User.find_by(token: params[:token]) || current_user
     @groups = {}
     all_groups = Group.all
     all_groups.each do |g|
@@ -16,21 +15,22 @@ class ResultsController < ApplicationController
           .joins('INNER JOIN teams AS hosts ON hosts.id = matches.host_id')
           .joins('INNER JOIN teams AS guests ON guests.id = matches.guest_id')
           .where(phase_type: 'Group')
-          .select("prediction_points.points, matches.host_score host_result, matches.guest_score guest_result, match_predictions.host_score host_prediction, match_predictions.guest_score guest_prediction, hosts.name host_team, guests.name guest_team, matches.id, matches.start_at, matches.code, matches.phase_id")
+          .select("prediction_points.points, matches.host_score host_result, hosts.flag host_flag, guests.flag guest_flag, matches.guest_score guest_result, match_predictions.host_score host_prediction, match_predictions.guest_score guest_prediction, hosts.name host_team, guests.name guest_team, matches.id, matches.start_at, matches.code, matches.phase_id")
+          .order("matches.start_at")
           .to_a.group_by(&:phase_id)
     .each do |group_id, matches|
       group_name = all_groups.detect{ |x| x.id == group_id}.name
       @groups[group_name][:matches] = matches
     end
 
-    @groups.each do |group_name, matches|
-      group_id = all_groups.detect{ |x| x.name == group_name}.id
-      @groups[group_name][:standings] = GroupStanding.joins(:team).where('group_standings.group_id' => group_id)
-                                        .joins("LEFT OUTER JOIN group_standing_predictions ON group_standing_predictions.group_id = group_standings.group_id AND group_standing_predictions.team_id = group_standings.team_id and group_standing_predictions.user_id = #{@user.id}")
-                                        .joins("LEFT OUTER JOIN prediction_points ON prediction_points.prediction_type = 'GroupStandingPrediction' and prediction_points.prediction_id = group_standing_predictions.id and prediction_points.user_id = group_standing_predictions.user_id")
-                                        .select("prediction_points.points player_points, group_standing_predictions.position predicted_position, teams.name, group_standings.*")
-                                        .order("predicted_position")
-    end
+    # @groups.each do |group_name, matches|
+    #   group_id = all_groups.detect{ |x| x.name == group_name}.id
+    #   @groups[group_name][:standings] = GroupStanding.joins(:team).where('group_standings.group_id' => group_id)
+    #                                     .joins("LEFT OUTER JOIN group_standing_predictions ON group_standing_predictions.group_id = group_standings.group_id AND group_standing_predictions.team_id = group_standings.team_id and group_standing_predictions.user_id = #{@user.id}")
+    #                                     .joins("LEFT OUTER JOIN prediction_points ON prediction_points.prediction_type = 'GroupStandingPrediction' and prediction_points.prediction_id = group_standing_predictions.id and prediction_points.user_id = group_standing_predictions.user_id")
+    #                                     .select("prediction_points.points player_points, group_standing_predictions.position predicted_position, teams.name, group_standings.*")
+    #                                     .order("predicted_position")
+    # end
 
     @eliminations = {ef: [], qf:[], sf: [], f:[], c:[]}
 

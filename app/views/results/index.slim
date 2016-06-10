@@ -1,35 +1,38 @@
-= @user.name
-|'s predictions
-br
-p
-  | Group Stage Points:
-    #{@user.group_phase_points.to_i}
+.row
+  = @user.name
+  |'s predictions
   br
-  |    Knockout Stage Points:
-    #{@user.elimination_phase_points.to_i}
+  p
+    | Group Stage Points:
+      #{@user.group_phase_points.to_i}
+    br
+    |    Knockout Stage Points:
+      #{@user.elimination_phase_points.to_i}
 / Group Stage
-hr
-- @groups.values.in_groups_of(2).each do |two_groups|
-  .row.col-md-14
-    - two_groups.each do |group|
-      .span6.col-md-6
-        strong
-          | Group&nbsp;
-          = group[:name]
-        = render 'results/match_results', matches: group[:matches]
-        = render 'results/group_standings', standings: group[:standings]
-  hr
-
-/ Knock-out Stage
-= render 'results/eliminations', eliminations: @eliminations
+.row[ng-controller='results']
+  - @groups.values.in_groups_of(2).each do |two_groups|
+    .row.col-xs-12
+      - two_groups.each do |group|
+        .span6.col-xs-6
+          strong
+            | Group&nbsp;
+            = group[:name]
+          = render 'results/match_results', matches: group[:matches]
+          = render 'results/group_standings', group: group
+    hr
+  / .row.col-xs-6
+  /   = render 'predictions/third_placed_teams'
+.row
+  / Knock-out Stage
+  = render 'results/eliminations', eliminations: @eliminations
 
 / Top Scorer
-
-table.table-standard.table.table-bordered.table-striped.table-condensed[style='width:220px']
-  tr
-    th Top Scorer
-    th Points
-  tr
-    td = @user.top_scorer_prediction.try(:name)
-    td[style='font-weight:bold; text-align:center'] 0
+.row
+  table.table-standard.table.table-bordered.table-striped.table-condensed[style='width:220px']
+    tr
+      th Top Scorer
+      th Points
+    tr
+      td = @user.top_scorer_prediction.try(:name)
+      td[style='font-weight:bold; text-align:center'] 0
 
