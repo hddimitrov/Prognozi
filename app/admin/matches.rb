@@ -7,6 +7,8 @@ ActiveAdmin.register Match do
   filter :host, as: :select, collection: Team.where(tournament_id: $current_tournament).to_a
   filter :guest, as: :select, collection: Team.where(tournament_id: $current_tournament).to_a
 
+  config.sort_order = 'code_asc'
+
   index do
     column :code
     column :start_at
