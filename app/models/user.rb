@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def eliminations_ready?
-    return self.elimination_predictions.count == 15
+    return self.elimination_predictions.count == 31
   end
 
   def top_scorer_ready?
