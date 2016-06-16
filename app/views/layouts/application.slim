@@ -21,25 +21,29 @@ html xmlns:og='http://ogp.me/ns#'
     .container
       header
         .row
-          .col-xs-10
+          .col-xs-2[style="margin-top:15px"]
             h1.pull-left
               img[src="#{image_url('uefa-euro-2016.svg')}" width="80" height="100" alt="logo"]
-              = current_tournament.name
+              / = current_tournament.name
             / h3.pull-left Predictions deadline: #{l current_tournament.start_at, format: :short} EEST
             / br
             / | The site will not be available from 18:00 19.06.2014 till 09:00 23.06.2013
-            p.pull-right
-              - if user_signed_in?
-                span
-                  = current_user.name
-                br
-                span
-                  | Group Stage Points: #{current_user.group_phase_points.to_i}
-                br
-                span
-                  | Knockout Stage Points: #{current_user.elimination_phase_points.to_i}
-                br
-                = link_to('Logout', destroy_user_session_path, :method => :delete)
+          - if user_signed_in?
+            .col-xs-6[style="margin-top:30px"]
+              h2.alert.alert-info.text-center
+                | Group standins and bonus points will be awarded after the completion of all group matches.
+            .col-xs-2[style="margin-top:30px"]
+              p.pull-right[style="font-size:14px;"]
+                  span
+                    strong
+                      = current_user.name
+                  br
+                  span
+                    | Points:&nbsp;
+                    strong
+                      = current_user.elimination_phase_points.to_i + current_user.group_phase_points.to_i
+                  br
+                  = link_to('Logout', destroy_user_session_path, :method => :delete)
       content
         .row
           ul.nav.nav-pills
