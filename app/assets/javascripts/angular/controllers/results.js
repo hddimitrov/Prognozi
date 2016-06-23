@@ -125,7 +125,6 @@ angular.module('pro').controller('results', ['$scope', '$filter', 'predictionSer
             host = $filter('getByProperty')('name', match.host_team, teams);
             guest = $filter('getByProperty')('name', match.guest_team, teams);
             if(host !== null && guest !== null) {
-              console.log(match.start_at);
               if(host.name == match.host_team){
                 host.tb_goal_difference += match.host_prediction;
                 host.tb_goal_difference -= match.guest_prediction;
@@ -162,7 +161,6 @@ angular.module('pro').controller('results', ['$scope', '$filter', 'predictionSer
     group_standings = {};
     angular.forEach($scope.groups, function(value, group_name) {
       group_standings[group_name] = $filter('orderBy')($scope.groups[group_name].teams, ['-points','tb','-goal_difference', '-goals_for', '-coef']);
-      console.log(group_standings[group_name]);
       for(i=1;i<=group_standings[group_name].length; i++) {
         if (i == 3) {
           group_standings[group_name][i-1].group = group_name;
@@ -174,7 +172,6 @@ angular.module('pro').controller('results', ['$scope', '$filter', 'predictionSer
     angular.forEach($scope.third_placed_teams, function(value, key) {
       teams.push(value);
     });
-    console.log(teams)
     $scope.third_standings = $filter('orderBy')(teams, ['-points','-goal_difference','-goals_for','-coef']);
     $scope.third_standings = $.map($scope.third_standings, function(n) {return n.group;}).slice(0,4).sort().join('');
   };

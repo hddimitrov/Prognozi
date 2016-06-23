@@ -5,10 +5,11 @@ class ResultsController < ApplicationController
   def index
     @user = User.find_by(token: params[:token]) || current_user
     @groups = {}
-    all_groups = Group.all
+    all_groups = Group.all.to_a
     all_groups.each do |g|
       @groups[g.name] = {} if @groups[g.name].blank?
       @groups[g.name][:name] = g.name
+      @groups[g.name][:bonus] = PredictionPoint.find_by(user_id: @user.id, prediction_type: 'Group', prediction_id: g.id).try(:points).to_i
     end
     Match.joins("LEFT OUTER join match_predictions on match_predictions.match_id = matches.id AND match_predictions.user_id = #{@user.id}")
           .joins("LEFT OUTER JOIN prediction_points ON prediction_points.prediction_type = 'MatchPrediction' and prediction_points.prediction_id = match_predictions.id and prediction_points.user_id = match_predictions.user_id")

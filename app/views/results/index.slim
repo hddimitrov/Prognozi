@@ -29,6 +29,12 @@
           = group[:name]
         = render 'results/match_results', matches: group[:matches]
         = render 'results/group_standings', group: group
+
+        table.table-standard.table.table-bordered.table-striped.table-condensed.standings-predictions
+          tr
+            th Bonus Points
+            th.text-center[style="width:46px"]
+              = group[:bonus]
   / .row.col-xs-6
   /   = render 'predictions/third_placed_teams'
 .row

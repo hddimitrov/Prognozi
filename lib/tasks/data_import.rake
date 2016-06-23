@@ -89,33 +89,4 @@ namespace :euro do
       team.save
     end
   end
-
-  task last_16: :environment do
-    puts 'Importing Last 16 predictions'
-    CSV.foreach('db/data/2016_euro_last_16.csv', headers: :first_row, :col_sep => ',') do |row|
-      user = User.find_by(name: row['name'])
-      ef = Elimination.find_by(code: 'ef', tournament_id: $current_tournament).id
-      pred = []
-      pred << row['t1']
-      pred << row['t2']
-      pred << row['t3']
-      pred << row['t4']
-      pred << row['t5']
-      pred << row['t6']
-      pred << row['t7']
-      pred << row['t8']
-      pred << row['t9']
-      pred << row['t10']
-      pred << row['t11']
-      pred << row['t12']
-      pred << row['t13']
-      pred << row['t14']
-      pred << row['t15']
-      pred << row['t16']
-      pred.each do |t|
-        team = Team.find_by(name: t)
-        user.elimination_predictions.create(team_id: team.id, elimination_id: ef)
-      end
-    end
-  end
 end

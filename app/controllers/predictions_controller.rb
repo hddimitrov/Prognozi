@@ -65,8 +65,7 @@ class PredictionsController < ApplicationController
     groups.each do |group_name, matches|
       group_id = all_groups.detect{ |x| x.name == group_name}.id
       groups[group_name][:teams] = Team.joins(:group_standing).where('group_standings.group_id' => group_id)
-                                       .joins("LEFT OUTER JOIN group_standing_predictions ON group_standing_predictions.group_id = group_standings.group_id AND group_standing_predictions.team_id = group_standings.team_id and group_standing_predictions.user_id = #{user_id}")
-                                       .select("group_standing_predictions.position predicted_position, teams.*")
+                                       .select("group_standings.position official_position, teams.*")
     end
 
     render json: groups
