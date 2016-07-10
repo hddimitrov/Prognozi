@@ -30,8 +30,8 @@ html xmlns:og='http://ogp.me/ns#'
             / | The site will not be available from 18:00 19.06.2014 till 09:00 23.06.2013
           - if user_signed_in?
             .col-xs-6[style="margin-top:30px"]
-              h2.alert.alert-success.text-center
-                | Group standings and bonus points have been awarded.
+              h2.alert.alert-warning.text-center
+                | Top scorer points and final standings will be announced on Monday.
             .col-xs-2[style="margin-top:30px"]
               p.pull-right[style="font-size:14px;"]
                   span
@@ -41,7 +41,7 @@ html xmlns:og='http://ogp.me/ns#'
                   span
                     | Points:&nbsp;
                     strong
-                      = current_user.elimination_phase_points.to_i + current_user.group_phase_points.to_i
+                      = current_user.elimination_phase_points.to_i + current_user.group_phase_points.to_i + current_user.top_scorer_points.to_i
                   br
                   = link_to('Logout', destroy_user_session_path, :method => :delete)
       content

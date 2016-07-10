@@ -8,7 +8,7 @@
         th.text-center KO Pts
       tr
         th = @user.name
-        th.text-center = @user.group_phase_points.to_i + @user.elimination_phase_points.to_i
+        th.text-center = @user.group_phase_points.to_i + @user.elimination_phase_points.to_i + @user.top_scorer_points.to_i
         th.text-center = @user.group_phase_points.to_i
         th.text-center = @user.elimination_phase_points.to_i
   .col-xs-5
@@ -18,7 +18,7 @@
         th.text-center Points
       tr
         th = @user.top_scorer_prediction.try(:name)
-        th.text-center[style="width:46px"] 0
+        th.text-center[style="width:46px"] = @user.top_scorer_points.to_i
 / Group Stage
 .row[ng-controller='results' ng-init="loadResults(#{@user.id})"]
   - @groups.values.in_groups_of(2).each do |two_groups|

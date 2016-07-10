@@ -8,15 +8,17 @@
         th Total Points
         th Group Points
         th Elimination Points
+        th Top Scorer Points
         th Predictions
         th Prize
       - @active_participants.each_with_index do |user, idx|
         tr
           td = idx + 1
           td = user.name
-          td = user.group_phase_points.to_i + user.elimination_phase_points.to_i
+          td = user.group_phase_points.to_i + user.elimination_phase_points.to_i + user.top_scorer_points.to_i
           td = user.group_phase_points.to_i
           td = user.elimination_phase_points.to_i
+          td = user.top_scorer_points.to_i
           td
             a[href="/results/#{user.token}" target="_blank"] View
           td = prizes[idx]
@@ -24,6 +26,7 @@
         tr
           td DNS
           td = user.name
+          td -
           td -
           td -
           td -

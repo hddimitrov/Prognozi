@@ -53,4 +53,15 @@ namespace :calc do
       end
     end
   end
+
+  task top_scorer: :environment do
+    winner = ENV['WINNER']
+    TopScorerPrediction.where(tournament_id: $current_tournament).find_each do |pred|
+      if pred.name == winner
+        user = User.find(pred.user_id)
+        user.top_scorer_points = $point_rules.top_scorer_points
+        user.save
+      end
+    end
+  end
 end
